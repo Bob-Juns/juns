@@ -5,6 +5,32 @@ const User = require('../models/user.model');
 const generateToken = require('../utils/generateToken.util');
 const bcrypt = require('bcrypt');
 
+const { auth, admin } = require('../middlewares/auth.middleware');
+
+router.get('/auth', auth, (req, res) => {
+	return res.status(200).json({
+		userName: req.user.userName,
+		userId: req.user.userId,
+		userEmail: req.user.userEmail,
+		isAdmin: req.user.userEmail,
+		isAuth: true,
+	});
+});
+
+router.get('/users', admin, async (req, res) => {
+	const users = await User.find().orFail(() =>
+		res.status(400).json({ message: '유저를 불러올 수 없습니다.' })
+	);
+
+	const usersWithoutPassword = users.map((user) => ({
+		userName: user.userName,
+		userId: user.userId,
+		userEmail: user.userEmail,
+		isAdmin: user.isAdmin,
+	}));
+	return res.status(200).json(usersWithoutPassword);
+});
+
 router.post('/register', async (req, res) => {
 	const hashedPassword = await bcrypt.hash(req.body.password, 10);
 
