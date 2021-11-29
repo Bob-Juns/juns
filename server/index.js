@@ -6,6 +6,14 @@ const app = express();
 // connect database
 require('./config/mongoose.config');
 
+// cors
+const cors = require('cors');
+const corsOption = {
+	origin: true,
+	Credential: true,
+};
+app.use(cors(corsOption));
+
 // cookie parser
 const cookieParser = require('cookie-parser');
 app.use(cookieParser());
