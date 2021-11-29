@@ -21,5 +21,8 @@ app.use(cookieParser());
 // body-parser
 app.use(express.json());
 
+const userRouter = require('./routes/user.route');
+app.use('/api/user', userRouter);
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
