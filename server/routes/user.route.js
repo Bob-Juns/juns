@@ -32,11 +32,11 @@ router.post('/login', async (req, res) => {
 		user.password
 	);
 
-	const token = generateToken(user.userId);
+	const token = generateToken(user.userEmail);
 
 	try {
 		if (comparePassword) {
-			req.cookies('authToken', token, {
+			res.cookie('authToken', token, {
 				httpOnly: true,
 				maxAge: 1000 * 60 * 60 * 24,
 				secure: process.env.NODE_ENV === 'production',
@@ -48,15 +48,16 @@ router.post('/login', async (req, res) => {
 			return res.status(400).json({ message: '잘못된 비밀번호입니다.' });
 		}
 	} catch {
-		return res.json({ message: '로그인이 실패했습니다.' });
+		return res.status(400).json({ message: '로그인이 실패했습니다.' });
 	}
 });
 
 router.post('/logout', (req, res) => {
-	res.cookies('authToken', '', {
+	res.cookie('authToken', '', {
 		httpOnly: true,
 		maxAge: 0,
 	});
+	return res.status(200).json({ message: '로그아웃 되었습니다.' });
 });
 
 module.exports = router;
