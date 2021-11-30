@@ -12,6 +12,13 @@ module.exports = {
   devtool: isProductionMode ? 'eval' : 'inline-cheap-module-source-map',
   resolve: {
     extensions: ['.js', '.jsx', '.ts', '.tsx'],
+    alias: {
+      '@assets': path.join(__dirname, 'src', 'assets'),
+      '@components': path.join(__dirname, 'src', 'components'),
+      '@pages': path.join(__dirname, 'src', 'pages'),
+      store: path.join(__dirname, 'src', 'redux', 'store'),
+      '@utils': path.join(__dirname, 'src', 'utils'),
+    },
   },
   entry: {
     main: path.join(__dirname, 'src', 'index.tsx'),
