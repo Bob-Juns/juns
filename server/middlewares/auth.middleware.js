@@ -12,10 +12,10 @@ const auth = async (req, res, next) => {
 			req.user = user;
 			return next();
 		} catch {
-			return res.json({ message: '유효하지 않은 토큰입니다.' });
+			return res.json({ message: '유효하지 않은 토큰입니다.', isAuth: false });
 		}
 	} else {
-		return res.status(403).json({ message: '토큰이 존재하지 않습니다.' });
+		return res.json({ message: '토큰이 존재하지 않습니다.', isAuth: false });
 	}
 };
 
