@@ -24,5 +24,16 @@ app.use(express.json());
 const userRouter = require('./routes/user.route');
 app.use('/api/user', userRouter);
 
+// serve static files & http to https
+const enforce = require('express-sslify');
+if (process.env.NODE_ENV === 'production') {
+	app.use(enforce.HTTPS({ trustProtoHeader: true }));
+	app.use(express.static(path.join(__dirname, '../client', 'dist')));
+
+	app.get('*', (req, res) => {
+		res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+	});
+}
+
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => console.log(`Server listening on ${PORT}`));
