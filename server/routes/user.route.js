@@ -71,7 +71,7 @@ router.post('/login', async (req, res) => {
 
 			return res.status(200).json({ message: '로그인 되었습니다.' });
 		} else {
-			return res.status(400).json({ message: '잘못된 비밀번호입니다.' });
+			return res.status(400).json({ message: '비밀번호가 일치하지 않습니다.' });
 		}
 	} catch {
 		return res.status(400).json({ message: '로그인이 실패했습니다.' });
