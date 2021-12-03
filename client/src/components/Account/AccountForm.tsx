@@ -27,7 +27,7 @@ const AccountForm = ({
   return (
     <Container>
       <Title onClick={onClickTitle}>
-        <Colored>jun</Colored>stream
+        <Colored>jun</Colored>streaming
       </Title>
       <Ask>
         {ask} <Span onClick={onClickLink}>{link}</Span>

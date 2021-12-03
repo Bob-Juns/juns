@@ -23,7 +23,7 @@ const Header = () => {
       <Container>
         <Wrapper>
           <Title onClick={onClickTitle}>
-            <Colored>jun</Colored>stream
+            <Colored>jun</Colored>streaming
           </Title>
           <Hamburger isMenuOpen={isMenuOpen} onClickBurger={onClickBurger} />
         </Wrapper>
