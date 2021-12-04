@@ -45,13 +45,14 @@ const GlobalStyle = createGlobalStyle`
   input,
   textarea {
     color: inherit;
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
     cursor: text;
 
     &:disabled {
       font-weight: 700;
     }
   }
-
 
   ul,
   ol {
