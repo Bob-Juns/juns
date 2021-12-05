@@ -30,5 +30,11 @@ type UserAction = GetUsers | CheckAuth;
 
 type LoginData = {
   userEmail: string;
-  password: string;
+  userPassword: string;
 };
+
+interface RegisterData extends LoginData {
+  userName: string;
+  userId: string;
+  registerWith: string;
+}

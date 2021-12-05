@@ -8,6 +8,8 @@ import {
   checkAuth,
   login,
   logout,
+  registerConfirmation,
+  register,
 } from './modules/users';
 import { categoryReducer, selectCategory } from './modules/category';
 
@@ -17,6 +19,8 @@ export const actions = {
   checkAuth,
   login,
   logout,
+  registerConfirmation,
+  register,
 
   //category
   selectCategory,

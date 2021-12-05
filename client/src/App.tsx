@@ -5,6 +5,7 @@ import PublicRoute from '@components/Routes/PublicRoute';
 
 import Home from '@pages/Home/Home';
 import Login from '@pages/User/Login/Login';
+import Register from '@pages/user/Register/Register';
 
 import Toast from '@components/Toast/Toast';
 
@@ -30,6 +31,9 @@ const App = () => {
           </Route>
           <Route path="/login" element={<PublicRoute restricted />}>
             <Route path="/login" element={<Login />} />
+          </Route>
+          <Route path="/register" element={<PublicRoute restricted />}>
+            <Route path="/register" element={<Register />} />
           </Route>
         </Routes>
       </Router>
