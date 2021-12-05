@@ -59,7 +59,6 @@ const Burger = styled.button<{ open: boolean }>`
     ${(props) =>
       props.open
         ? `
-    background-color: #fff;
     :first-child, :last-child {
       opacity: 0;
     }
@@ -73,6 +72,7 @@ const Burger = styled.button<{ open: boolean }>`
     }
 
     :nth-child(2) {
+      background-color: #fff;
       transform: rotate(45deg);
       &:after {
         transform: rotate(90deg);

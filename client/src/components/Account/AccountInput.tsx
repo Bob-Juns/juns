@@ -18,6 +18,7 @@ type Props = {
   value: string;
   placeholder: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  max?: number;
   disabled?: boolean;
   label: string;
 };
@@ -31,6 +32,7 @@ const AccountInput = ({
   mode,
   placeholder,
   onChange,
+  max,
   disabled,
   label,
 }: Props) => {
@@ -46,6 +48,7 @@ const AccountInput = ({
         inputMode={mode ? mode : 'text'}
         placeholder={placeholder}
         onChange={onChange}
+        maxLength={max && max}
         disabled={disabled}
       />
       <Label htmlFor={id}>{label}</Label>
@@ -58,10 +61,6 @@ const Container = styled.div`
   margin-top: 1.25rem;
   display: flex;
   flex-direction: column-reverse;
-
-  &: first-child {
-    margin-top: 2rem;
-  }
 `;
 
 const Message = styled.div`
@@ -85,6 +84,9 @@ const Input = styled.input`
   width: 100%;
   margin-top: 0.5rem;
   padding: 0.5rem 0.25rem;
+
+  font-size: 0.75rem;
+
   opacity: 0.5;
 
   border-bottom: 1px solid ${(props) => props.theme.color.gray};

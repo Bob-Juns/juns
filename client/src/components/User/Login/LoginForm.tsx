@@ -46,7 +46,7 @@ const LoginForm = ({ login }: Props) => {
 
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
-    if (name === 'email') {
+    if (name === 'userEmail') {
       value === '' || isEmailFormat(value)
         ? setMessages({ ...messages, userEmail: '' })
         : setMessages({
@@ -58,7 +58,7 @@ const LoginForm = ({ login }: Props) => {
         ? setMessages({ ...messages, userPassword: '' })
         : setMessages({
             ...messages,
-            userPassword: '4글자 이상의 비밀번호를 입력해 주세요.',
+            userPassword: '4 ~ 16자리의 비밀번호를 입력해 주세요.',
           });
     }
 
@@ -80,7 +80,7 @@ const LoginForm = ({ login }: Props) => {
       passwordRef.current?.focus();
     } else {
       login({ userEmail: inputs.userEmail, userPassword: inputs.userPassword })
-        .then((response: { status: number; payload: { message: string } }) => {
+        .then((response: { payload: { message: string } }) => {
           setInputs({ userEmail: '', userPassword: '' });
           navigate('/');
           toast.success(response.payload.message);
