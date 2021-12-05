@@ -6,6 +6,8 @@ import { actions } from 'store';
 
 import styled from 'styled-components';
 
+import MenuList from '@components/Common/SideMenu/MenuList';
+
 import { toast } from 'react-toastify';
 
 type Props = {
@@ -58,9 +60,10 @@ const SideMenu = ({
           )}
         </Head>
         <Body>
-          {users.currentUser.isAuth && (
+          <MenuList />
+          {/* {users.currentUser.isAuth && (
             <Logouts onClick={onClickLogout}>로그아웃</Logouts>
-          )}
+          )} */}
         </Body>
       </Container>
     </>
