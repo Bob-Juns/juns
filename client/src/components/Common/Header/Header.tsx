@@ -44,9 +44,9 @@ const Container = styled.header`
 
 const Wrapper = styled.section`
   width: 100%;
-  height: 3.125rem;
+  height: 3.75rem;
   position: relative;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  box-shadow: 0 1px 3px 1px rgba(173, 181, 189, 0.2);
 `;
 
 const Title = styled.h1`
