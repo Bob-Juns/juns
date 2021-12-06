@@ -61,6 +61,9 @@ module.exports = {
       template: path.resolve(__dirname, 'public/index.html'),
       favicon: path.resolve(__dirname, 'public/favicon.ico'),
     }),
+    new webpack.DefinePlugin({
+      'process.env.KAKAO_JS_KEY': JSON.stringify(process.env.KAKAO_JS_KEY),
+    }),
     new Dotenv(),
   ],
   devServer: {
