@@ -7,6 +7,7 @@ import { actions } from 'store';
 import styled from 'styled-components';
 
 import MenuList from '@components/Common/SideMenu/MenuList';
+import Logout from '@components/Common/SideMenu/Logout';
 
 import { toast } from 'react-toastify';
 
@@ -61,9 +62,7 @@ const SideMenu = ({
         </Head>
         <Body>
           <MenuList />
-          {/* {users.currentUser.isAuth && (
-            <Logouts onClick={onClickLogout}>로그아웃</Logouts>
-          )} */}
+          {users.currentUser.isAuth && <Logout onClick={onClickLogout} />}
         </Body>
       </Container>
     </>
@@ -168,25 +167,6 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-`;
-
-const Logouts = styled.div`
-  width: 100%;
-  height: 3rem;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  font-size: 0.75rem;
-
-  cursor: pointer;
-
-  &:hover {
-    color: #fff;
-    background: ${(props) => props.theme.color.purple};
-    font-weight: 700;
-  }
 `;
 
 const mapStateToProps = (state: { users: User }) => ({
