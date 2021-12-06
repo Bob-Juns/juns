@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 const Toast = () => {
   return (
-    <ToastContainer position="top-center" autoClose={2000} transition={Slide} />
+    <ToastContainer position="top-center" autoClose={1000} transition={Slide} />
   );
 };
 
