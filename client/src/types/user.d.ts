@@ -36,5 +36,10 @@ type LoginData = {
 interface RegisterData extends LoginData {
   userName: string;
   userId: string;
-  registerWith: string;
 }
+
+type KakaoData = {
+  userName: string;
+  userId: string;
+  userEmail: string;
+};

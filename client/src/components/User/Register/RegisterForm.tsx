@@ -10,6 +10,7 @@ import AccountWarning from '@components/Account/AccountWarning';
 import AccountForm from '@components/Account/AccountForm';
 import AccountInput from '@components/Account/AccountInput';
 import AccountButton from '@components/Account/AccountButton';
+import KakaoLogin from '@components/User/Login/KakaoLogin';
 
 import spinnerIcon from '@assets/icons/spinner.gif';
 
@@ -24,30 +25,13 @@ type Props = {
   register: (registerData: RegisterData) => any;
 };
 
-type EmailState = {
-  isLoading: boolean;
-  isSent: boolean;
-  isConfirmed: boolean;
-};
-
-type InputState = {
-  userEmail: string;
-  confirmationCode: string;
-  userName: string;
-  userPassword: string;
-  userPasswordRecheck: string;
-};
-interface MessageState extends InputState {
-  common: string;
-}
-
 const RegisterForm = ({ registerConfirmation, register }: Props) => {
   const [emailState, setEmailState] = useState<EmailState>({
     isLoading: false,
     isSent: false,
     isConfirmed: false,
   });
-  const [inputs, setInputs] = useState<InputState>({
+  const [inputs, setInputs] = useState<RegisterInputs>({
     userEmail: '',
     confirmationCode: '',
     userName: '',
@@ -55,7 +39,7 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
     userPasswordRecheck: '',
   });
 
-  const [messages, setMessages] = useState<MessageState>({
+  const [messages, setMessages] = useState<RegisterMessages>({
     userEmail: '',
     confirmationCode: '',
     userName: '',
@@ -150,6 +134,7 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
             isLoading: false,
           });
           setMessages({ ...messages, common: '' });
+          toast.success(response.payload.message);
           codeRef.current?.focus();
         })
         .catch((error: { response: { data: { message: string } } }) => {
@@ -226,7 +211,6 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
         userId: inputs.userEmail,
         userEmail: inputs.userEmail,
         userPassword: inputs.userPassword,
-        registerWith: 'email',
       })
         .then((response: { payload: { message: string } }) => {
           navigate('/login', { replace: true });
@@ -338,6 +322,7 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
             : '인증메일 발송'
         }
       />
+      <KakaoLogin messages={messages} setMessages={setMessages} />
     </AccountForm>
   );
 };

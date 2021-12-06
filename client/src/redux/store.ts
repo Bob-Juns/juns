@@ -10,6 +10,7 @@ import {
   logout,
   registerConfirmation,
   register,
+  linkKakao,
 } from './modules/users';
 import { categoryReducer, selectCategory } from './modules/category';
 
@@ -21,6 +22,7 @@ export const actions = {
   logout,
   registerConfirmation,
   register,
+  linkKakao,
 
   //category
   selectCategory,

@@ -7,6 +7,7 @@ const LOGIN = 'login' as const;
 const LOGOUT = 'logout' as const;
 const REGISTER_CONFIRMATION = 'register_confirmation' as const;
 const REGISTER = 'register' as const;
+const LINK_KAKAO = 'link_kakao' as const;
 
 const instance = axios.create({
   baseURL: '/api/user',
@@ -63,8 +64,18 @@ export const registerConfirmation = (userEmail: {
 
 export const register = (registerData: RegisterData) => {
   const payload = axiosRequest(instance, 'post', '/register', registerData);
+
   return {
     type: REGISTER,
+    payload,
+  };
+};
+
+export const linkKakao = (kakaoData: KakaoData) => {
+  const payload = axiosRequest(instance, 'post', '/kakao', kakaoData);
+
+  return {
+    type: LINK_KAKAO,
     payload,
   };
 };
@@ -98,6 +109,7 @@ export const userReducer = (state = initialState, action: UserAction) => {
     case LOGOUT:
     case REGISTER_CONFIRMATION:
     case REGISTER:
+    case LINK_KAKAO:
       return { ...state };
 
     default:

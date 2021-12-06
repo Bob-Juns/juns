@@ -8,6 +8,7 @@ import AccountWarning from '@components/Account/AccountWarning';
 import AccountForm from '@components/Account/AccountForm';
 import AccountInput from '@components/Account/AccountInput';
 import AccountButton from '@components/Account/AccountButton';
+import KakaoLogin from '@components/User/Login/KakaoLogin';
 
 import { isEmailFormat } from '@utils/formatCheck';
 import { toast } from 'react-toastify';
@@ -15,22 +16,14 @@ import { toast } from 'react-toastify';
 type Props = {
   login: (loginData: LoginData) => any;
 };
-type InputState = {
-  userEmail: string;
-  userPassword: string;
-};
-
-interface MessageState extends InputState {
-  common: string;
-}
 
 const LoginForm = ({ login }: Props) => {
-  const [inputs, setInputs] = useState<InputState>({
+  const [inputs, setInputs] = useState<LoginInputs>({
     userEmail: '',
     userPassword: '',
   });
 
-  const [messages, setMessages] = useState<MessageState>({
+  const [messages, setMessages] = useState<LoginMessages>({
     userEmail: '',
     userPassword: '',
     common: '',
@@ -157,6 +150,7 @@ const LoginForm = ({ login }: Props) => {
       />
 
       <AccountButton type="submit" onClick={onSubmitForm} text="로그인" />
+      <KakaoLogin messages={messages} setMessages={setMessages} />
     </AccountForm>
   );
 };
