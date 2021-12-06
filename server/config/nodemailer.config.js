@@ -1,7 +1,8 @@
-require('dotenv').config();
 const nodemailer = require('nodemailer');
+const handlebars = require('handlebars');
+const fs = require('fs');
 
-module.exports = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
 	service: 'kakao',
 	port: 465,
 	host: 'smtp.kakao.com',
@@ -10,3 +11,13 @@ module.exports = nodemailer.createTransport({
 		pass: process.env.NODEMAILER_PASSWORD,
 	},
 });
+
+const htmlToSend = (filePath, code) => {
+	const source = fs.readFileSync(filePath, 'utf-8').toString();
+	const template = handlebars.compile(source);
+	const replacement = { code };
+
+	return template(replacement);
+};
+
+module.exports = { transporter, htmlToSend };
