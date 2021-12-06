@@ -2,13 +2,14 @@ require('dotenv').config();
 
 const router = require('express').Router();
 const User = require('../models/user.model');
+
+const generateCookie = require('../utils/generateCookie.util');
 const generateToken = require('../utils/generateToken.util');
 const generateCode = require('../utils/generateCode.util');
+const { register, login } = require('../utils/userAction.util');
 const bcrypt = require('bcrypt');
 
-const transporter = require('../config/nodemailer.config');
-const handlebars = require('handlebars');
-const fs = require('fs');
+const { transporter, htmlToSend } = require('../config/nodemailer.config');
 const path = require('path');
 
 const { auth, admin } = require('../middlewares/auth.middleware');
@@ -46,20 +47,18 @@ router.post('/confirmation', async (req, res) => {
 		});
 	} else {
 		const code = generateCode(6);
-		const filePath = path.resolve(
+		const filePath = path.join(
 			__dirname,
-			'../template/register.template.html'
+			'../template',
+			'register.template.html'
 		);
-		const source = fs.readFileSync(filePath, 'utf-8').toString();
-		const template = handlebars.compile(source);
-		const replacement = { code };
-		const htmlToSend = template(replacement);
+
 		await transporter.sendMail(
 			{
 				from: `no-reply <${process.env.NODEMAILER_USER}>`,
 				to: req.body.userEmail,
 				subject: '[JUNSTREAMING] 이메일을 인증해주세요.',
-				html: htmlToSend,
+				html: htmlToSend(filePath, code),
 			},
 			(err, info) => {
 				if (err) {
@@ -78,17 +77,15 @@ router.post('/confirmation', async (req, res) => {
 });
 
 router.post('/register', async (req, res) => {
-	const hashedPassword = await bcrypt.hash(req.body.userPassword, 10);
-
 	try {
-		await new User({
-			userName: req.body.userName,
-			userId: req.body.userId,
-			userEmail: req.body.userEmail,
-			userPassword: hashedPassword,
-			registerWith: req.body.registerWith,
-		}).save();
-
+		await register(
+			res,
+			req.body.userName,
+			req.body.userId,
+			req.body.userEmail,
+			req.body.userPassword,
+			'email'
+		);
 		return res.status(201).json({ message: '회원가입 되었습니다.' });
 	} catch {
 		return res.json({ message: '회원가입이 실패했습니다.' });
@@ -105,18 +102,11 @@ router.post('/login', async (req, res) => {
 		user.userPassword
 	);
 
-	const token = generateToken(user.userEmail);
+	const token = generateToken(user.userId);
 
 	try {
 		if (comparePassword) {
-			res.cookie('authToken', token, {
-				httpOnly: true,
-				maxAge: 1000 * 60 * 60 * 24,
-				secure: process.env.NODE_ENV === 'production',
-				sameSite: 'lax',
-			});
-
-			return res.status(200).json({ message: '로그인 되었습니다.' });
+			login(res, token);
 		} else {
 			return res.status(400).json({ message: '비밀번호가 일치하지 않습니다.' });
 		}
@@ -126,11 +116,36 @@ router.post('/login', async (req, res) => {
 });
 
 router.post('/logout', (req, res) => {
-	res.cookie('authToken', '', {
-		httpOnly: true,
-		maxAge: 0,
-	});
+	generateCookie(res, '', 0);
 	return res.status(200).json({ message: '로그아웃 되었습니다.' });
+});
+
+router.post('/kakao', async (req, res) => {
+	const userById = await User.findOne({ userId: req.body.userId });
+	const userByEmail = await User.findOne({ userEmail: req.body.userEmail });
+
+	const token = generateToken(req.body.userId);
+	try {
+		if (userByEmail && userByEmail.registerWith !== 'kakao') {
+			return res.status(409).json({
+				message: `이미 ${userByEmail.registerWith} (으)로 가입되었습니다.`,
+			});
+		} else if (userById) {
+			login(res, token);
+		} else {
+			await register(
+				res,
+				req.body.userName,
+				req.body.userId,
+				req.body.userEmail,
+				process.env.SOCIAL_SECRET,
+				'kakao'
+			);
+		}
+	} catch (error) {
+		console.log(error);
+		return res.status(400).json({ message: '로그인이 실패했습니다.' });
+	}
 });
 
 module.exports = router;
