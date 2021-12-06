@@ -126,7 +126,6 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
         location: 'register',
       })
         .then((response: { payload: { message: string; code: string } }) => {
-          console.log(response.payload.code);
           setConfirmationCode(response.payload.code);
           setEmailState({
             ...emailState,

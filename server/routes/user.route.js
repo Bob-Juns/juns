@@ -142,8 +142,7 @@ router.post('/kakao', async (req, res) => {
 				'kakao'
 			);
 		}
-	} catch (error) {
-		console.log(error);
+	} catch {
 		return res.status(400).json({ message: '로그인이 실패했습니다.' });
 	}
 });
