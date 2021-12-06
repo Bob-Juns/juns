@@ -51,6 +51,7 @@ const Burger = styled.button<{ open: boolean }>`
       content: '';
       width: 100%;
       height: 100%;
+      background-color: #000;
       position: absolute;
       top: 0;
       right: 0;
@@ -87,7 +88,7 @@ const Burger = styled.button<{ open: boolean }>`
     }
 
     :nth-child(2) {
-      transform: rotate(450);
+      transform: rotate(0);
       &:after {
         transform: rotate(0);
         background-color: #000;
