@@ -19,7 +19,7 @@ router.get('/auth', auth, (req, res) => {
 		userName: req.user.userName,
 		userId: req.user.userId,
 		userEmail: req.user.userEmail,
-		isAdmin: req.user.userEmail,
+		isAdmin: req.user.isAdmin,
 		isAuth: true,
 	});
 });
