@@ -24,7 +24,7 @@ const _Logout = styled.div`
 
   &:hover {
     color: #fff;
-    background-color: ${(props) => props.theme.color.gray};
+    background-color: ${(props) => props.theme.color.purple};
   }
 `;
 

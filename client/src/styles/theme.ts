@@ -4,11 +4,21 @@ const color = {
   purple: '#7f6efb',
   green: '#2bc8d8',
   yellow: '#fed75c',
-  gray: '#adb5bd',
+  gray: {
+    base: '#adb5bd',
+    light: '#f8f9fa',
+  },
   red: '#e03131',
   warning: {
     dark: '#cd4b2b',
     light: '#fcebe3',
+  },
+  category: {
+    drama: '#70adee',
+    ent: '#f69262',
+    movie: '#259961',
+    game: '#6d544c',
+    etc: '#7f6efb',
   },
 };
 

@@ -63,7 +63,7 @@ const Ask = styled.div`
   margin-top: 0.5rem;
   font-size: 0.75rem;
   font-weight: 700;
-  color: ${(props) => props.theme.color.gray};
+  color: ${(props) => props.theme.color.gray.base};
 `;
 
 const Span = styled.span`

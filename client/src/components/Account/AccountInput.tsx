@@ -89,7 +89,7 @@ const Input = styled.input`
 
   opacity: 0.5;
 
-  border-bottom: 1px solid ${(props) => props.theme.color.gray};
+  border-bottom: 1px solid ${(props) => props.theme.color.gray.base};
 
   &:focus {
     opacity: 1;

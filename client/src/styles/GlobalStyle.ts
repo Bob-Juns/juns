@@ -54,6 +54,10 @@ const GlobalStyle = createGlobalStyle`
     }
   }
 
+  input[type="search"]::-webkit-search-cancel-button {
+    display: none;
+  }
+
   ul,
   ol {
     padding-left: 0;

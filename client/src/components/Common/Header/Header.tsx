@@ -6,7 +6,11 @@ import styled from 'styled-components';
 import Hamburger from '@components/Common/Header/Hamburger';
 import SideMenu from '@components/Common/SideMenu/SideMenu';
 
-const Header = () => {
+type Props = {
+  dashboard: boolean;
+};
+
+const Header = ({ dashboard }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -34,19 +38,19 @@ const Header = () => {
 };
 const Container = styled.header`
   width: 100vw;
-  height: 5.375rem;
+  height: 3.75rem;
   background-color: #fff;
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 995;
+  z-index: 98;
 `;
 
 const Wrapper = styled.section`
   width: 100%;
-  height: 3.75rem;
+  height: 100%;
   position: relative;
-  box-shadow: 0 1px 3px 1px rgba(173, 181, 189, 0.2);
+  border-bottom: 1px solid rgba(173, 181, 189, 0.3);
 `;
 
 const Title = styled.h1`
