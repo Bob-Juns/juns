@@ -106,11 +106,16 @@ export const userReducer = (state = initialState, action: UserAction) => {
       };
 
     case LOGIN:
-    case LOGOUT:
     case REGISTER_CONFIRMATION:
     case REGISTER:
     case LINK_KAKAO:
       return { ...state };
+
+    case LOGOUT:
+      return {
+        ...state,
+        currentUser: initialState.currentUser,
+      };
 
     default:
       return state;
