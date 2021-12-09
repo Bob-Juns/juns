@@ -6,7 +6,7 @@ import { actions } from 'store';
 
 import styled from 'styled-components';
 
-import MenuList from '@components/Common/SideMenu/MenuList';
+import SideMenuList from '@components/Common/SideMenu/SideMenuList';
 import Logout from '@components/Common/SideMenu/Logout';
 
 import { toast } from 'react-toastify';
@@ -30,8 +30,9 @@ const SideMenu = ({
 
   const onClickLogout = () => {
     logout().then((response: { payload: { message: string } }) => {
-      checkAuth().then(() => {
+      checkAuth().then((res: { isAuth: boolean }) => {
         setIsMenuOpen(false);
+        navigate('/', { replace: true });
         toast.success(response.payload.message);
       });
     });
@@ -39,12 +40,12 @@ const SideMenu = ({
 
   return (
     <>
-      <Background open={isMenuOpen} />
+      <Background open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
       <Container open={isMenuOpen}>
         <Head>
           {users.currentUser.isAuth ? (
             <>
-              <Name>{users.currentUser.userName}</Name>
+              <Name>안녕하세요! {users.currentUser.userName}님 </Name>
               <Email>{users.currentUser.userEmail}</Email>
             </>
           ) : (
@@ -61,7 +62,7 @@ const SideMenu = ({
           )}
         </Head>
         <Body>
-          <MenuList />
+          <SideMenuList />
           {users.currentUser.isAuth && <Logout onClick={onClickLogout} />}
         </Body>
       </Container>
@@ -78,7 +79,10 @@ const Background = styled.div<{ open: boolean }>`
   top: 0;
   left: 0;
 
-  background: ${(props) => (props.open ? 'rgba(0, 0, 0, 0.5)' : 'transparent')};
+  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.open ? '0.7' : '0')};
+  background-color: #000;
+
   transition: all 0.3s ease-in-out;
 `;
 
@@ -119,12 +123,12 @@ const Head = styled.div`
 `;
 
 const Name = styled.div`
-  font-size: 1.25rem;
+  font-size: 1rem;
   font-weight: 700;
 `;
 
 const Email = styled.div`
-  font-size: 1rem;
+  font-size: 0.75rem;
   margin-top: 0.5rem;
 `;
 
@@ -147,7 +151,7 @@ const Login = styled.div`
   margin-right: 0.25rem;
   cursor: pointer;
   &:hover {
-    color: ${(props) => props.theme.color.gray};
+    color: ${(props) => props.theme.color.gray.base};
   }
 `;
 
@@ -155,7 +159,7 @@ const Register = styled.div`
   margin-left: 0.25rem;
   cursor: pointer;
   &:hover {
-    color: ${(props) => props.theme.color.gray};
+    color: ${(props) => props.theme.color.gray.base};
   }
 `;
 

@@ -1,15 +1,22 @@
 import React from 'react';
-
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
 
 type Props = {
   title: string;
+  path: string;
 };
 
-const MenuItem = ({ title }: Props) => {
+const SideMenuItem = ({ title, path }: Props) => {
+  const navigate = useNavigate();
+
+  const onClickMenu = () => {
+    navigate(path);
+  };
+
   return (
-    <Container>
+    <Container onClick={onClickMenu}>
       <Title>{title}</Title>
       <Chevron />
     </Container>
@@ -24,7 +31,7 @@ const Title = styled.div`
 const Chevron = styled(chevronIcon)`
   width: 1rem;
   transform: rotate(90deg);
-  color: ${(props) => props.theme.color.gray};
+  color: ${(props) => props.theme.color.gray.base};
 `;
 
 const Container = styled.div`
@@ -48,4 +55,4 @@ const Container = styled.div`
   }
 `;
 
-export default MenuItem;
+export default SideMenuItem;
