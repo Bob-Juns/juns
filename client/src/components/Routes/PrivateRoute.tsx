@@ -1,5 +1,5 @@
 import React, { Dispatch } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { useNavigate, Outlet } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { actions } from 'store';
@@ -10,24 +10,21 @@ type Props = {
 };
 
 const PrivateRoute = ({ adminOnly = false, checkAuth }: Props) => {
-  const isAuth = () => {
+  const navigate = useNavigate();
+
+  const check = () => {
     return checkAuth().then(
-      (response: { payload: { isAuth: boolean } }) => response.payload.isAuth,
-    );
-  };
-  const isAdmin = () => {
-    return checkAuth().then(
-      (response: { payload: { isAdmin: boolean } }) => response.payload.isAdmin,
+      (response: { payload: { isAuth: boolean; isAdmin: boolean } }) => {
+        !response.payload.isAuth
+          ? navigate('/login', { replace: true })
+          : !response.payload.isAdmin &&
+            adminOnly &&
+            navigate('/', { replace: true });
+      },
     );
   };
 
-  return !isAuth() ? (
-    <Navigate to="/login" />
-  ) : !isAdmin() && adminOnly ? (
-    <Navigate to="/" />
-  ) : (
-    <Outlet />
-  );
+  return check() && <Outlet />;
 };
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
