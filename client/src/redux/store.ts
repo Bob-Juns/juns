@@ -12,7 +12,6 @@ import {
   register,
   linkKakao,
 } from './modules/users';
-import { categoryReducer, selectCategory } from './modules/category';
 
 export const actions = {
   //users
@@ -23,14 +22,10 @@ export const actions = {
   registerConfirmation,
   register,
   linkKakao,
-
-  //category
-  selectCategory,
 };
 
 const reducer = combineReducers({
   users: userReducer,
-  categories: categoryReducer,
 });
 
 declare global {
