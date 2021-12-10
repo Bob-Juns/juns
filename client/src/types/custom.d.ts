@@ -1,3 +1,8 @@
+// common action type
+type Action = {
+  type: string;
+};
+
 type LoginInputs = {
   userEmail: string;
   userPassword: string;
@@ -21,4 +26,15 @@ type EmailState = {
   isLoading: boolean;
   isSent: boolean;
   isConfirmed: boolean;
+};
+
+type ChannelInput = {
+  category: string;
+  channelId: string;
+  channelTitle: string;
+  channelCover: string;
+  channelProducer: string;
+  channelCast: string;
+  playlistTitle: string;
+  playlistId: string;
 };

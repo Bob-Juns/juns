@@ -1,8 +1,3 @@
-// common action type
-type Action = {
-  type: string;
-};
-
 type CurrentUser = {
   userName: string;
   userId: string;
