@@ -6,10 +6,10 @@ import { actions } from 'store';
 
 import styled from 'styled-components';
 
-import AccountWarning from '@components/Account/AccountWarning';
-import AccountForm from '@components/Account/AccountForm';
-import AccountInput from '@components/Account/AccountInput';
-import AccountButton from '@components/Account/AccountButton';
+import AccountWarning from '@components/Common/Account/AccountWarning';
+import AccountForm from '@components/Common/Account/AccountForm';
+import AccountInput from '@components/Common/Account/AccountInput';
+import AccountButton from '@components/Common/Account/AccountButton';
 import KakaoLogin from '@components/User/Login/KakaoLogin';
 
 import spinnerIcon from '@assets/icons/spinner.gif';
