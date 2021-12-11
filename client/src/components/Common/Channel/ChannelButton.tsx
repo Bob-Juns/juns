@@ -29,6 +29,8 @@ const Button = styled.button<{ backgroundColor?: string }>`
       ? 'transparent'
       : props.backgroundColor === 'green'
       ? props.theme.color.green
+      : props.backgroundColor === 'yellow'
+      ? props.theme.color.yellow
       : props.theme.color.purple};
   border-radius: 3.125rem;
 

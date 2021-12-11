@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
+import ChannelHeader from '@components/Common/Channel/ChannelHeader';
 import ChannelEditor from '@components/Common/Layouts/ChannelEditor';
-import ChannelFormFirst from '@components/Common/Channel/ChannelFormFirst';
-import ChannelFormSecond from '@components/Common/Channel/ChannelFormSecond';
 
 type Props = {
   isCreateOpen: boolean;
@@ -23,6 +22,9 @@ const ChannelCreate = ({ isCreateOpen, setIsCreateOpen }: Props) => {
     playlistId: '',
   });
 
+  const firstFormRef = useRef<HTMLFormElement>(null);
+  const secondFormRef = useRef<HTMLFormElement>(null);
+
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
 
@@ -34,14 +36,39 @@ const ChannelCreate = ({ isCreateOpen, setIsCreateOpen }: Props) => {
 
   const onClickClose = () => {
     setIsCreateOpen(false);
+    setInputs({
+      category: '',
+      channelId: '',
+      channelTitle: '',
+      channelCover: '',
+      channelProducer: '',
+      channelCast: '',
+      playlistTitle: '',
+      playlistId: '',
+    });
+    setTimeout(() => {
+      setIndex('1');
+    }, 500);
+  };
+
+  const onScrollToTop = (
+    targetRef: React.MutableRefObject<HTMLFormElement | null>,
+  ) => {
+    setTimeout(() => {
+      targetRef.current?.scrollTo(0, 0);
+    }, 500);
   };
 
   const onClickPrev = () => {
-    index === '1' ? setIsCreateOpen(false) : setIndex('1');
+    index === '1'
+      ? setIsCreateOpen(false)
+      : (setIndex('1'), onScrollToTop(secondFormRef));
   };
 
   const onClickNext = () => {
-    index === '1' ? setIndex('2') : console.log('create new channel');
+    index === '1'
+      ? (setIndex('2'), onScrollToTop(firstFormRef))
+      : console.log('create new channel');
   };
 
   const onSubmitForm = (
@@ -50,34 +77,57 @@ const ChannelCreate = ({ isCreateOpen, setIsCreateOpen }: Props) => {
     event.preventDefault();
   };
   return (
-    <ChannelEditor
-      isComponentOpen={isCreateOpen}
-      currentIndex={index}
-      title="채널생성"
-      onClickClose={onClickClose}
-      onSubmitForm={onSubmitForm}
-      leftButtonType="button"
-      leftButtonText={index === '1' ? '취소' : '이전'}
-      leftButtonBackgroundColor={index === '1' ? 'none' : undefined}
-      onClickLeftButton={onClickPrev}
-      rightButtonType="button"
-      rightButtonText={index === '2' ? '생성' : '다음'}
-      rightButtonBackgroundColor={index === '2' ? 'green' : undefined}
-      onClickRightButton={onClickNext}
-    >
-      <ChannelFormFirst
+    <Container isComponentOpen={isCreateOpen}>
+      <ChannelHeader
+        isComponentOpen={isCreateOpen}
+        currentIndex={index}
+        onClickClose={onClickClose}
+      />
+      <ChannelEditor
+        firstFormRef={firstFormRef}
+        secondFormRef={secondFormRef}
+        currentIndex={index}
+        isComponentOpen={isCreateOpen}
+        onClickClose={onClickClose}
+        onSubmitForm={onSubmitForm}
         channelTitle={inputs.channelTitle}
         channelId={inputs.channelId}
         channelProducer={inputs.channelProducer}
         onChangeInputs={onChangeInputs}
-      />
-
-      <ChannelFormSecond
+        onClickLeftButton={onClickPrev}
+        onClickRightButton={onClickNext}
         channelCast={inputs.channelCast}
-        onChangeInputs={onChangeInputs}
+        playlistTitle={inputs.playlistTitle}
+        playlistId={inputs.playlistId}
+        rightButtonText="생성"
       />
-    </ChannelEditor>
+    </Container>
   );
 };
+
+const Container = styled.div<{ isComponentOpen: boolean }>`
+  width: 100vw;
+  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
+
+  background-color: ${(props) => props.theme.color.gray.light};
+
+  display: flex;
+  flex-direction: column;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+
+  visibility: ${(props) => (props.isComponentOpen ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.isComponentOpen ? '1' : '0')};
+
+  transform: ${(props) =>
+    props.isComponentOpen ? 'translateY(0)' : 'translateY(50%)'};
+
+  transition: all 0.3s linear;
+
+  z-index: 999;
+`;
 
 export default ChannelCreate;

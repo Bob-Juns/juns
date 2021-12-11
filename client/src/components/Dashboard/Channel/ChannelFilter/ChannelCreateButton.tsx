@@ -19,7 +19,7 @@ const Button = styled.button`
   height: 2rem;
   margin-right: 0.375rem;
 
-  background-color: ${(props) => props.theme.color.purple};
+  background-color: ${(props) => props.theme.color.green};
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 
   display: flex;
