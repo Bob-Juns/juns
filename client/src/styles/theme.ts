@@ -22,6 +22,10 @@ const color = {
   },
 };
 
+const boxShadow = {
+  primary: '1px 1px 4px rgba(0, 0, 0, 0.25)',
+};
+
 const breakpoints = {
   tablet: 768,
   desktop: 1024,
@@ -35,4 +39,5 @@ const device = (key: keyof typeof breakpoints) => {
 export const theme: DefaultTheme = {
   color,
   device,
+  boxShadow,
 };

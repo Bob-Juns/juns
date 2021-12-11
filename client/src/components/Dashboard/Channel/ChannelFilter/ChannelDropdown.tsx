@@ -42,8 +42,10 @@ const Container = styled.div`
   align-items: center;
 
   position: relative;
-  border-radius: 50px;
+
   background-color: #fff;
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
+  border-radius: 3.125rem;
 
   cursor: pointer;
 `;

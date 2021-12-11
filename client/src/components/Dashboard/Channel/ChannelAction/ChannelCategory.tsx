@@ -59,7 +59,7 @@ const Wrapper = styled.div`
   position: relative;
 
   background-color: ${(props) => props.theme.color.purple};
-  border-radius: 50px;
+  border-radius: 3.125rem;
 
   cursor: pointer;
 `;

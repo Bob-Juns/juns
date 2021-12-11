@@ -25,7 +25,7 @@ const Container = styled.div<{ open: boolean }>`
 
   background-color: #fff;
 
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
   border-radius: 0.375rem;
 
   z-index: 9;

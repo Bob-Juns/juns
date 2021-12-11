@@ -76,7 +76,7 @@ const Input = styled.input`
   padding: 0.5rem 0.25rem;
 
   font-size: 0.75rem;
-  border-bottom: 1px solid ${(props) => props.theme.color.purple};
+  border-bottom: 1px solid ${(props) => props.theme.color.gray.base};
 `;
 
 export default ChannelInput;

@@ -46,7 +46,7 @@ const Container = styled.div`
   width: 100%;
   height: 4rem;
   display: flex;
-  box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.25);
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
   border-radius: 0.75rem;
 
   position: relative;

@@ -40,7 +40,10 @@ const ChannelEditor = ({
   return (
     <Container isComponentOpen={isComponentOpen}>
       <Titles isComponentOpen={isComponentOpen}>
-        <Index>{currentIndex} / 2</Index>
+        <Index>
+          <Current>{currentIndex}&nbsp;</Current>
+          <Total>2</Total>
+        </Index>
         <Title>{title}</Title>
         <Close onClick={onClickClose} />
       </Titles>
@@ -105,8 +108,26 @@ const Titles = styled.div<{ isComponentOpen: boolean }>`
 
 const Index = styled.div`
   color: ${(props) => props.theme.color.purple};
+  font-size: 0.75rem;
+  font-weight: 700;
+
+  display: flex;
+`;
+
+const Current = styled.div`
+  color: ${(props) => props.theme.color.green};
+`;
+
+const Total = styled.div`
+  &: before {
+    content: '/ ';
+  }
+`;
+
+const Title = styled.div`
   font-size: 1rem;
   font-weight: 700;
+  color: ${(props) => props.theme.color.purple};
 `;
 
 const Close = styled.div`
@@ -127,12 +148,6 @@ const Close = styled.div`
     right: 50%;
     transform: translate(50%, -50%) rotate(90deg);
   }
-`;
-
-const Title = styled.div`
-  font-size: 1rem;
-  font-weight: 700;
-  color: ${(props) => props.theme.color.purple};
 `;
 
 const Form = styled.form`

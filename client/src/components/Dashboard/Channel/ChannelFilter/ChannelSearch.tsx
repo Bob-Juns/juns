@@ -20,17 +20,21 @@ const ChannelSearch = () => {
 const Container = styled.div`
   height: 2rem;
   display: flex;
+  border-radius: 3.125rem;
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
 `;
 
 const Wrapper = styled.div`
   width: 2.2rem;
   height: 2rem;
+
   background-color: #fff;
-  border-radius: 50px 0 0 50px;
 
   display: flex;
   justify-content: center;
   align-items: center;
+
+  border-radius: 3.125rem 0 0 3.125rem;
 `;
 
 const Icon = styled(searchIcon)`
@@ -44,9 +48,12 @@ const Input = styled.input`
   width: 3rem;
   height: 2rem;
   padding-right: 0.75rem;
-  font-size: 0.75rem;
-  border-radius: 0 50px 50px 0;
+
   background-color: #fff;
+
+  font-size: 0.75rem;
+
+  border-radius: 0 3.125rem 3.125rem 0;
   transition: width 0.3s ease-in-out;
 
   &:focus {

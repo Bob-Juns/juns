@@ -86,6 +86,7 @@ const Label = styled.label`
 const Preview = styled.div`
   display: flex;
   align-items: flex-end;
+  color: ${(props) => props.theme.color.green};
 
   cursor: pointer;
 `;
@@ -94,13 +95,11 @@ const Text = styled.div`
   margin-right: 0.25rem;
   font-size: 0.5rem;
   font-weight: 700;
-  color: ${(props) => props.theme.color.purple};
   transform: translateY(1px);
 `;
 
 const ChevronSmall = styled(chevronIcon)`
   width: 0.5rem;
-  color: ${(props) => props.theme.color.purple};
 
   transform: rotate(180deg);
 `;

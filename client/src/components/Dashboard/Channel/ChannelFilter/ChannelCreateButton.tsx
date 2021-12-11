@@ -20,13 +20,14 @@ const Button = styled.button`
   margin-right: 0.375rem;
 
   background-color: ${(props) => props.theme.color.purple};
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  cursor: pointer;
   border-radius: 50%;
+  cursor: pointer;
 `;
 
 const Plus = styled(plusIcon)`
