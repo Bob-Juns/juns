@@ -19,6 +19,7 @@ type Props = {
   max?: number;
   disabled?: boolean;
   label: string;
+  message: string;
 };
 
 const ChannelInput = ({
@@ -31,6 +32,7 @@ const ChannelInput = ({
   max,
   disabled,
   label,
+  message,
 }: Props) => {
   return (
     <Container>
@@ -46,6 +48,7 @@ const ChannelInput = ({
         maxLength={max}
         disabled={disabled}
       />
+      <Message>{message}</Message>
     </Container>
   );
 };
@@ -77,6 +80,13 @@ const Input = styled.input`
 
   font-size: 0.75rem;
   border-bottom: 1px solid ${(props) => props.theme.color.gray.base};
+`;
+
+const Message = styled.div`
+  height: 0.75rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.color.red};
 `;
 
 export default ChannelInput;

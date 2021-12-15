@@ -1,14 +1,13 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import plusIcon from '@assets/icons/plus.svg';
 
-type Props = {
-  onClickCreateButton: () => void;
-};
-
-const ChannelCreateButton = ({ onClickCreateButton }: Props) => {
+const ChannelCreateButton = () => {
+  const navigate = useNavigate();
   return (
-    <Button onClick={onClickCreateButton}>
+    <Button onClick={() => navigate('/channel-create')}>
       <Plus />
     </Button>
   );
@@ -19,7 +18,7 @@ const Button = styled.button`
   height: 2rem;
   margin-right: 0.375rem;
 
-  background-color: ${(props) => props.theme.color.green};
+  background-color: ${(props) => props.theme.color.purple};
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 
   display: flex;

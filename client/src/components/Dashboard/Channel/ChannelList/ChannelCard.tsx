@@ -1,9 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
+
 import styled from 'styled-components';
 import menuIcon from '@assets/icons/menu.svg';
-import ChannelCardMenu from './ChannelCardMenu';
+import ChannelCardMenu from '@components/Dashboard/Channel/ChannelList/ChannelCardMenu';
 
-const ChannelCard = () => {
+type Props = {
+  category: string;
+  channelTitle: string;
+  channelId: string;
+};
+
+const ChannelCard = ({ category, channelTitle, channelId }: Props) => {
   const [isSettingOpen, setIsSettingOpen] = useState<boolean>(false);
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -22,11 +29,11 @@ const ChannelCard = () => {
 
   return (
     <Container>
-      <Left />
+      <Left category={category} />
       <Right />
-      <Category>
-        <ChannelCardMenu open={isSettingOpen} />
-        <Text>drama</Text>
+      <Category category={category}>
+        <ChannelCardMenu open={isSettingOpen} channelId={channelId} />
+        <Text>{category}</Text>
         <Wrapper
           onClick={() => setIsSettingOpen((prev) => !prev)}
           ref={focusRef}
@@ -34,9 +41,9 @@ const ChannelCard = () => {
           <Setting />
         </Wrapper>
       </Category>
-      <Titles>
-        <Title>짧은 대본</Title>
-        <Title>short-paper</Title>
+      <Titles category={category}>
+        <Title>{channelTitle}</Title>
+        <Title>{channelId}</Title>
       </Titles>
     </Container>
   );
@@ -51,10 +58,19 @@ const Container = styled.div`
 
   position: relative;
 `;
-const Left = styled.div`
+const Left = styled.div<{ category: string }>`
   width: 50%;
   height: 100%;
-  background-color: ${(props) => props.theme.color.purple};
+  background-color: ${(props) =>
+    props.category === '드라마'
+      ? props.theme.color.category.drama
+      : props.category === '예능'
+      ? props.theme.color.category.ent
+      : props.category === '영화'
+      ? props.theme.color.category.movie
+      : props.category === '게임'
+      ? props.theme.color.category.game
+      : props.theme.color.category.etc};
   border-radius: 0.75rem 0 0 0.75rem;
 `;
 const Right = styled.div`
@@ -64,7 +80,7 @@ const Right = styled.div`
   border-radius: 0 0.75rem 0.75rem 0;
 `;
 
-const Category = styled.div`
+const Category = styled.div<{ category: string }>`
   width: 100%;
   height: 50%;
   margin-right: auto;
@@ -72,7 +88,16 @@ const Category = styled.div`
 
   position: absolute;
   top: 0;
-  background-color: ${(props) => props.theme.color.purple};
+  background-color: ${(props) =>
+    props.category === '드라마'
+      ? props.theme.color.category.drama
+      : props.category === '예능'
+      ? props.theme.color.category.ent
+      : props.category === '영화'
+      ? props.theme.color.category.movie
+      : props.category === '게임'
+      ? props.theme.color.category.game
+      : props.theme.color.category.etc};
 
   display: flex;
   justify-content: space-between;
@@ -82,8 +107,8 @@ const Category = styled.div`
 `;
 
 const Text = styled.div`
-  font-family: 'Bungee';
   font-size: 0.625rem;
+  font-weight: 700;
   color: #fff;
 `;
 
@@ -103,7 +128,7 @@ const Setting = styled(menuIcon)`
   color: #fff;
 `;
 
-const Titles = styled.div`
+const Titles = styled.div<{ category: string }>`
   height: 50%;
   width: 100%;
   padding: 0.625rem 0.75rem;
@@ -111,7 +136,16 @@ const Titles = styled.div`
   position: absolute;
   bottom: 0;
 
-  color: ${(props) => props.theme.color.purple};
+  color: ${(props) =>
+    props.category === '드라마'
+      ? props.theme.color.category.drama
+      : props.category === '예능'
+      ? props.theme.color.category.ent
+      : props.category === '영화'
+      ? props.theme.color.category.movie
+      : props.category === '게임'
+      ? props.theme.color.category.game
+      : props.theme.color.category.etc};
   background-color: #fff;
 
   display: flex;

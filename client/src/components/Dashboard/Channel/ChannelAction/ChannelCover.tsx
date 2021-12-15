@@ -1,27 +1,85 @@
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState } from 'react';
+import { connect } from 'react-redux';
+import { actions } from 'store';
+
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
+import spinnerIcon from '@assets/icons/spinner.gif';
+import trashIcon from '@assets/icons/trash.svg';
 
-type Props = {};
+import { toast } from 'react-toastify';
 
-const ChannelCover = ({}: Props) => {
-  const [file, setFile] = useState<object | null>(null);
+type Props = {
+  cover: Cover;
+  messages: ChannelMessages;
+  setMessages: React.Dispatch<React.SetStateAction<ChannelMessages>>;
+  uploadCover: (file: FormData) => any;
+  deleteCover: (fileName: { fileName: string }) => any;
+};
+
+const ChannelCover = ({
+  cover,
+  messages,
+  setMessages,
+  uploadCover,
+  deleteCover,
+}: Props) => {
+  const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
+  const [loading, setLoading] = useState<{ upload: boolean; delete: boolean }>({
+    upload: false,
+    delete: false,
+  });
   const uploadRef = useRef<HTMLInputElement>(null);
 
   const onClickUpload = () => {
-    uploadRef.current?.click();
+    if (!loading.upload) {
+      uploadRef.current?.click();
+    }
   };
 
-  const onSelectFile = (event: any) => {
-    setFile(event.currentTarget.files[0]);
+  const onSelectFile = async (event: any) => {
+    const formData = new FormData();
+    formData.append('image', event.currentTarget.files[0]);
+    event.target.value = null;
+    setLoading({ ...loading, upload: true });
+    await uploadCover(formData).then(() => {
+      setLoading({ ...loading, upload: false });
+      toast.success('이미지가 업로드 되었습니다.');
+      setMessages({ ...messages, channelCover: '' });
+    });
   };
+
+  const onClickDelete = () => {
+    setLoading({ ...loading, delete: true });
+    deleteCover({ fileName: cover.fileName })
+      .then((response: MessageResponse) => {
+        toast.success(response.payload.message);
+      })
+      .catch((error: ErrorMessageResponse) =>
+        toast.warning(error.response.data.message),
+      )
+      .finally(() => {
+        setIsPreviewOpen(false);
+        setLoading({ ...loading, delete: false });
+      });
+  };
+
   return (
     <Container>
       <Labels>
         <Label htmlFor="cover">커버 이미지</Label>
-        <Preview>
+        <Wrapper onClick={() => setIsPreviewOpen((prev) => !prev)}>
           <Text>미리보기</Text>
-          <ChevronSmall />
+          <ChevronSmall open={isPreviewOpen} />
+        </Wrapper>
+        <Preview src={cover.filePath} open={isPreviewOpen}>
+          <Delete>
+            {loading.delete ? (
+              <Spinner src={spinnerIcon} />
+            ) : (
+              <Trash onClick={onClickDelete} />
+            )}
+          </Delete>
         </Preview>
       </Labels>
       <HiddenUploader
@@ -31,7 +89,16 @@ const ChannelCover = ({}: Props) => {
         ref={uploadRef}
         onChange={onSelectFile}
       />
-      <Cover onClick={onClickUpload}>업로드</Cover>
+      <Uploader onClick={onClickUpload} isLoading={loading.upload}>
+        {loading.upload ? (
+          <Spinner src={spinnerIcon} />
+        ) : cover.filePath === '' ? (
+          '업로드'
+        ) : (
+          '변경'
+        )}
+      </Uploader>
+      <Message>{messages.channelCover}</Message>
     </Container>
   );
 };
@@ -49,13 +116,14 @@ const HiddenUploader = styled.input`
   display: none;
 `;
 
-const Cover = styled.div`
+const Uploader = styled.div<{ isLoading: boolean }>`
   width: 100%;
   height: 2rem;
   margin-top: 0.75rem;
 
   color: #fff;
-  background-color: ${(props) => props.theme.color.purple};
+  background-color: ${(props) =>
+    props.isLoading ? '#fff' : props.theme.color.purple};
 
   font-size: 0.75rem;
   font-weight: 700;
@@ -69,11 +137,17 @@ const Cover = styled.div`
   cursor: pointer;
 `;
 
+const Spinner = styled.img`
+  width: 1rem;
+`;
+
 const Labels = styled.div`
   width: 100%;
 
   display: flex;
   justify-content: space-between;
+
+  position: relative;
 `;
 
 const Label = styled.label`
@@ -83,7 +157,7 @@ const Label = styled.label`
   font-weight: 700;
 `;
 
-const Preview = styled.div`
+const Wrapper = styled.div`
   display: flex;
   align-items: flex-end;
   color: ${(props) => props.theme.color.green};
@@ -98,10 +172,85 @@ const Text = styled.div`
   transform: translateY(1px);
 `;
 
-const ChevronSmall = styled(chevronIcon)`
+const ChevronSmall = styled(chevronIcon)<{ open: boolean }>`
   width: 0.5rem;
 
-  transform: rotate(180deg);
+  transform: ${(props) => (props.open ? 'rotate(0)' : 'rotate(180deg)')};
+  transition: all 0.3s linear;
 `;
 
-export default ChannelCover;
+const Delete = styled.div`
+  width: 1.375rem;
+  height: 1.375rem;
+
+  background-color: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  position: absolute;
+  top: 0.375rem;
+  right: 0.375rem;
+
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
+
+  border-radius: 50%;
+`;
+
+const Trash = styled(trashIcon)`
+  width: 1rem;
+  height: 1rem;
+
+  color ${(props) => props.theme.color.purple};
+`;
+
+const Preview = styled.figure<{ open: boolean; src: string }>`
+  width: 100%;
+  height: 0;
+  padding-top: 133.34%;
+
+  background-image: url(${(props) => props.src});
+  background-size: cover;
+  background-position: center center;
+
+  position: absolute;
+  top: 1.75rem;
+  right: 0;
+
+  background-color: #fff;
+  border-radius: 1rem;
+
+  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
+  opacity: ${(props) => (props.open ? '1' : '0')};
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
+
+  z-index: 9;
+
+  transform: ${(props) =>
+    props.open ? 'translateY(0)' : 'translateY( -1rem)'};
+  transition: all 0.3s ease-in-out;
+
+  & > ${Delete} {
+    display: ${(props) => props.src === '' && 'none'};
+  }
+`;
+
+const Message = styled.div`
+  height: 0.75rem;
+  margin-top: 0.25rem;
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.color.red};
+`;
+
+const mapStateToProps = (state: { file: { cover: Cover } }) => ({
+  cover: state.file.cover,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
+  uploadCover: (file: any) => dispatch(actions.uploadCover(file)),
+  deleteCover: (fileName: { fileName: string }) =>
+    dispatch(actions.deleteCover(fileName)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelCover);

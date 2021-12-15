@@ -23,7 +23,11 @@ app.use(cookieParser());
 app.use(express.json());
 
 const userRouter = require('./routes/user.route');
+const channelRouter = require('./routes/channel.route');
+const fileRouter = require('./routes/file.route');
 app.use('/api/user', userRouter);
+app.use('/api/channel', channelRouter);
+app.use('/api/file', fileRouter);
 
 // serve static files & http to https
 const enforce = require('express-sslify');

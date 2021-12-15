@@ -3,29 +3,25 @@ import styled from 'styled-components';
 import plusIcon from '@assets/icons/plus.svg';
 
 type Props = {
-  isComponentOpen: boolean;
+  headerTitle: string;
   currentIndex: string;
   onClickClose: () => void;
 };
 
-const ChannelHeader = ({
-  isComponentOpen,
-  currentIndex,
-  onClickClose,
-}: Props) => {
+const ChannelHeader = ({ headerTitle, currentIndex, onClickClose }: Props) => {
   return (
-    <Header isComponentOpen={isComponentOpen}>
+    <Header>
       <Index>
         <Current>{currentIndex}&nbsp;</Current>
         <Total>2</Total>
       </Index>
-      <Title>채널생성</Title>
+      <Title>{headerTitle}</Title>
       <Close onClick={onClickClose} />
     </Header>
   );
 };
 
-const Header = styled.div<{ isComponentOpen: boolean }>`
+const Header = styled.div`
   width: 100vw;
   height: 3.125rem;
   padding: 0 1rem;

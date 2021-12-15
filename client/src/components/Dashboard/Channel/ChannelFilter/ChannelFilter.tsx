@@ -6,14 +6,10 @@ import ChannelDropdown from './ChannelDropdown';
 
 import styled from 'styled-components';
 
-type Props = {
-  onClickCreateButton: () => void;
-};
-
-const ChannelFilter = ({ onClickCreateButton }: Props) => {
+const ChannelFilter = () => {
   return (
     <Container>
-      <ChannelCreateButton onClickCreateButton={onClickCreateButton} />
+      <ChannelCreateButton />
       <ChannelSearch />
       <ChannelDropdown />
     </Container>

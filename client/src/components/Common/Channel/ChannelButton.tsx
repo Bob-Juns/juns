@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 type Props = {
   type: 'submit' | 'button' | 'reset';
-  onClick?: (event?: React.FormEvent<HTMLButtonElement>) => void;
+  onClick?: (event: React.FormEvent<HTMLButtonElement>) => void;
   backgroundColor?: string;
   text: string;
 };
@@ -23,10 +23,10 @@ const Button = styled.button<{ backgroundColor?: string }>`
   font-weight: 700;
 
   color: ${(props) =>
-    props.backgroundColor === 'none' ? props.theme.color.purple : '#fff'};
+    props.backgroundColor === 'white' ? props.theme.color.purple : '#fff'};
   background-color: ${(props) =>
-    props.backgroundColor === 'none'
-      ? 'transparent'
+    props.backgroundColor === 'white'
+      ? '#fff'
       : props.backgroundColor === 'green'
       ? props.theme.color.green
       : props.backgroundColor === 'yellow'

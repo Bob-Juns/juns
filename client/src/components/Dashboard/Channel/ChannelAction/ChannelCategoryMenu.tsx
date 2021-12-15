@@ -1,33 +1,44 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'store';
-
 import styled from 'styled-components';
 
 type Props = {
   open: boolean;
   categoryMenu: CategoryMenu;
-  selectCategoryMenu: (payload: CurrentCategoryMenu) => void;
+  inputs: ChannelInputs;
+  setInputs: React.Dispatch<React.SetStateAction<ChannelInputs>>;
+  messages: ChannelMessages;
+  setMessages: React.Dispatch<React.SetStateAction<ChannelMessages>>;
 };
 
-const ChannelDropdownMenu = ({
+const ChannelCategoryMenu = ({
   open,
   categoryMenu,
-  selectCategoryMenu,
+  inputs,
+  setInputs,
+  messages,
+  setMessages,
 }: Props) => {
+  const onSelectCategory = (menu: string) => {
+    setInputs({ ...inputs, category: menu });
+    setMessages({ ...messages, category: '' });
+  };
+
   return (
     <Container open={open}>
-      {categoryMenu.allCategoryMenus.map((menu: string) => (
-        <Menu key={menu} onClick={() => selectCategoryMenu(menu)}>
-          {menu}
-        </Menu>
-      ))}
+      {categoryMenu.allCategoryMenus
+        .filter((menu: string) => menu !== '전체')
+        .map((menu: string) => (
+          <Menu key={menu} onClick={() => onSelectCategory(menu)}>
+            {menu}
+          </Menu>
+        ))}
     </Container>
   );
 };
 
 const Container = styled.div<{ open: boolean }>`
-  width: 6rem;
+  width: 100%;
 
   position: absolute;
   top: 2.25rem;
@@ -42,7 +53,8 @@ const Container = styled.div<{ open: boolean }>`
   border-radius: 0.375rem;
   z-index: 9;
 
-  transform: ${(props) => (props.open ? 'translateY(0)' : 'translateY(-1rem)')};
+  transform: ${(props) =>
+    props.open ? 'translateY(0)' : 'translateY( -1rem)'};
   transition: all 0.3s ease-in-out;
 `;
 
@@ -80,12 +92,4 @@ const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
   categoryMenu: state.menus.categoryMenu,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<MenuAction>) => ({
-  selectCategoryMenu: (payload: CurrentCategoryMenu) =>
-    dispatch(actions.selectCategoryMenu(payload)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ChannelDropdownMenu);
+export default connect(mapStateToProps)(ChannelCategoryMenu);

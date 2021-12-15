@@ -2,7 +2,21 @@ import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
 
-const ChannelCategory = () => {
+import ChannelCategoryMenu from './ChannelCategoryMenu';
+
+type Props = {
+  inputs: ChannelInputs;
+  setInputs: React.Dispatch<React.SetStateAction<ChannelInputs>>;
+  messages: ChannelMessages;
+  setMessages: React.Dispatch<React.SetStateAction<ChannelMessages>>;
+};
+
+const ChannelCategory = ({
+  inputs,
+  setInputs,
+  messages,
+  setMessages,
+}: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -25,9 +39,17 @@ const ChannelCategory = () => {
         onClick={() => setIsDropdownOpen((prev) => !prev)}
         ref={focusRef}
       >
-        <Selected>선택</Selected>
+        <ChannelCategoryMenu
+          open={isDropdownOpen}
+          inputs={inputs}
+          setInputs={setInputs}
+          messages={messages}
+          setMessages={setMessages}
+        />
+        <Selected>{inputs.category === '' ? '선택' : inputs.category}</Selected>
         <Chevron open={isDropdownOpen} />
       </Wrapper>
+      <Message>{messages.category}</Message>
     </Container>
   );
 };
@@ -79,6 +101,15 @@ const Chevron = styled(chevronIcon)<{ open: boolean }>`
 
   transform: ${(props) => (props.open ? 'rotate(0) ' : 'rotate(180deg)')};
   transition: all 0.3s linear;
+`;
+
+const Message = styled.div`
+  width: 100%;
+  height: 0.75rem;
+  margin-top: 0.25rem;
+
+  font-size: 0.75rem;
+  color: ${(props) => props.theme.color.red};
 `;
 
 export default ChannelCategory;
