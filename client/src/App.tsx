@@ -8,6 +8,8 @@ import Home from '@pages/Home/Home';
 import Login from '@pages/User/Login/Login';
 import Register from '@pages/User/Register/Register';
 import Dashboard from '@pages/Dashboard/Dashboard';
+import ChannelCreate from '@pages/Dashboard/ChannelCreate';
+import ChannelUpdate from '@pages/Dashboard/ChannelUpdate';
 
 import Toast from '@components/Toast/Toast';
 
@@ -39,6 +41,13 @@ const App = () => {
           </Route>
           <Route path="/dashboard" element={<PrivateRoute adminOnly />}>
             <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
+          <Route path="/channel-create" element={<PrivateRoute adminOnly />}>
+            <Route path="/channel-create" element={<ChannelCreate />} />
+          </Route>
+
+          <Route path="/channel-update" element={<PrivateRoute adminOnly />}>
+            <Route path=":_channelId" element={<ChannelUpdate />} />
           </Route>
         </Routes>
       </Router>
