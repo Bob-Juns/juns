@@ -46,11 +46,11 @@ const KakaoLogin = ({ checkAuth, linkKakao, messages, setMessages }: Props) => {
         ? res.kakao_account.email
         : res.id.toString(),
     })
-      .then((response: { payload: { message: string } }) => {
+      .then((response: MessageResponse) => {
         navigate('/');
         toast.success(response.payload.message);
       })
-      .catch((error: { response: { data: { message: string } } }) =>
+      .catch((error: ErrorMessageResponse) =>
         setMessages({
           ...messages,
           common: error.response.data.message,

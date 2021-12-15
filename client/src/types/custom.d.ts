@@ -1,6 +1,23 @@
 // common action type
 type Action = {
   type: string;
+  payload?: any;
+};
+
+type MessagePayload = {
+  message: string;
+};
+
+interface MessageAction extends Action {
+  payload: MessagePayload;
+}
+
+type MessageResponse = {
+  payload: MessagePayload;
+};
+
+type ErrorMessageResponse = {
+  response: { data: { message: string } };
 };
 
 type LoginInputs = {
@@ -28,13 +45,16 @@ type EmailState = {
   isConfirmed: boolean;
 };
 
-type ChannelInput = {
+type ChannelInputs = {
   category: string;
   channelId: string;
   channelTitle: string;
-  channelCover: string;
   channelProducer: string;
   channelCast: string;
   playlistTitle: string;
   playlistId: string;
 };
+
+interface ChannelMessages extends ChannelInputs {
+  channelCover: string;
+}

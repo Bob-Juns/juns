@@ -29,7 +29,7 @@ const SideMenu = ({
   const navigate = useNavigate();
 
   const onClickLogout = () => {
-    logout().then((response: { payload: { message: string } }) => {
+    logout().then((response: MessageResponse) => {
       checkAuth().then((res: { isAuth: boolean }) => {
         setIsMenuOpen(false);
         navigate('/', { replace: true });

@@ -211,7 +211,7 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
         userEmail: inputs.userEmail,
         userPassword: inputs.userPassword,
       })
-        .then((response: { payload: { message: string } }) => {
+        .then((response: MessageResponse) => {
           navigate('/login', { replace: true });
           toast.success(response.payload.message);
         })
@@ -321,7 +321,9 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
             : '인증메일 발송'
         }
       />
-      <KakaoLogin messages={messages} setMessages={setMessages} />
+      {!emailState.isConfirmed && (
+        <KakaoLogin messages={messages} setMessages={setMessages} />
+      )}
     </AccountForm>
   );
 };
