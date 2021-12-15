@@ -1,23 +1,24 @@
 import React, { Dispatch } from 'react';
+import { connect } from 'react-redux';
+import { actions } from 'store';
 
 import styled from 'styled-components';
 import TopMenuItem from '@components/Dashboard/TopMenu/TopMenuItem';
 
 type Props = {
-  menus: string[];
-  currentMenu: string;
-  setCurrentMenu: React.Dispatch<React.SetStateAction<string>>;
+  dashboardMenu: DashboardMenu;
+  selectDashboardMenu: (payload: CurrentDashboardMenu) => void;
 };
 
-const TopMenu = ({ menus, currentMenu, setCurrentMenu }: Props) => {
+const TopMenu = ({ dashboardMenu, selectDashboardMenu }: Props) => {
   return (
     <Container>
-      {menus.map((menu: string) => (
+      {dashboardMenu.allDashboardMenus.map((menu: string) => (
         <TopMenuItem
           key={menu}
           menu={menu}
-          onClick={() => setCurrentMenu(menu)}
-          selected={currentMenu === menu}
+          onClick={() => selectDashboardMenu(menu)}
+          selected={dashboardMenu.currentDashboardMenu === menu}
         />
       ))}
     </Container>
@@ -42,4 +43,15 @@ const Container = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.yellow};
 `;
 
-export default TopMenu;
+const mapStateToProps = (state: {
+  menus: { dashboardMenu: DashboardMenu };
+}) => ({
+  dashboardMenu: state.menus.dashboardMenu,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<MenuAction>) => ({
+  selectDashboardMenu: (payload: CurrentDashboardMenu) =>
+    dispatch(actions.selectDashboardMenu(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TopMenu);

@@ -13,6 +13,29 @@ import {
   linkKakao,
 } from './modules/users';
 
+import {
+  channelReducer,
+  getChannels,
+  getChannel,
+  createChannel,
+  deleteChannel,
+  updateChannel,
+} from './modules/channels';
+
+import {
+  menuReducer,
+  selectDashboardMenu,
+  selectCategoryMenu,
+} from './modules/menus';
+
+import {
+  fileReducer,
+  uploadCover,
+  deleteCover,
+  getCover,
+  resetCover,
+} from './modules/file';
+
 export const actions = {
   //users
   getUsers,
@@ -22,10 +45,30 @@ export const actions = {
   registerConfirmation,
   register,
   linkKakao,
+
+  //channels
+  getChannels,
+  getChannel,
+  createChannel,
+  deleteChannel,
+  updateChannel,
+
+  // menus
+  selectDashboardMenu,
+  selectCategoryMenu,
+
+  // files
+  uploadCover,
+  deleteCover,
+  getCover,
+  resetCover,
 };
 
 const reducer = combineReducers({
   users: userReducer,
+  channels: channelReducer,
+  menus: menuReducer,
+  file: fileReducer,
 });
 
 declare global {
