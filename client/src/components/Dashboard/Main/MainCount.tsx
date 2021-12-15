@@ -5,13 +5,14 @@ import MainCountCard from '@components/Dashboard/Main/MainCountCard';
 
 type Props = {
   users: User;
+  channels: Channel;
 };
 
-const Count = ({ users }: Props) => {
+const MainCount = ({ users, channels }: Props) => {
   return (
     <Container>
-      <MainCountCard title="users" count={users.allUsers.length} />
-      <MainCountCard title="channels" count={24} />
+      <MainCountCard title="users" count={users.allUsers?.length} />
+      <MainCountCard title="channels" count={channels.allChannels?.length} />
     </Container>
   );
 };
@@ -26,8 +27,9 @@ const Container = styled.div`
   grid-column-gap: 0.375rem;
 `;
 
-const mapStateToProps = (state: { users: User }) => ({
+const mapStateToProps = (state: { users: User; channels: Channel }) => ({
   users: state.users,
+  channels: state.channels,
 });
 
-export default connect(mapStateToProps)(Count);
+export default connect(mapStateToProps)(MainCount);
