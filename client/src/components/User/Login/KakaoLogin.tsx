@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { actions } from 'store';
 
 import styled from 'styled-components';
-import kakaoLogin from '@assets/kakao.svg';
+import kakaoLogin from '@assets/kakaoLogin.svg';
 
 import { toast } from 'react-toastify';
 

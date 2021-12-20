@@ -11,7 +11,7 @@ const Logout = ({ onClick }: Props) => {
 
 const _Logout = styled.div`
   width: 100%;
-  height: 3rem;
+  height: 4rem;
   margin-top: auto;
 
   display: flex;
