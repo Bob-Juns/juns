@@ -1,7 +1,45 @@
-import React from 'react';
+import React, { Dispatch, useState, useEffect } from 'react';
+
+import { connect } from 'react-redux';
+import { actions } from 'store';
+
 import styled from 'styled-components';
 import searchIcon from '@assets/icons/search.svg';
-const ChannelSearch = () => {
+
+type Props = {
+  categoryMenu: CategoryMenu;
+  getSearchedChannels: (payload: string) => any;
+  intersection: AllChannels;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const ChannelSearch = ({
+  categoryMenu,
+  getSearchedChannels,
+  intersection,
+  setMessage,
+}: Props) => {
+  const [input, setInput] = useState('');
+
+  useEffect(() => {
+    if (intersection.length < 1) {
+      setMessage('일치하는 채널이 없습니다.');
+    } else {
+      setMessage('');
+    }
+    getSearchedChannels(input);
+  }, [categoryMenu.currentCategoryMenu]);
+
+  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.currentTarget.value.length > 0 && intersection.length < 1) {
+      setMessage('일치하는 채널이 없습니다.');
+    } else {
+      setMessage('');
+    }
+    getSearchedChannels(event.currentTarget.value.toLowerCase());
+    setInput(event.currentTarget.value);
+  };
+
   return (
     <Container>
       <Wrapper>
@@ -10,6 +48,8 @@ const ChannelSearch = () => {
       <Input
         type="search"
         name="search"
+        value={input}
+        onChange={onChangeInput}
         inputMode="search"
         placeholder="검색"
       />
@@ -20,6 +60,7 @@ const ChannelSearch = () => {
 const Container = styled.div`
   height: 2rem;
   display: flex;
+  position: relative;
   border-radius: 3.125rem;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 `;
@@ -61,4 +102,13 @@ const Input = styled.input`
   }
 `;
 
-export default ChannelSearch;
+const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
+  categoryMenu: state.menus.categoryMenu,
+});
+
+const mapDispatchToProps = (dispatch: Dispatch<ChannelAction>) => ({
+  getSearchedChannels: (payload: string) =>
+    dispatch(actions.getSearchedChannels(payload)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(ChannelSearch);

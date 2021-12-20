@@ -1,9 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { connect } from 'react-redux';
+
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
 import ChannelDropdownMenu from './ChannelDropdownMenu';
 
-const ChannelDropdown = () => {
+type Props = {
+  categoryMenu: CategoryMenu;
+};
+
+const ChannelDropdown = ({ categoryMenu }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
   const focusRef = useRef<HTMLDivElement>(null);
 
@@ -26,7 +32,7 @@ const ChannelDropdown = () => {
       ref={focusRef}
     >
       <ChannelDropdownMenu open={isDropdownOpen} />
-      <Selected>카테고리</Selected>
+      <Selected>{categoryMenu.currentCategoryMenu}</Selected>
       <Chevron open={isDropdownOpen} />
     </Container>
   );
@@ -61,4 +67,8 @@ const Chevron = styled(chevronIcon)<{ open: boolean }>`
   transition: all 0.3s linear;
 `;
 
-export default ChannelDropdown;
+const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
+  categoryMenu: state.menus.categoryMenu,
+});
+
+export default connect(mapStateToProps)(ChannelDropdown);

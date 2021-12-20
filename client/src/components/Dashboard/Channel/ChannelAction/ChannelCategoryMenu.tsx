@@ -41,7 +41,7 @@ const Container = styled.div<{ open: boolean }>`
   width: 100%;
 
   position: absolute;
-  top: 2.25rem;
+  top: 2.1rem;
   right: 0;
 
   visibility: ${(props) => (props.open ? 'visible' : 'hidden')};

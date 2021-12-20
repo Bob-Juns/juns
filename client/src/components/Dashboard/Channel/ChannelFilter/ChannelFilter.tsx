@@ -6,11 +6,16 @@ import ChannelDropdown from './ChannelDropdown';
 
 import styled from 'styled-components';
 
-const ChannelFilter = () => {
+type Props = {
+  intersection: AllChannels;
+  setMessage: React.Dispatch<React.SetStateAction<string>>;
+};
+
+const ChannelFilter = ({ intersection, setMessage }: Props) => {
   return (
     <Container>
       <ChannelCreateButton />
-      <ChannelSearch />
+      <ChannelSearch intersection={intersection} setMessage={setMessage} />
       <ChannelDropdown />
     </Container>
   );

@@ -8,17 +8,24 @@ type Props = {
   open: boolean;
   categoryMenu: CategoryMenu;
   selectCategoryMenu: (payload: CurrentCategoryMenu) => void;
+  getFilteredChannels: (payload: string) => void;
 };
 
 const ChannelDropdownMenu = ({
   open,
   categoryMenu,
   selectCategoryMenu,
+  getFilteredChannels,
 }: Props) => {
+  const onClickCategoryMenu = (menu: string) => {
+    selectCategoryMenu(menu);
+    getFilteredChannels(menu);
+  };
+
   return (
     <Container open={open}>
       {categoryMenu.allCategoryMenus.map((menu: string) => (
-        <Menu key={menu} onClick={() => selectCategoryMenu(menu)}>
+        <Menu key={menu} onClick={() => onClickCategoryMenu(menu)}>
           {menu}
         </Menu>
       ))}
@@ -30,7 +37,7 @@ const Container = styled.div<{ open: boolean }>`
   width: 6rem;
 
   position: absolute;
-  top: 2.25rem;
+  top: 2.1rem;
   right: 0;
 
   visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
@@ -80,9 +87,13 @@ const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
   categoryMenu: state.menus.categoryMenu,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<MenuAction>) => ({
+const mapDispatchToProps = (
+  dispatch: Dispatch<MenuAction | ChannelAction>,
+) => ({
   selectCategoryMenu: (payload: CurrentCategoryMenu) =>
     dispatch(actions.selectCategoryMenu(payload)),
+  getFilteredChannels: (payload: string) =>
+    dispatch(actions.getFilteredChannels(payload)),
 });
 
 export default connect(

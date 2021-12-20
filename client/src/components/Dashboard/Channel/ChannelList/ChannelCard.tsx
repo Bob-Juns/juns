@@ -58,6 +58,7 @@ const Container = styled.div`
 
   position: relative;
 `;
+
 const Left = styled.div<{ category: string }>`
   width: 50%;
   height: 100%;

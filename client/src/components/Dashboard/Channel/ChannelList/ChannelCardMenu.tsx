@@ -45,6 +45,7 @@ const ChannelCardMenu = ({
   };
 
   const onClickDelete = () => {
+    setIsModalOpen(false);
     deleteChannel(channelId)
       .then((response: MessageResponse) => {
         getChannels();
@@ -82,7 +83,7 @@ const ChannelCardMenu = ({
 
 const Container = styled.div<{ open: boolean }>`
   position: absolute;
-  top: 2.25rem;
+  top: 2.1rem;
   right: 0;
 
   visibility: ${(props) => (props.open ? 'visible' : 'hidden')};

@@ -1,4 +1,4 @@
-import React, { Dispatch, useRef, useState } from 'react';
+import React, { Dispatch, useRef, useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'store';
 
@@ -29,7 +29,22 @@ const ChannelCover = ({
     upload: false,
     delete: false,
   });
+
   const uploadRef = useRef<HTMLInputElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
+
+  const onClickOutside = (event: any) => {
+    if (focusRef.current && !focusRef.current.contains(event.target)) {
+      setIsPreviewOpen(false);
+    }
+  };
+
+  useEffect(() => {
+    isPreviewOpen && document.addEventListener('click', onClickOutside, true);
+    return () => {
+      document.removeEventListener('click', onClickOutside, true);
+    };
+  }, [focusRef, isPreviewOpen]);
 
   const onClickUpload = () => {
     if (!loading.upload) {
@@ -65,7 +80,7 @@ const ChannelCover = ({
   };
 
   return (
-    <Container>
+    <Container ref={focusRef}>
       <Labels>
         <Label htmlFor="cover">커버 이미지</Label>
         <Wrapper onClick={() => setIsPreviewOpen((prev) => !prev)}>
