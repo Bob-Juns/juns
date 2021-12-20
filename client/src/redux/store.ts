@@ -11,6 +11,10 @@ import {
   registerConfirmation,
   register,
   linkKakao,
+  deleteUser,
+  updateAuthority,
+  getFilteredUsers,
+  getSearchedUsers,
 } from './modules/users';
 
 import {
@@ -20,12 +24,15 @@ import {
   createChannel,
   deleteChannel,
   updateChannel,
+  getFilteredChannels,
+  getSearchedChannels,
 } from './modules/channels';
 
 import {
   menuReducer,
   selectDashboardMenu,
   selectCategoryMenu,
+  selectAuthorityMenu,
 } from './modules/menus';
 
 import {
@@ -45,6 +52,10 @@ export const actions = {
   registerConfirmation,
   register,
   linkKakao,
+  deleteUser,
+  updateAuthority,
+  getFilteredUsers,
+  getSearchedUsers,
 
   //channels
   getChannels,
@@ -52,10 +63,13 @@ export const actions = {
   createChannel,
   deleteChannel,
   updateChannel,
+  getFilteredChannels,
+  getSearchedChannels,
 
   // menus
   selectDashboardMenu,
   selectCategoryMenu,
+  selectAuthorityMenu,
 
   // files
   uploadCover,

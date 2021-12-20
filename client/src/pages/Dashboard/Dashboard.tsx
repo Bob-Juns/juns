@@ -5,6 +5,7 @@ import Page from '@components/Common/Layouts/Page';
 import TopMenu from '@components/Dashboard/TopMenu/TopMenu';
 import Main from '@components/Dashboard/Main/Main';
 import Channel from '@components/Dashboard/Channel/Channel';
+import User from '@components/Dashboard/User/User';
 
 type Props = {
   dashboardMenu: DashboardMenu;
@@ -29,7 +30,7 @@ const Dashboard = ({
     <Page dashboard>
       <TopMenu />
       {dashboardMenu.currentDashboardMenu === '유저' ? (
-        <div>유저</div>
+        <User />
       ) : dashboardMenu.currentDashboardMenu === '채널' ? (
         <Channel />
       ) : (

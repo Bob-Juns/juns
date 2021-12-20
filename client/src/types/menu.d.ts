@@ -20,9 +20,19 @@ interface CategoryMenu {
   allCategoryMenus: AllCategoryMenus;
 }
 
+type CurrentAuthorityMenu = string;
+
+type AllAuthorityMenu = CurrentAuthorityMenu[];
+
+interface AuthorityMenu {
+  currentAuthorityMenu: CurrentAuthorityMenu;
+  allAuthorityMenus: AllAuthorityMenu;
+}
+
 interface Menu {
   dashboardMenu: DashboardMenu;
   categoryMenu: CategoryMenu;
+  authorityMenu: AuthorityMenu;
 }
 
 interface SelectCategoryMenu extends Action {

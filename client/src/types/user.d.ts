@@ -2,6 +2,8 @@ type CurrentUser = {
   userName: string;
   userId: string;
   userEmail: string;
+  registerWith: string;
+  bookmark: CurrentChannel[];
   isAuth: boolean;
   isAdmin: boolean;
 };
@@ -11,6 +13,8 @@ type AllUsers = CurrentUser[];
 interface User {
   currentUser: CurrentUser;
   allUsers: AllUsers;
+  filteredUsers: AllUsers;
+  searchedUsers: AllUsers;
 }
 
 interface GetUsers extends Action {
@@ -21,7 +25,13 @@ interface CheckAuth extends Action {
   payload: Promise<CurrentUser>;
 }
 
-type UserAction = GetUsers | CheckAuth;
+interface GetFilteredUsers extends Action {
+  payload: string | boolean;
+}
+
+type GetSearchedUsers = GetFilteredUsers;
+
+type UserAction = GetUsers | CheckAuth | GetFilteredUsers | GetSearchedUsers;
 
 type LoginData = {
   userEmail: string;

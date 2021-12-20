@@ -8,6 +8,11 @@ const LOGOUT = 'logout' as const;
 const REGISTER_CONFIRMATION = 'register_confirmation' as const;
 const REGISTER = 'register' as const;
 const LINK_KAKAO = 'link_kakao' as const;
+const DELETE = 'delete' as const;
+const AUTHORITY = 'authority' as const;
+const GET_FILTERED_USERS = 'get_filtered_users' as const;
+const GET_SEARCHED_USERS = 'get_searched_users' as const;
+const UPDATE_PASSWORD = 'update_password' as const;
 
 const instance = axios.create({
   baseURL: '/api/user',
@@ -80,15 +85,70 @@ export const linkKakao = (kakaoData: KakaoData) => {
   };
 };
 
+export const updateAuthority = (userEmail: string, isAdmin: boolean) => {
+  const payload = axiosRequest(
+    instance,
+    'put',
+    `/update-authority/${userEmail}`,
+    {
+      isAdmin,
+    },
+  );
+
+  return {
+    type: AUTHORITY,
+    payload,
+  };
+};
+
+export const deleteUser = (userEmail: string) => {
+  const payload = axiosRequest(instance, 'delete', `delete/${userEmail}`);
+
+  return {
+    type: DELETE,
+    payload,
+  };
+};
+
+export const getFilteredUsers = (payload: string | boolean) => {
+  return {
+    type: GET_FILTERED_USERS,
+    payload,
+  };
+};
+
+export const getSearchedUsers = (payload: string) => {
+  return {
+    type: GET_SEARCHED_USERS,
+    payload,
+  };
+};
+
+export const updatePassword = (userPassword: string, newPassword: string) => {
+  const payload = axiosRequest(instance, 'put', '/update-password', {
+    userPassword,
+    newPassword,
+  });
+
+  return {
+    type: UPDATE_PASSWORD,
+    payload,
+  };
+};
+
 const initialState: User = {
   currentUser: {
     userName: '',
     userId: '',
     userEmail: '',
+    registerWith: '',
+    bookmark: [],
     isAuth: false,
     isAdmin: false,
   },
   allUsers: [],
+  filteredUsers: [],
+  searchedUsers: [],
 };
 
 export const userReducer = (state = initialState, action: UserAction) => {
@@ -97,6 +157,7 @@ export const userReducer = (state = initialState, action: UserAction) => {
       return {
         ...state,
         allUsers: action.payload,
+        filteredUsers: action.payload,
       };
 
     case CHECK_AUTH:
@@ -109,12 +170,40 @@ export const userReducer = (state = initialState, action: UserAction) => {
     case REGISTER_CONFIRMATION:
     case REGISTER:
     case LINK_KAKAO:
+    case AUTHORITY:
+    case DELETE:
       return { ...state };
 
     case LOGOUT:
       return {
         ...state,
         currentUser: initialState.currentUser,
+      };
+
+    case GET_FILTERED_USERS:
+      return {
+        ...state,
+        filteredUsers:
+          action.payload === '전체'
+            ? state.allUsers
+            : state.allUsers.filter(
+                (user: CurrentUser) => user.isAdmin === action.payload,
+              ),
+      };
+
+    case GET_SEARCHED_USERS:
+      return {
+        ...state,
+        searchedUsers:
+          action.payload === ''
+            ? state.allUsers
+            : state.allUsers.filter((user: CurrentUser) => {
+                return (
+                  user.userName.match(action.payload.toString()) ||
+                  user.userId.match(action.payload.toString()) ||
+                  user.userEmail.match(action.payload.toString())
+                );
+              }),
       };
 
     default:

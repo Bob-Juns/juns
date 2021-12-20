@@ -19,7 +19,9 @@ router.get('/auth', auth, (req, res) => {
 		userName: req.user.userName,
 		userId: req.user.userId,
 		userEmail: req.user.userEmail,
+		registerWith: req.user.registerWith,
 		isAdmin: req.user.isAdmin,
+		bookmark: req.user.bookmark,
 		isAuth: true,
 	});
 });
@@ -33,6 +35,7 @@ router.get('/users', admin, async (req, res) => {
 		userName: user.userName,
 		userId: user.userId,
 		userEmail: user.userEmail,
+		registerWith: user.registerWith,
 		isAdmin: user.isAdmin,
 	}));
 	return res.status(200).json(usersWithoutPassword);
@@ -147,4 +150,41 @@ router.post('/kakao', async (req, res) => {
 	}
 });
 
+router.put('/update-authority/:userEmail', admin, async (req, res) => {
+	await User.findOneAndUpdate(
+		{ userEmail: req.params.userEmail },
+		{ isAdmin: req.body.isAdmin },
+		{ new: true }
+	).orFail(() => res.status(404).json({ message: '유저를 찾을 수 없습니다.' }));
+	return res.status(200).json({ message: '유저 권한이 변경되었습니다.' });
+});
+
+router.delete('/delete/:userEmail', admin, async (req, res) => {
+	await User.findOneAndDelete({ userEmail: req.params.userEmail }).orFail(() =>
+		res.status(404).json({ message: '유저를 찾을 수 없습니다.' })
+	);
+	return res.status(200).json({ message: '유저가 삭제되었습니다.' });
+});
+
+router.put('/update-password/', auth, async (req, res) => {
+	const comparePassword = await bcrypt.compare(
+		req.body.userPassword,
+		req.user.userPassword
+	);
+
+	if (!comparePassword) {
+		return res.status(409).json({ message: '잘못된 비밀번호입니다.' });
+	} else {
+		const hashedPassword = await bcrypt.hash(req.body.newPassword, 10);
+		await User.findOneAndUpdate(
+			{ userEmail: req.user.userEmail },
+			{ userPassword: hashedPassword },
+			{ new: true }
+		).orFail(() =>
+			res.status(409).json({ message: '비밀번호 변경이 실패했습니다.' })
+		);
+		return res.status(200).json({ message: '비밀번호가 변경되었습니다.' });
+	}
+});
+``;
 module.exports = router;
