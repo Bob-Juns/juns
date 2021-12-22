@@ -6,7 +6,10 @@ import styled from 'styled-components';
 import Modal from '@components/Common/Modal/Modal';
 
 import trashIcon from '@assets/icons/trash.svg';
+import changeIcon from '@assets/icons/authorityChange.svg';
+
 import { toast } from 'react-toastify';
+import UserCardMenuModal from './UserCardMenuModal';
 
 type Props = {
   open: boolean;
@@ -16,13 +19,7 @@ type Props = {
   getUsers: () => void;
 };
 
-const UserCardMenu = ({
-  open,
-  user,
-  deleteUser,
-  updateAuthority,
-  getUsers,
-}: Props) => {
+const UserCardMenu = ({ open, user }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<{
     authority: boolean;
     delete: boolean;
@@ -45,36 +42,6 @@ const UserCardMenu = ({
     });
   };
 
-  const onClickModalClose = () => {
-    setIsModalOpen({
-      ...isModalOpen,
-      authority: false,
-      delete: false,
-    });
-  };
-
-  const onClickUpdateAuthority = () => {
-    updateAuthority(user.userEmail, user.isAdmin ? false : true).then(
-      (response: MessageResponse) => {
-        getUsers();
-        onClickModalClose();
-        toast.success(response.payload.message);
-      },
-    );
-  };
-
-  const onClickDeleteUser = () => {
-    deleteUser(user.userEmail)
-      .then((response: MessageResponse) => {
-        getUsers();
-        onClickModalClose();
-        toast.success(response.payload.message);
-      })
-      .catch((error: ErrorMessageResponse) =>
-        console.log(error.response.data.message),
-      );
-  };
-
   return (
     <>
       <Container open={open}>
@@ -87,27 +54,11 @@ const UserCardMenu = ({
           </Menu>
         ))}
       </Container>
-      <Modal
-        open={isModalOpen.delete}
-        icon={<Trash />}
-        title="유저가 삭제됩니다."
-        onClickCancel={onClickModalClose}
-        onClickConfirm={onClickDeleteUser}
-      >
-        <Em> [ {user.userName} ]</Em>이/가 영구적으로 삭제됩니다. 삭제
-        하시겠습니까?
-      </Modal>
-      <Modal
-        open={isModalOpen.authority}
-        icon={<Trash />}
-        title="권한이 변경됩니다."
-        onClickCancel={onClickModalClose}
-        onClickConfirm={onClickUpdateAuthority}
-      >
-        <Em> {user.userName}</Em>님의 권한이{' '}
-        <Em>[{user.isAdmin ? ' 일반 ' : ' 관리자 '}]</Em>(으)로 변경됩니다.
-        변경하시겠습니까?
-      </Modal>
+      <UserCardMenuModal
+        user={user}
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </>
   );
 };
@@ -130,6 +81,7 @@ const Container = styled.div<{ open: boolean }>`
     props.open ? 'translateX(0)' : 'translateX(0.75rem)'};
   transition: all 0.3s linear;
 `;
+
 const Menu = styled.div`
   width: 100%;
   padding: 0.375rem 1.25rem;
@@ -155,15 +107,6 @@ const Menu = styled.div`
     background-color: ${(props) => props.theme.color.gray.light};
     font-weight: 700;
   }
-`;
-
-const Trash = styled(trashIcon)`
-  width: 100%;
-`;
-
-const Em = styled.span`
-  font-weight: 700;
-  color: ${(props) => props.theme.color.green};
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
