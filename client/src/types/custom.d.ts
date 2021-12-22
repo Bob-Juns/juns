@@ -20,6 +20,10 @@ type ErrorMessageResponse = {
   response: { data: { message: string } };
 };
 
+type ErrorResponse = {
+  response: { data: { message: string }; status: number };
+};
+
 type LoginInputs = {
   userEmail: string;
   userPassword: string;
@@ -58,3 +62,9 @@ type ChannelInputs = {
 interface ChannelMessages extends ChannelInputs {
   channelCover: string;
 }
+
+type PasswordState = {
+  userPassword: string;
+  newPassword: string;
+  recheck: string;
+};

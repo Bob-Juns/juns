@@ -21,6 +21,7 @@ interface Channel {
   allChannels: AllChannels;
   filteredChannels: AllChannels;
   searchedChannels: AllChannels;
+  intersection: AllChannels;
 }
 
 interface GetChannels extends Action {
@@ -40,6 +41,8 @@ interface GetFilteredChannels extends Action {
 
 type GetSearchedChannels = GetFilteredChannels;
 
+type GetChannelIntersection = Action;
+
 type ChannelAction =
   | GetChannels
   | GetChannel
@@ -47,4 +50,5 @@ type ChannelAction =
   | DeleteChannel
   | UpdateChannel
   | GetFilteredChannels
-  | GetSearchedChannels;
+  | GetSearchedChannels
+  | GetChannelIntersection;

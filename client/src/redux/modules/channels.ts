@@ -8,6 +8,7 @@ const DELETE_CHANNEL = 'delete_channel' as const;
 const UPDATE_CHANNEL = 'update_channel' as const;
 const GET_FILTERED_CHANNELS = 'get_filtered_channels' as const;
 const GET_SEARCHED_CHANNELS = 'get_searched_channels' as const;
+const GET_CHANNEL_INTERSECTION = 'get_channel_intersection' as const;
 
 const instance = axios.create({
   baseURL: '/api/channel',
@@ -81,6 +82,12 @@ export const getSearchedChannels = (payload: string) => {
   };
 };
 
+export const getChannelIntersection = () => {
+  return {
+    type: GET_CHANNEL_INTERSECTION,
+  };
+};
+
 const initialState: Channel = {
   currentChannel: {
     category: '',
@@ -97,6 +104,7 @@ const initialState: Channel = {
   allChannels: [],
   filteredChannels: [],
   searchedChannels: [],
+  intersection: [],
 };
 
 export const channelReducer = (state = initialState, action: ChannelAction) => {
@@ -143,6 +151,19 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
                   channel.channelId.match(action.payload.toString())
                 );
               }),
+      };
+
+    case GET_CHANNEL_INTERSECTION:
+      return {
+        ...state,
+        intersection:
+          state.filteredChannels.filter((channel: CurrentChannel) =>
+            state.searchedChannels.includes(channel),
+          ).length > 0
+            ? state.filteredChannels.filter((channel: CurrentChannel) =>
+                state.searchedChannels.includes(channel),
+              )
+            : state.filteredChannels,
       };
 
     default:
