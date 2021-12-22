@@ -1,10 +1,11 @@
-import React, { Dispatch } from 'react';
+import React, { Dispatch, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { actions } from 'store';
 
 import styled from 'styled-components';
+import settingIcon from '@assets/icons/setting.svg';
 
 import SideMenuList from '@components/Common/SideMenu/SideMenuList';
 import Logout from '@components/Common/SideMenu/Logout';
@@ -38,6 +39,13 @@ const SideMenu = ({
     });
   };
 
+  const onClickSetting = () => {
+    setIsMenuOpen(false);
+    setTimeout(() => {
+      navigate('/setting');
+    }, 300);
+  };
+
   return (
     <>
       <Background open={isMenuOpen} onClick={() => setIsMenuOpen(false)} />
@@ -45,8 +53,11 @@ const SideMenu = ({
         <Head>
           {users.currentUser.isAuth ? (
             <>
-              <Name>안녕하세요! {users.currentUser.userName}님 </Name>
-              <Email>{users.currentUser.userEmail}</Email>
+              <Setting onClick={onClickSetting} />
+              <Wrapper>
+                <Greeting>안녕하세요!</Greeting>
+                <Name>{users.currentUser.userName}</Name>
+              </Wrapper>
             </>
           ) : (
             <>
@@ -62,7 +73,7 @@ const SideMenu = ({
           )}
         </Head>
         <Body>
-          <SideMenuList />
+          <SideMenuList setIsMenuOpen={setIsMenuOpen} />
           {users.currentUser.isAuth && <Logout onClick={onClickLogout} />}
         </Body>
       </Container>
@@ -116,15 +127,45 @@ const Head = styled.div`
     rgba(127, 110, 251, 1) 100%
   );
 
+  position: relative;
+
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
-const Name = styled.div`
+const Setting = styled(settingIcon)`
+  width: 1.25rem;
+
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+
+  cursor: pointer;
+`;
+
+const Wrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+`;
+
+const Greeting = styled.div`
   font-size: 1rem;
   font-weight: 700;
+`;
+
+const Name = styled.div`
+  margin-top: 0.625rem;
+  font-size: 1rem;
+  font-weight: 700;
+  &: after {
+    content: ' 님';
+    font-size: 0.875rem;
+    font-weight: 700;
+  }
 `;
 
 const Email = styled.div`

@@ -4,11 +4,14 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'store';
 
+import styled from 'styled-components';
+
 import AccountWarning from '@components/Common/Account/AccountWarning';
 import AccountForm from '@components/Common/Account/AccountForm';
 import AccountInput from '@components/Common/Account/AccountInput';
 import AccountButton from '@components/Common/Account/AccountButton';
 import KakaoLogin from '@components/User/Login/KakaoLogin';
+import ResetPasswordModal from './ResetPasswordModal';
 
 import { isEmailFormat } from '@utils/formatCheck';
 import { toast } from 'react-toastify';
@@ -29,6 +32,8 @@ const LoginForm = ({ login }: Props) => {
     common: '',
   });
 
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -36,6 +41,8 @@ const LoginForm = ({ login }: Props) => {
   useEffect(() => {
     emailRef.current?.focus();
   }, []);
+
+  const onClickSendEmail = () => {};
 
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
@@ -120,40 +127,63 @@ const LoginForm = ({ login }: Props) => {
   };
 
   return (
-    <AccountForm
-      ask="회원이 아니신가요?"
-      link="회원가입"
-      onClickLink={() => navigate('/register')}
-      onSubmitForm={onSubmitForm}
-    >
-      {messages.common !== '' && <AccountWarning message={messages.common} />}
-      <AccountInput
-        message={messages.userEmail}
-        type="email"
-        id="userEmail"
-        mode="email"
-        refs={emailRef}
-        value={inputs.userEmail}
-        placeholder="이메일을 입력하세요."
-        onChange={onChangeInputs}
-        label="이메일"
+    <>
+      <AccountForm
+        ask="회원이 아니신가요?"
+        link="회원가입"
+        onClickLink={() => navigate('/register')}
+        onSubmitForm={onSubmitForm}
+      >
+        {messages.common !== '' && <AccountWarning message={messages.common} />}
+        <AccountInput
+          message={messages.userEmail}
+          type="email"
+          id="userEmail"
+          mode="email"
+          refs={emailRef}
+          value={inputs.userEmail}
+          placeholder="이메일을 입력하세요."
+          onChange={onChangeInputs}
+          label="이메일"
+        />
+        <AccountInput
+          message={messages.userPassword}
+          type="password"
+          id="userPassword"
+          refs={passwordRef}
+          value={inputs.userPassword}
+          placeholder="비밀번호를 입력하세요."
+          onChange={onChangeInputs}
+          label="비밀번호"
+        />
+        <FindPassword onClick={() => setIsModalOpen(true)}>
+          비밀번호 찾기
+        </FindPassword>
+        <AccountButton type="submit" onClick={onSubmitForm} text="로그인" />
+        <KakaoLogin messages={messages} setMessages={setMessages} />
+      </AccountForm>
+      <ResetPasswordModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
       />
-      <AccountInput
-        message={messages.userPassword}
-        type="password"
-        id="userPassword"
-        refs={passwordRef}
-        value={inputs.userPassword}
-        placeholder="비밀번호를 입력하세요."
-        onChange={onChangeInputs}
-        label="비밀번호"
-      />
-
-      <AccountButton type="submit" onClick={onSubmitForm} text="로그인" />
-      <KakaoLogin messages={messages} setMessages={setMessages} />
-    </AccountForm>
+    </>
   );
 };
+
+const FindPassword = styled.div`
+  width: fit-content;
+  margin-left: auto;
+
+  font-size: 0.75rem;
+
+  color: ${(props) => props.theme.color.gray.base};
+
+  cursor: pointer;
+
+  &: hover {
+    font-weight: 700;
+  }
+`;
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
   login: (loginData: LoginData) => dispatch(actions.login(loginData)),

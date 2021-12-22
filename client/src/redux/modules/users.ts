@@ -13,6 +13,9 @@ const AUTHORITY = 'authority' as const;
 const GET_FILTERED_USERS = 'get_filtered_users' as const;
 const GET_SEARCHED_USERS = 'get_searched_users' as const;
 const UPDATE_PASSWORD = 'update_password' as const;
+const UPDATE_PROFILE = 'update_profile' as const;
+const RESET_PASSWORD = 'reset_password' as const;
+const WITHDRAW = 'withdraw' as const;
 
 const instance = axios.create({
   baseURL: '/api/user',
@@ -136,6 +139,37 @@ export const updatePassword = (userPassword: string, newPassword: string) => {
   };
 };
 
+export const updateProfile = (userName: string) => {
+  const payload = axiosRequest(instance, 'put', '/update-profile', {
+    userName,
+  });
+
+  return {
+    type: UPDATE_PROFILE,
+    payload,
+  };
+};
+
+export const resetPassword = (userEmail: string) => {
+  const payload = axiosRequest(instance, 'post', '/reset-password', {
+    userEmail,
+  });
+
+  return {
+    type: RESET_PASSWORD,
+    payload,
+  };
+};
+
+export const withdraw = () => {
+  const payload = axiosRequest(instance, 'delete', '/withdraw');
+
+  return {
+    type: WITHDRAW,
+    payload,
+  };
+};
+
 const initialState: User = {
   currentUser: {
     userName: '',
@@ -172,6 +206,10 @@ export const userReducer = (state = initialState, action: UserAction) => {
     case LINK_KAKAO:
     case AUTHORITY:
     case DELETE:
+    case UPDATE_PASSWORD:
+    case UPDATE_PROFILE:
+    case RESET_PASSWORD:
+    case WITHDRAW:
       return { ...state };
 
     case LOGOUT:
