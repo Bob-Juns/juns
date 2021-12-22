@@ -7,7 +7,9 @@ type Props = {
   title: string;
   icon: React.ReactNode;
   onClickCancel: () => void;
-  onClickConfirm: () => void;
+  onClickConfirm: (
+    event: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
+  ) => void;
   children: React.ReactNode;
 };
 
@@ -61,7 +63,7 @@ const Background = styled.div<{ open: boolean }>`
 
 const Container = styled.div<{ open: boolean }>`
   width: 300px;
-  height: 260px;
+  min-height: 260px;
   padding: 2rem 1rem 1rem;
 
   background-color: #fff;
