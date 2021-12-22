@@ -6,13 +6,17 @@ import chevronIcon from '@assets/icons/chevron.svg';
 type Props = {
   title: string;
   path: string;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SideMenuItem = ({ title, path }: Props) => {
+const SideMenuItem = ({ title, path, setIsMenuOpen }: Props) => {
   const navigate = useNavigate();
 
   const onClickMenu = () => {
-    navigate(path);
+    setIsMenuOpen(false);
+    setTimeout(() => {
+      navigate(path);
+    }, 300);
   };
 
   return (
