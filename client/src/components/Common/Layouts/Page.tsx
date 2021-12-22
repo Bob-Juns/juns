@@ -24,7 +24,7 @@ const Body = styled.div<{ dashboard: boolean }>`
       ? `
     min-height: calc(100vh - 6.75rem);
     min-height: calc(var(--vh, 1vh) * 100 - 6.75rem);
-    margin-top: 6.75rem;
+    margin-top: 3.75rem;
     background-color: ${props.theme.color.gray.light};
   `
       : `

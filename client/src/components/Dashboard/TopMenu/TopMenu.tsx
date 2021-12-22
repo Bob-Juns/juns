@@ -30,17 +30,19 @@ const Container = styled.div`
   height: 3rem;
 
   padding: 0 3rem;
+  background-color: #fff;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  position: absolute;
+  position: sticky;
   top: 3.75rem;
-  left: 50%;
+  left: 0;
 
-  transform: translateX(-50%);
   border-bottom: 1px solid ${(props) => props.theme.color.yellow};
+
+  z-index: 98;
 `;
 
 const mapStateToProps = (state: {
