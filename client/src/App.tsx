@@ -10,6 +10,7 @@ import Register from '@pages/User/Register/Register';
 import Dashboard from '@pages/Dashboard/Dashboard';
 import ChannelCreate from '@pages/Dashboard/ChannelCreate';
 import ChannelUpdate from '@pages/Dashboard/ChannelUpdate';
+import Setting from '@pages/User/Setting/Setting';
 
 import Toast from '@components/Toast/Toast';
 
@@ -45,9 +46,11 @@ const App = () => {
           <Route path="/channel-create" element={<PrivateRoute adminOnly />}>
             <Route path="/channel-create" element={<ChannelCreate />} />
           </Route>
-
           <Route path="/channel-update" element={<PrivateRoute adminOnly />}>
             <Route path=":_channelId" element={<ChannelUpdate />} />
+          </Route>
+          <Route path="/setting" element={<PrivateRoute />}>
+            <Route path="/setting" element={<Setting />} />
           </Route>
         </Routes>
       </Router>
