@@ -27,16 +27,18 @@ const Dashboard = ({
   }, []);
 
   return (
-    <Page dashboard>
+    <>
       <TopMenu />
-      {dashboardMenu.currentDashboardMenu === '유저' ? (
-        <User />
-      ) : dashboardMenu.currentDashboardMenu === '채널' ? (
-        <Channel />
-      ) : (
-        <Main />
-      )}
-    </Page>
+      <Page dashboard>
+        {dashboardMenu.currentDashboardMenu === '유저' ? (
+          <User />
+        ) : dashboardMenu.currentDashboardMenu === '채널' ? (
+          <Channel />
+        ) : (
+          <Main />
+        )}
+      </Page>
+    </>
   );
 };
 
