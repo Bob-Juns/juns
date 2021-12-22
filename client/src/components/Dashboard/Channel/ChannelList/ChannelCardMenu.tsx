@@ -10,6 +10,7 @@ import styled from 'styled-components';
 import trashIcon from '@assets/icons/trash.svg';
 
 import { toast } from 'react-toastify';
+import ChannelDeleteModal from './ChannelDeleteModal';
 
 type Props = {
   open: boolean;
@@ -40,21 +41,6 @@ const ChannelCardMenu = ({
     setIsModalOpen(true);
   };
 
-  const onClickCancelModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const onClickDelete = () => {
-    setIsModalOpen(false);
-    deleteChannel(channelId)
-      .then((response: MessageResponse) => {
-        getChannels();
-        toast.success(response.payload.message);
-      })
-      .catch((error: ErrorMessageResponse) =>
-        toast.warning(error.response.data.message),
-      );
-  };
   return (
     <>
       <Container open={open}>
@@ -67,16 +53,10 @@ const ChannelCardMenu = ({
           </Menu>
         ))}
       </Container>
-      <Modal
-        open={isModalOpen}
-        icon={<Trash />}
-        title="채널이 삭제됩니다."
-        onClickCancel={onClickCancelModal}
-        onClickConfirm={onClickDelete}
-      >
-        <Em>[{channels.currentChannel.channelTitle}]</Em>이/가 영구적으로
-        삭제됩니다. 삭제 하시겠습니까?
-      </Modal>
+      <ChannelDeleteModal
+        isModalOpen={isModalOpen}
+        setIsModalOpen={setIsModalOpen}
+      />
     </>
   );
 };

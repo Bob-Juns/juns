@@ -1,4 +1,4 @@
-import React, { Dispatch, useState, useEffect } from 'react';
+import React, { Dispatch, useState } from 'react';
 
 import { connect } from 'react-redux';
 import { actions } from 'store';
@@ -7,35 +7,13 @@ import styled from 'styled-components';
 import searchIcon from '@assets/icons/search.svg';
 
 type Props = {
-  categoryMenu: CategoryMenu;
   getSearchedChannels: (payload: string) => any;
-  intersection: AllChannels;
-  setMessage: React.Dispatch<React.SetStateAction<string>>;
 };
 
-const ChannelSearch = ({
-  categoryMenu,
-  getSearchedChannels,
-  intersection,
-  setMessage,
-}: Props) => {
+const ChannelSearch = ({ getSearchedChannels }: Props) => {
   const [input, setInput] = useState('');
 
-  useEffect(() => {
-    if (intersection.length < 1) {
-      setMessage('일치하는 채널이 없습니다.');
-    } else {
-      setMessage('');
-    }
-    getSearchedChannels(input);
-  }, [categoryMenu.currentCategoryMenu]);
-
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.currentTarget.value.length > 0 && intersection.length < 1) {
-      setMessage('일치하는 채널이 없습니다.');
-    } else {
-      setMessage('');
-    }
     getSearchedChannels(event.currentTarget.value.toLowerCase());
     setInput(event.currentTarget.value);
   };
@@ -102,13 +80,9 @@ const Input = styled.input`
   }
 `;
 
-const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
-  categoryMenu: state.menus.categoryMenu,
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<ChannelAction>) => ({
   getSearchedChannels: (payload: string) =>
     dispatch(actions.getSearchedChannels(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelSearch);
+export default connect(null, mapDispatchToProps)(ChannelSearch);

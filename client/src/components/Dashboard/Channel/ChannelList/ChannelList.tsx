@@ -7,11 +7,9 @@ import ChannelCard from '@components/Dashboard/Channel/ChannelList/ChannelCard';
 
 type Props = {
   channels: Channel;
-  intersection: AllChannels;
-  message: string;
 };
 
-const ChannelList = ({ channels, intersection, message }: Props) => {
+const ChannelList = ({ channels }: Props) => {
   const LIMIT = 5;
   const [more, setMore] = useState<number>(LIMIT);
 
@@ -25,35 +23,38 @@ const ChannelList = ({ channels, intersection, message }: Props) => {
 
   return (
     <Container>
-      {intersection.length > 0 ? (
-        intersection
-          .slice(0, more)
-          .map((channel: CurrentChannel) => (
-            <ChannelCard
-              key={channel.channelId}
-              category={channel.category}
-              channelTitle={channel.channelTitle}
-              channelId={channel.channelId}
-            />
-          ))
-      ) : message !== '' ? (
-        <Empty>{message}</Empty>
-      ) : (
-        channels.filteredChannels.map((channel: CurrentChannel) => (
-          <ChannelCard
-            key={channel.channelId}
-            category={channel.category}
-            channelTitle={channel.channelTitle}
-            channelId={channel.channelId}
-          />
-        ))
-      )}
-      {intersection.length > LIMIT && (
+      {channels.intersection.length > 0
+        ? channels.intersection
+            .slice(0, more)
+            .map((channel: CurrentChannel) => (
+              <ChannelCard
+                key={channel.channelId}
+                category={channel.category}
+                channelTitle={channel.channelTitle}
+                channelId={channel.channelId}
+              />
+            ))
+        : channels.filteredChannels.length > 0 &&
+          channels.filteredChannels
+            .slice(0, more)
+            .map((channel: CurrentChannel) => (
+              <ChannelCard
+                key={channel.channelId}
+                category={channel.category}
+                channelTitle={channel.channelTitle}
+                channelId={channel.channelId}
+              />
+            ))}
+      {channels.intersection.length > LIMIT && (
         <Wrapper
-          onClick={intersection.length >= more ? onClickShowMore : onClickFold}
+          onClick={
+            channels.intersection.length >= more ? onClickShowMore : onClickFold
+          }
         >
-          <Text>{intersection.length >= more ? '더보기' : '접기'}</Text>
-          <Chevron rotate={intersection.length >= more ? 1 : 0} />
+          <Text>
+            {channels.intersection.length >= more ? '더보기' : '접기'}
+          </Text>
+          <Chevron rotate={channels.intersection.length >= more ? 1 : 0} />
         </Wrapper>
       )}
     </Container>
