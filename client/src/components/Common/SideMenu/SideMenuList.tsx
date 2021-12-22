@@ -7,15 +7,23 @@ import SideMenuItem from '@components/Common/SideMenu/SideMenuItem';
 
 type Props = {
   users: User;
+  setIsMenuOpen: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
-const SideMenuList = ({ users }: Props) => {
+const SideMenuList = ({ users, setIsMenuOpen }: Props) => {
+  const onClickMenuItem = () => {
+    setIsMenuOpen(false);
+  };
   return (
     <Container>
-      <SideMenuItem title="메뉴 1" path="/" />
-      <SideMenuItem title="메뉴 2" path="/" />
+      <SideMenuItem title="메뉴 1" path="/" setIsMenuOpen={setIsMenuOpen} />
+      <SideMenuItem title="메뉴 2" path="/" setIsMenuOpen={setIsMenuOpen} />
       {users.currentUser.isAdmin && (
-        <SideMenuItem title="관리" path="/dashboard" />
+        <SideMenuItem
+          title="관리"
+          path="/dashboard"
+          setIsMenuOpen={setIsMenuOpen}
+        />
       )}
     </Container>
   );
