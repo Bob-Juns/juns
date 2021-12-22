@@ -15,6 +15,10 @@ import {
   updateAuthority,
   getFilteredUsers,
   getSearchedUsers,
+  updatePassword,
+  updateProfile,
+  resetPassword,
+  withdraw,
 } from './modules/users';
 
 import {
@@ -26,6 +30,7 @@ import {
   updateChannel,
   getFilteredChannels,
   getSearchedChannels,
+  getChannelIntersection,
 } from './modules/channels';
 
 import {
@@ -56,6 +61,10 @@ export const actions = {
   updateAuthority,
   getFilteredUsers,
   getSearchedUsers,
+  updatePassword,
+  updateProfile,
+  resetPassword,
+  withdraw,
 
   //channels
   getChannels,
@@ -65,6 +74,7 @@ export const actions = {
   updateChannel,
   getFilteredChannels,
   getSearchedChannels,
+  getChannelIntersection,
 
   // menus
   selectDashboardMenu,
