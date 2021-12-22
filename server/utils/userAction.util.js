@@ -24,10 +24,6 @@ const register = async (
 		userPassword: hashedPassword,
 		registerWith,
 	}).save();
-
-	if (registerWith === 'kakao') {
-		login(res);
-	}
 };
 
 module.exports = { register, login };
