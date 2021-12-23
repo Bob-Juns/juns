@@ -11,8 +11,4 @@ interface UploadCover extends Action {
   payload: Promise<Cover>;
 }
 
-type DeleteCover = Action;
-type GetCover = Action;
-type ResetCover = Action;
-
-type FileAction = UploadCover | DeleteCover | GetCover | ResetCover;
+type FileAction = UploadCover | Action;

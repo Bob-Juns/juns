@@ -20,8 +20,6 @@ interface Channel {
   currentChannel: CurrentChannel;
   allChannels: AllChannels;
   filteredChannels: AllChannels;
-  searchedChannels: AllChannels;
-  intersection: AllChannels;
 }
 
 interface GetChannels extends Action {
@@ -32,23 +30,8 @@ interface GetChannel extends Action {
   payload: Promise<CurrentChannel>;
 }
 
-type CreateChannel = MessageAction;
-type DeleteChannel = MessageAction;
-type UpdateChannel = MessageAction;
 interface GetFilteredChannels extends Action {
-  payload: string | boolean;
+  payload: FilterState;
 }
 
-type GetSearchedChannels = GetFilteredChannels;
-
-type GetChannelIntersection = Action;
-
-type ChannelAction =
-  | GetChannels
-  | GetChannel
-  | CreateChannel
-  | DeleteChannel
-  | UpdateChannel
-  | GetFilteredChannels
-  | GetSearchedChannels
-  | GetChannelIntersection;
+type ChannelAction = GetChannels | GetChannel | MessageAction | Action;

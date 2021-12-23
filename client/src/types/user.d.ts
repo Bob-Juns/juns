@@ -14,7 +14,6 @@ interface User {
   currentUser: CurrentUser;
   allUsers: AllUsers;
   filteredUsers: AllUsers;
-  searchedUsers: AllUsers;
 }
 
 interface GetUsers extends Action {
@@ -31,7 +30,7 @@ interface GetFilteredUsers extends Action {
 
 type GetSearchedUsers = GetFilteredUsers;
 
-type UserAction = GetUsers | CheckAuth | GetFilteredUsers | GetSearchedUsers;
+type UserAction = GetUsers | CheckAuth | Action;
 
 type LoginData = {
   userEmail: string;

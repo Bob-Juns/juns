@@ -68,3 +68,8 @@ type PasswordState = {
   newPassword: string;
   recheck: string;
 };
+
+type FilterState = {
+  query: string;
+  filter: string | boolean;
+};
