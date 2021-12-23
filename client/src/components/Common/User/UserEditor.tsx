@@ -44,17 +44,21 @@ const Container = styled.div`
   border-radius: 0.375rem;
 
   box-shadow: ${(props) => props.theme.boxShadow.primary};
+  overflow: hidden;
 `;
 
 const Header = styled.div`
   width: 100%;
+
   display: flex;
   justify-content: space-between;
+  align-items: center;
 
   cursor: pointer;
 `;
 
 const Title = styled.div`
+  height: 0, 875rem;
   font-size: 0.875rem;
   font-weight: 700;
   color: ${(props) => props.theme.color.purple};
@@ -62,6 +66,7 @@ const Title = styled.div`
 
 const Chevron = styled(chevronIcon)<{ open: boolean }>`
   width: 0.875rem;
+  height: 0.875rem;
   color: ${(props) => props.theme.color.purple};
   transform: ${(props) => (props.open ? 'rotate(0)' : 'rotate(180deg)')};
   transition: transform 0.3s linear;
@@ -69,10 +74,7 @@ const Chevron = styled(chevronIcon)<{ open: boolean }>`
 
 const Form = styled.form<{ open: boolean }>`
   width: 100%;
-  height: ${(props) => (props.open ? 'auto' : '0')};
-  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
-
-  display: flex;
+  display: ${(props) => (props.open ? 'flex' : 'none')};
   flex-direction: column;
 `;
 
