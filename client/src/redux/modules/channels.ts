@@ -114,7 +114,7 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
       return {
         ...state,
         filteredChannels:
-          action.payload.filter === '권한'
+          action.payload.filter === '카테고리'
             ? state.allChannels.filter((channel: CurrentChannel) => {
                 return (
                   (channel.channelTitle.match(
