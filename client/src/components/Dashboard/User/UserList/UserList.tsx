@@ -8,11 +8,9 @@ import UserCard from './UserCard';
 
 type Props = {
   users: User;
-  intersection: AllUsers;
-  message: string;
 };
 
-const UserList = ({ users, intersection, message }: Props) => {
+const UserList = ({ users }: Props) => {
   const LIMIT = 5;
   const [more, setMore] = useState<number>(LIMIT);
 
@@ -26,25 +24,23 @@ const UserList = ({ users, intersection, message }: Props) => {
 
   return (
     <Container>
-      {intersection.length > 0 ? (
-        intersection
+      {users.filteredUsers.length > 0 ? (
+        users.filteredUsers
           .slice(0, more)
           .map((user: CurrentUser) => (
             <UserCard key={user.userEmail} user={user} />
           ))
-      ) : message !== '' ? (
-        <Empty>{message}</Empty>
       ) : (
-        users.filteredUsers.map((user: CurrentUser) => (
-          <UserCard key={user.userEmail} user={user} />
-        ))
+        <Empty>일치하는 유저가 없습니다.</Empty>
       )}
-      {intersection.length > LIMIT && (
+      {users.filteredUsers.length > LIMIT && (
         <Wrapper
-          onClick={intersection.length >= more ? onClickShowMore : onClickFold}
+          onClick={
+            users.filteredUsers.length >= more ? onClickShowMore : onClickFold
+          }
         >
-          <Text>{intersection.length >= more ? '더보기' : '접기'}</Text>
-          <Chevron rotate={intersection.length >= more ? 1 : 0} />
+          <Text>{users.filteredUsers.length >= more ? '더보기' : '접기'}</Text>
+          <Chevron rotate={users.filteredUsers.length >= more ? 1 : 0} />
         </Wrapper>
       )}
     </Container>

@@ -7,8 +7,6 @@ const CREATE_CHANNEL = 'create_channel' as const;
 const DELETE_CHANNEL = 'delete_channel' as const;
 const UPDATE_CHANNEL = 'update_channel' as const;
 const GET_FILTERED_CHANNELS = 'get_filtered_channels' as const;
-const GET_SEARCHED_CHANNELS = 'get_searched_channels' as const;
-const GET_CHANNEL_INTERSECTION = 'get_channel_intersection' as const;
 
 const instance = axios.create({
   baseURL: '/api/channel',
@@ -68,23 +66,10 @@ export const deleteChannel = (channelId: string) => {
   };
 };
 
-export const getFilteredChannels = (payload: string) => {
+export const getFilteredChannels = (payload: FilterState) => {
   return {
     type: GET_FILTERED_CHANNELS,
     payload,
-  };
-};
-
-export const getSearchedChannels = (payload: string) => {
-  return {
-    type: GET_SEARCHED_CHANNELS,
-    payload,
-  };
-};
-
-export const getChannelIntersection = () => {
-  return {
-    type: GET_CHANNEL_INTERSECTION,
   };
 };
 
@@ -103,8 +88,6 @@ const initialState: Channel = {
   },
   allChannels: [],
   filteredChannels: [],
-  searchedChannels: [],
-  intersection: [],
 };
 
 export const channelReducer = (state = initialState, action: ChannelAction) => {
@@ -131,39 +114,29 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
       return {
         ...state,
         filteredChannels:
-          action.payload === '전체'
-            ? state.allChannels
-            : state.allChannels.filter(
-                (channel: CurrentChannel) =>
-                  channel.category === action.payload,
-              ),
-      };
-
-    case GET_SEARCHED_CHANNELS:
-      return {
-        ...state,
-        searchedChannels:
-          action.payload == ''
-            ? state.allChannels
-            : state.allChannels.filter((channel: CurrentChannel) => {
+          action.payload.filter === '권한'
+            ? state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  channel.channelTitle.match(action.payload.toString()) ||
-                  channel.channelId.match(action.payload.toString())
+                  (channel.channelTitle.match(
+                    action.payload.query.toString(),
+                  ) ||
+                    channel.channelId.match(action.payload.query.toString())) &&
+                  (channel.channelTitle.match(
+                    action.payload.query.toString(),
+                  ) ||
+                    channel.channelId.match(action.payload.query.toString()))
                 );
-              }),
-      };
-
-    case GET_CHANNEL_INTERSECTION:
-      return {
-        ...state,
-        intersection:
-          state.filteredChannels.filter((channel: CurrentChannel) =>
-            state.searchedChannels.includes(channel),
-          ).length > 0
-            ? state.filteredChannels.filter((channel: CurrentChannel) =>
-                state.searchedChannels.includes(channel),
-              )
-            : state.filteredChannels,
+              })
+            : state.allChannels
+                .filter(
+                  (channel: CurrentChannel) =>
+                    channel.category === action.payload.filter,
+                )
+                .filter((channel: CurrentChannel) => {
+                  return channel.channelTitle.match(
+                    action.payload.query.toString(),
+                  );
+                }),
       };
 
     default:

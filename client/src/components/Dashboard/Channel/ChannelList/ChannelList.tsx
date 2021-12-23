@@ -23,38 +23,32 @@ const ChannelList = ({ channels }: Props) => {
 
   return (
     <Container>
-      {channels.intersection.length > 0
-        ? channels.intersection
-            .slice(0, more)
-            .map((channel: CurrentChannel) => (
-              <ChannelCard
-                key={channel.channelId}
-                category={channel.category}
-                channelTitle={channel.channelTitle}
-                channelId={channel.channelId}
-              />
-            ))
-        : channels.filteredChannels.length > 0 &&
-          channels.filteredChannels
-            .slice(0, more)
-            .map((channel: CurrentChannel) => (
-              <ChannelCard
-                key={channel.channelId}
-                category={channel.category}
-                channelTitle={channel.channelTitle}
-                channelId={channel.channelId}
-              />
-            ))}
-      {channels.intersection.length > LIMIT && (
+      {channels.filteredChannels.length > 0 ? (
+        channels.filteredChannels
+          .slice(0, more)
+          .map((channel: CurrentChannel) => (
+            <ChannelCard
+              key={channel.channelId}
+              category={channel.category}
+              channelTitle={channel.channelTitle}
+              channelId={channel.channelId}
+            />
+          ))
+      ) : (
+        <Empty>일치하는 채널이 없습니다.</Empty>
+      )}
+      {channels.filteredChannels.length > LIMIT && (
         <Wrapper
           onClick={
-            channels.intersection.length >= more ? onClickShowMore : onClickFold
+            channels.filteredChannels.length >= more
+              ? onClickShowMore
+              : onClickFold
           }
         >
           <Text>
-            {channels.intersection.length >= more ? '더보기' : '접기'}
+            {channels.filteredChannels.length >= more ? '더보기' : '접기'}
           </Text>
-          <Chevron rotate={channels.intersection.length >= more ? 1 : 0} />
+          <Chevron rotate={channels.filteredChannels.length >= more ? 1 : 0} />
         </Wrapper>
       )}
     </Container>

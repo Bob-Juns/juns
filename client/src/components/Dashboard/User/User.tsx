@@ -1,28 +1,15 @@
-import React, { useState } from 'react';
-
-import { connect } from 'react-redux';
-import { actions } from 'store';
+import React from 'react';
 
 import styled from 'styled-components';
 
 import UserFilter from './UserFilter/UserFilter';
 import UserList from './UserList/UserList';
 
-type Props = {
-  users: User;
-};
-
-const User = ({ users }: Props) => {
-  const [message, setMessage] = useState<string>('');
-
-  const intersection = users.filteredUsers.filter((user: CurrentUser) =>
-    users.searchedUsers.includes(user),
-  );
-
+const User = () => {
   return (
     <Container>
-      <UserFilter intersection={intersection} setMessage={setMessage} />
-      <UserList intersection={intersection} message={message} />
+      <UserFilter />
+      <UserList />
     </Container>
   );
 };
@@ -32,8 +19,4 @@ const Container = styled.div`
   height: 100%;
 `;
 
-const mapStateToProps = (state: { users: User }) => ({
-  users: state.users,
-});
-
-export default connect(mapStateToProps)(User);
+export default User;

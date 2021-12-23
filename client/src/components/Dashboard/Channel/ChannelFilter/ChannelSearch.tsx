@@ -1,23 +1,14 @@
-import React, { Dispatch, useState } from 'react';
-
-import { connect } from 'react-redux';
-import { actions } from 'store';
+import React from 'react';
 
 import styled from 'styled-components';
 import searchIcon from '@assets/icons/search.svg';
 
 type Props = {
-  getSearchedChannels: (payload: string) => any;
+  input: string;
+  onChangeInput: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
 
-const ChannelSearch = ({ getSearchedChannels }: Props) => {
-  const [input, setInput] = useState('');
-
-  const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    getSearchedChannels(event.currentTarget.value.toLowerCase());
-    setInput(event.currentTarget.value);
-  };
-
+const ChannelSearch = ({ input, onChangeInput }: Props) => {
   return (
     <Container>
       <Wrapper>
@@ -80,9 +71,4 @@ const Input = styled.input`
   }
 `;
 
-const mapDispatchToProps = (dispatch: Dispatch<ChannelAction>) => ({
-  getSearchedChannels: (payload: string) =>
-    dispatch(actions.getSearchedChannels(payload)),
-});
-
-export default connect(null, mapDispatchToProps)(ChannelSearch);
+export default ChannelSearch;

@@ -1,32 +1,23 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'store';
 
 import styled from 'styled-components';
 
 type Props = {
   open: boolean;
   authorityMenu: AuthorityMenu;
-  selectAuthorityMenu: (payload: CurrentAuthorityMenu) => void;
-  getFilteredUsers: (payload: string | boolean) => any;
+  onSelectAuthority: (filter: string) => void;
 };
 
 const UserDropdownMenu = ({
   open,
   authorityMenu,
-  selectAuthorityMenu,
-  getFilteredUsers,
+  onSelectAuthority,
 }: Props) => {
-  const onClickAuthorityMenu = (menu: string) => {
-    selectAuthorityMenu(menu);
-    getFilteredUsers(
-      menu === '관리자' ? true : menu === '일반' ? false : '전체',
-    );
-  };
   return (
     <Container open={open}>
       {authorityMenu.allAuthorityMenus.map((menu: string) => (
-        <Menu key={menu} onClick={() => onClickAuthorityMenu(menu)}>
+        <Menu key={menu} onClick={() => onSelectAuthority(menu)}>
           {menu}
         </Menu>
       ))}
@@ -90,11 +81,4 @@ const mapStateToProps = (state: {
   authorityMenu: state.menus.authorityMenu,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<UserAction | MenuAction>) => ({
-  selectAuthorityMenu: (payload: CurrentAuthorityMenu) =>
-    dispatch(actions.selectAuthorityMenu(payload)),
-  getFilteredUsers: (payload: string | boolean) =>
-    dispatch(actions.getFilteredUsers(payload)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(UserDropdownMenu);
+export default connect(mapStateToProps)(UserDropdownMenu);

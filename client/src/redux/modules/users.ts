@@ -10,8 +10,9 @@ const REGISTER = 'register' as const;
 const LINK_KAKAO = 'link_kakao' as const;
 const DELETE = 'delete' as const;
 const AUTHORITY = 'authority' as const;
-const GET_FILTERED_USERS = 'get_filtered_users' as const;
+const GET_FILTERED_USER = 'get_filtered_user' as const;
 const GET_SEARCHED_USERS = 'get_searched_users' as const;
+const GET_FILTERED_USERS = 'get_filtered_users' as const;
 const UPDATE_PASSWORD = 'update_password' as const;
 const UPDATE_PROFILE = 'update_profile' as const;
 const RESET_PASSWORD = 'reset_password' as const;
@@ -113,16 +114,9 @@ export const deleteUser = (userEmail: string) => {
   };
 };
 
-export const getFilteredUsers = (payload: string | boolean) => {
+export const getFilteredUsers = (payload: FilterState) => {
   return {
     type: GET_FILTERED_USERS,
-    payload,
-  };
-};
-
-export const getSearchedUsers = (payload: string) => {
-  return {
-    type: GET_SEARCHED_USERS,
     payload,
   };
 };
@@ -182,7 +176,6 @@ const initialState: User = {
   },
   allUsers: [],
   filteredUsers: [],
-  searchedUsers: [],
 };
 
 export const userReducer = (state = initialState, action: UserAction) => {
@@ -222,26 +215,28 @@ export const userReducer = (state = initialState, action: UserAction) => {
       return {
         ...state,
         filteredUsers:
-          action.payload === '전체'
-            ? state.allUsers
-            : state.allUsers.filter(
-                (user: CurrentUser) => user.isAdmin === action.payload,
-              ),
-      };
-
-    case GET_SEARCHED_USERS:
-      return {
-        ...state,
-        searchedUsers:
-          action.payload === ''
-            ? state.allUsers
-            : state.allUsers.filter((user: CurrentUser) => {
+          action.payload.filter === '권한'
+            ? state.allUsers.filter((user: CurrentUser) => {
                 return (
-                  user.userName.match(action.payload.toString()) ||
-                  user.userId.match(action.payload.toString()) ||
-                  user.userEmail.match(action.payload.toString())
+                  (user.userName.match(action.payload.query.toString()) ||
+                    user.userId.match(action.payload.query.toString()) ||
+                    user.userEmail.match(action.payload.query.toString())) &&
+                  (user.userName.match(action.payload.query.toString()) ||
+                    user.userId.match(action.payload.query.toString()) ||
+                    user.userEmail.match(action.payload.query.toString()))
                 );
-              }),
+              })
+            : state.allUsers
+                .filter(
+                  (user: CurrentUser) => user.isAdmin === action.payload.filter,
+                )
+                .filter((user: CurrentUser) => {
+                  return (
+                    user.userName.match(action.payload.query.toString()) ||
+                    user.userId.match(action.payload.query.toString()) ||
+                    user.userEmail.match(action.payload.query.toString())
+                  );
+                }),
       };
 
     default:

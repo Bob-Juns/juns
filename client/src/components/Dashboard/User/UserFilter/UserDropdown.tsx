@@ -9,9 +9,10 @@ import chevronIcon from '@assets/icons/chevron.svg';
 
 type Props = {
   authorityMenu: AuthorityMenu;
+  onSelectAuthority: (filter: string) => void;
 };
 
-const UserDropdown = ({ authorityMenu }: Props) => {
+const UserDropdown = ({ authorityMenu, onSelectAuthority }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
 
   const focusRef = useRef<HTMLDivElement>(null);
@@ -34,7 +35,10 @@ const UserDropdown = ({ authorityMenu }: Props) => {
       onClick={() => setIsDropdownOpen((prev) => !prev)}
       ref={focusRef}
     >
-      <UserDropdownMenu open={isDropdownOpen} />
+      <UserDropdownMenu
+        open={isDropdownOpen}
+        onSelectAuthority={onSelectAuthority}
+      />
       <Selected>{authorityMenu.currentAuthorityMenu}</Selected>
       <Chevron open={isDropdownOpen} />
     </Container>

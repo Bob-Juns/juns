@@ -7,10 +7,12 @@ import ChannelDropdownMenu from './ChannelDropdownMenu';
 
 type Props = {
   categoryMenu: CategoryMenu;
+  onSelectCategory: (filter: string) => void;
 };
 
-const ChannelDropdown = ({ categoryMenu }: Props) => {
+const ChannelDropdown = ({ categoryMenu, onSelectCategory }: Props) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+
   const focusRef = useRef<HTMLDivElement>(null);
 
   const onClickOutside = (event: any) => {
@@ -31,7 +33,10 @@ const ChannelDropdown = ({ categoryMenu }: Props) => {
       onClick={() => setIsDropdownOpen((prev) => !prev)}
       ref={focusRef}
     >
-      <ChannelDropdownMenu open={isDropdownOpen} />
+      <ChannelDropdownMenu
+        open={isDropdownOpen}
+        onSelectCategory={onSelectCategory}
+      />
       <Selected>{categoryMenu.currentCategoryMenu}</Selected>
       <Chevron open={isDropdownOpen} />
     </Container>

@@ -1,31 +1,23 @@
-import React, { Dispatch } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { actions } from 'store';
 
 import styled from 'styled-components';
 
 type Props = {
   open: boolean;
   categoryMenu: CategoryMenu;
-  selectCategoryMenu: (payload: CurrentCategoryMenu) => void;
-  getFilteredChannels: (payload: string) => void;
+  onSelectCategory: (filter: string) => void;
 };
 
 const ChannelDropdownMenu = ({
   open,
   categoryMenu,
-  selectCategoryMenu,
-  getFilteredChannels,
+  onSelectCategory,
 }: Props) => {
-  const onClickCategoryMenu = (menu: string) => {
-    selectCategoryMenu(menu);
-    getFilteredChannels(menu);
-  };
-
   return (
     <Container open={open}>
       {categoryMenu.allCategoryMenus.map((menu: string) => (
-        <Menu key={menu} onClick={() => onClickCategoryMenu(menu)}>
+        <Menu key={menu} onClick={() => onSelectCategory(menu)}>
           {menu}
         </Menu>
       ))}
@@ -87,16 +79,4 @@ const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({
   categoryMenu: state.menus.categoryMenu,
 });
 
-const mapDispatchToProps = (
-  dispatch: Dispatch<MenuAction | ChannelAction>,
-) => ({
-  selectCategoryMenu: (payload: CurrentCategoryMenu) =>
-    dispatch(actions.selectCategoryMenu(payload)),
-  getFilteredChannels: (payload: string) =>
-    dispatch(actions.getFilteredChannels(payload)),
-});
-
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps,
-)(ChannelDropdownMenu);
+export default connect(mapStateToProps)(ChannelDropdownMenu);
