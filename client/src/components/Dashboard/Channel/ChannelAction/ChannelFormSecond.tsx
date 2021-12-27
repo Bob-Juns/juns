@@ -13,6 +13,7 @@ type Props = {
   inputs: ChannelInputs;
   setInputs: React.Dispatch<React.SetStateAction<ChannelInputs>>;
   messages: ChannelMessages;
+  setMessages: React.Dispatch<React.SetStateAction<ChannelMessages>>;
   castArray: CurrentChannel['channelCast'];
   setCastArray: React.Dispatch<
     React.SetStateAction<CurrentChannel['channelCast']>
@@ -31,6 +32,7 @@ const ChannelFormSecond = ({
   inputs,
   setInputs,
   messages,
+  setMessages,
   onSubmitForm,
   castArray,
   setCastArray,
@@ -41,19 +43,35 @@ const ChannelFormSecond = ({
   onClickPrev,
 }: Props) => {
   const onClickAddCast = () => {
-    setCastArray([...castArray, inputs.channelCast]);
-    setInputs({ ...inputs, channelCast: '' });
+    if (inputs.channelCast === '') {
+      setMessages({ ...messages, channelCast: '출연자를 입력해주세요.' });
+    } else {
+      setCastArray([...castArray, inputs.channelCast]);
+      setInputs({ ...inputs, channelCast: '' });
+    }
   };
 
   const onClickAddPlaylist = () => {
-    setPlaylistArray([
-      ...playlistArray,
-      {
-        playlistTitle: inputs.playlistTitle,
-        playlistId: inputs.playlistId,
-      },
-    ]);
-    setInputs({ ...inputs, playlistTitle: '', playlistId: '' });
+    if (inputs.playlistTitle === '') {
+      setMessages({
+        ...messages,
+        playlistTitle: '플레이리스트 제목을 입력해주세요.',
+      });
+    } else if (inputs.playlistId === '') {
+      setMessages({
+        ...messages,
+        playlistId: '플레이리스트 ID를 입력해주세요.',
+      });
+    } else {
+      setPlaylistArray([
+        ...playlistArray,
+        {
+          playlistTitle: inputs.playlistTitle,
+          playlistId: inputs.playlistId,
+        },
+      ]);
+      setInputs({ ...inputs, playlistTitle: '', playlistId: '' });
+    }
   };
 
   return (

@@ -7,7 +7,7 @@ import plusIcon from '@assets/icons/plus.svg';
 const ChannelCreateButton = () => {
   const navigate = useNavigate();
   return (
-    <Button onClick={() => navigate('/channel-create')}>
+    <Button type="button" onClick={() => navigate('/channel-create')}>
       <Plus />
     </Button>
   );

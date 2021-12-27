@@ -16,11 +16,11 @@ import { toast } from 'react-toastify';
 
 type Props = {
   create?: boolean;
-  cover: Cover;
+  cover: Image;
   getChannel: (channelId: string) => any;
   createChannel: (createData: CurrentChannel) => any;
   updateChannel: (channelId: string, updateData: CurrentChannel) => any;
-  getCover: (payload: Cover) => void;
+  getCover: (payload: Image) => void;
   resetCover: () => void;
   selectDashboardMenu: (payload: CurrentDashboardMenu) => any;
 };
@@ -223,7 +223,7 @@ const ChannelEditor = ({
         ? createChannel({
             category,
             channelTitle,
-            channelId,
+            channelId: channelId.toLowerCase(),
             channelProducer,
             channelCover: cover,
             channelCast: castArray,
@@ -242,7 +242,7 @@ const ChannelEditor = ({
         : updateChannel(_channelId as string, {
             category,
             channelTitle,
-            channelId,
+            channelId: channelId.toLowerCase(),
             channelProducer,
             channelCover: cover,
             channelCast: castArray,
@@ -290,6 +290,7 @@ const ChannelEditor = ({
           setInputs={setInputs}
           onChangeInputs={onChangeInputs}
           messages={messages}
+          setMessages={setMessages}
           castArray={castArray}
           setCastArray={setCastArray}
           playlistArray={playlistArray}
@@ -334,14 +335,14 @@ const Wrapper = styled.div<{ isFirst: boolean }>`
   transition: all 0.3s linear;
 `;
 
-const mapStateToProps = (state: { file: { cover: Cover } }) => ({
+const mapStateToProps = (state: { file: { cover: Image } }) => ({
   cover: state.file.cover,
 });
 
 const mapDispatchToProps = (
   dispatch: Dispatch<FileAction | MenuAction | ChannelAction>,
 ) => ({
-  getCover: (payload: Cover) => dispatch(actions.getCover(payload)),
+  getCover: (payload: Image) => dispatch(actions.getCover(payload)),
   resetCover: () => dispatch(actions.resetCover()),
   selectDashboardMenu: (payload: CurrentDashboardMenu) =>
     dispatch(actions.selectDashboardMenu(payload)),

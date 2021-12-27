@@ -31,6 +31,8 @@ const Button = styled.button<{ backgroundColor?: string }>`
       ? props.theme.color.green
       : props.backgroundColor === 'yellow'
       ? props.theme.color.yellow
+      : props.backgroundColor === 'red'
+      ? props.theme.color.red
       : props.theme.color.purple};
   border-radius: 3.125rem;
 

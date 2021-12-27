@@ -10,11 +10,11 @@ import trashIcon from '@assets/icons/trash.svg';
 import { toast } from 'react-toastify';
 
 type Props = {
-  cover: Cover;
+  cover: Image;
   messages: ChannelMessages;
   setMessages: React.Dispatch<React.SetStateAction<ChannelMessages>>;
   uploadCover: (file: FormData) => any;
-  deleteCover: (fileName: { fileName: string }) => any;
+  deleteImage: (fileName: string) => any;
 };
 
 const ChannelCover = ({
@@ -22,7 +22,7 @@ const ChannelCover = ({
   messages,
   setMessages,
   uploadCover,
-  deleteCover,
+  deleteImage,
 }: Props) => {
   const [isPreviewOpen, setIsPreviewOpen] = useState<boolean>(false);
   const [loading, setLoading] = useState<{ upload: boolean; delete: boolean }>({
@@ -66,7 +66,7 @@ const ChannelCover = ({
 
   const onClickDelete = () => {
     setLoading({ ...loading, delete: true });
-    deleteCover({ fileName: cover.fileName })
+    deleteImage(cover.fileName)
       .then((response: MessageResponse) => {
         toast.success(response.payload.message);
       })
@@ -258,14 +258,13 @@ const Message = styled.div`
   color: ${(props) => props.theme.color.red};
 `;
 
-const mapStateToProps = (state: { file: { cover: Cover } }) => ({
+const mapStateToProps = (state: { file: { cover: Image } }) => ({
   cover: state.file.cover,
 });
 
-const mapDispatchToProps = (dispatch: Dispatch<any>) => ({
-  uploadCover: (file: any) => dispatch(actions.uploadCover(file)),
-  deleteCover: (fileName: { fileName: string }) =>
-    dispatch(actions.deleteCover(fileName)),
+const mapDispatchToProps = (dispatch: Dispatch<FileAction>) => ({
+  uploadCover: (file: FormData) => dispatch(actions.uploadCover(file)),
+  deleteImage: (fileName: string) => dispatch(actions.deleteImage(fileName)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChannelCover);

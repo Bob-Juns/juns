@@ -57,7 +57,7 @@ const ChannelFormFirst = ({
         <ChannelButton
           type="button"
           text="취소"
-          backgroundColor="white"
+          backgroundColor="red"
           onClick={onClickPrev}
         />
         <ChannelButton type="submit" text="다음" onClick={onSubmitForm} />
