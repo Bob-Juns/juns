@@ -20,6 +20,7 @@ interface Channel {
   currentChannel: CurrentChannel;
   allChannels: AllChannels;
   filteredChannels: AllChannels;
+  searchedChannels: AllChannels;
 }
 
 interface GetChannels extends Action {

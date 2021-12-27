@@ -7,6 +7,7 @@ const CREATE_CHANNEL = 'create_channel' as const;
 const DELETE_CHANNEL = 'delete_channel' as const;
 const UPDATE_CHANNEL = 'update_channel' as const;
 const GET_FILTERED_CHANNELS = 'get_filtered_channels' as const;
+const GET_SEARCHED_CHANNELS = 'get_searched_channels' as const;
 
 const instance = axios.create({
   baseURL: '/api/channel',
@@ -73,6 +74,13 @@ export const getFilteredChannels = (payload: FilterState) => {
   };
 };
 
+export const getSearchedChannels = (payload: string) => {
+  return {
+    type: GET_SEARCHED_CHANNELS,
+    payload,
+  };
+};
+
 const initialState: Channel = {
   currentChannel: {
     category: '',
@@ -88,6 +96,7 @@ const initialState: Channel = {
   },
   allChannels: [],
   filteredChannels: [],
+  searchedChannels: [],
 };
 
 export const channelReducer = (state = initialState, action: ChannelAction) => {
@@ -137,6 +146,21 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
                     action.payload.query.toString(),
                   );
                 }),
+      };
+
+    case GET_SEARCHED_CHANNELS:
+      return {
+        ...state,
+        searchedChannels:
+          action.payload === ''
+            ? []
+            : state.allChannels.filter((channel: CurrentChannel) => {
+                return (
+                  channel.channelTitle.match(action.payload.toString()) ||
+                  channel.channelId.match(action.payload.toString()) ||
+                  channel.channelCast.includes(action.payload.toString())
+                );
+              }),
       };
 
     default:
