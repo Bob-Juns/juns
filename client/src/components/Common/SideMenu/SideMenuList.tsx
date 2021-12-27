@@ -11,13 +11,23 @@ type Props = {
 };
 
 const SideMenuList = ({ users, setIsMenuOpen }: Props) => {
-  const onClickMenuItem = () => {
-    setIsMenuOpen(false);
-  };
   return (
     <Container>
-      <SideMenuItem title="메뉴 1" path="/" setIsMenuOpen={setIsMenuOpen} />
-      <SideMenuItem title="메뉴 2" path="/" setIsMenuOpen={setIsMenuOpen} />
+      {users.currentUser.isAuth && (
+        <>
+          <SideMenuItem
+            title="찜 목록"
+            path="/"
+            setIsMenuOpen={setIsMenuOpen}
+          />
+          <SideMenuItem
+            title="문의하기"
+            path="/"
+            setIsMenuOpen={setIsMenuOpen}
+          />
+        </>
+      )}
+
       {users.currentUser.isAdmin && (
         <SideMenuItem
           title="관리"

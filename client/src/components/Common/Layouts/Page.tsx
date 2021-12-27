@@ -18,20 +18,23 @@ const Page = ({ dashboard = false, children }: Props) => {
 
 const Body = styled.div<{ dashboard: boolean }>`
   width: 100vw;
-  padding: 1rem 0.5rem;
   ${(props) =>
     props.dashboard
       ? `
     min-height: calc(100vh - 6.75rem);
     min-height: calc(var(--vh, 1vh) * 100 - 6.75rem);
     margin-top: 3.75rem;
+    padding: 1rem 0.5rem;
+
     background-color: ${props.theme.color.gray.light};
   `
       : `
   min-height: calc(100vh - 3.75rem);
   min-height: calc(var(--vh, 1vh) * 100 - 3.75rem);
   margin-top: 3.75rem;
+  padding: 1rem 0;
   background-color: #fff;
+  position: relative;
   `}
 `;
 

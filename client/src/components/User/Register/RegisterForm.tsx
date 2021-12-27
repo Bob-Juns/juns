@@ -18,14 +18,11 @@ import { isEmailFormat } from '@utils/formatCheck';
 import { toast } from 'react-toastify';
 
 type Props = {
-  registerConfirmation: (userEmail: {
-    userEmail: string;
-    location: string;
-  }) => any;
+  emailConfirmation: (userEmail: string) => any;
   register: (registerData: RegisterData) => any;
 };
 
-const RegisterForm = ({ registerConfirmation, register }: Props) => {
+const RegisterForm = ({ emailConfirmation, register }: Props) => {
   const [emailState, setEmailState] = useState<EmailState>({
     isLoading: false,
     isSent: false,
@@ -121,10 +118,7 @@ const RegisterForm = ({ registerConfirmation, register }: Props) => {
       setEmailState({ ...emailState, isLoading: false });
       emailRef.current?.focus();
     } else {
-      registerConfirmation({
-        userEmail: inputs.userEmail,
-        location: 'register',
-      })
+      emailConfirmation(inputs.userEmail)
         .then((response: { payload: { message: string; code: string } }) => {
           setConfirmationCode(response.payload.code);
           setEmailState({
@@ -357,8 +351,8 @@ const Reset = styled.div`
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({
-  registerConfirmation: (userEmail: { userEmail: string; location: string }) =>
-    dispatch(actions.registerConfirmation(userEmail)),
+  emailConfirmation: (userEmail: string) =>
+    dispatch(actions.emailConfirmation(userEmail)),
   register: (registerData: RegisterData) =>
     dispatch(actions.register(registerData)),
 });
