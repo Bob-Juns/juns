@@ -1,23 +1,35 @@
 import React from 'react';
 
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+
 import Page from '@components/Common/Layouts/Page';
+import UpdateEmail from '@components/user/Setting/UpdateEmail';
 import UpdateProfile from '@components/User/Setting/UpdateProfile';
 import UpdatePassword from '@components/User/Setting/UpdatePassword';
 import Withdraw from '@components/User/Setting/Withdraw';
 
-const Setting = () => {
+type Props = {
+  users: User;
+};
+
+const Setting = ({ users }: Props) => {
   return (
     <Page>
-      <Container>
-        <UpdateProfile />
+      <UpdateProfile />
+      {users.currentUser.registerWith === 'kakao' ? (
+        users.currentUser.userId === users.currentUser.userEmail && (
+          <UpdateEmail />
+        )
+      ) : (
         <UpdatePassword />
-        <Withdraw />
-      </Container>
+      )}
+      <Withdraw />
     </Page>
   );
 };
 
-const Container = styled.div``;
+const mapStateToProps = (state: { users: User }) => ({
+  users: state.users,
+});
 
-export default Setting;
+export default connect(mapStateToProps)(Setting);

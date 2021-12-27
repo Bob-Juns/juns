@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { useState } from 'react';
 
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
@@ -11,12 +11,7 @@ type Props = {
   children: React.ReactNode;
 };
 
-const UserEditor = ({
-  title,
-  children,
-
-  onSubmitForm,
-}: Props) => {
+const UserEditor = ({ title, children, onSubmitForm }: Props) => {
   const [isEditorOpen, setIsEditorOpen] = useState<boolean>(false);
 
   const onClickOpen = () => {

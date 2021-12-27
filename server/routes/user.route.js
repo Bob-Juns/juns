@@ -44,7 +44,7 @@ router.get('/users', admin, async (req, res) => {
 router.post('/confirmation', async (req, res) => {
 	const user = await User.findOne({ userEmail: req.body.userEmail });
 
-	if (req.body.location === 'register' && user) {
+	if (user) {
 		return res.status(409).json({
 			message: `이미 ${user.registerWith}(으)로 가입된 이메일입니다.`,
 		});
@@ -91,7 +91,7 @@ router.post('/register', async (req, res) => {
 		);
 		return res.status(201).json({ message: '회원가입 되었습니다.' });
 	} catch {
-		return res.json({ message: '회원가입이 실패했습니다.' });
+		return res.status(400).json({ message: '회원가입이 실패했습니다.' });
 	}
 });
 
@@ -212,6 +212,21 @@ router.put('/update-profile', auth, async (req, res) => {
 	}
 });
 
+router.put('/update-email', auth, async (req, res) => {
+	try {
+		await User.findOneAndUpdate(
+			{ userId: req.user.userId },
+			{ userEmail: req.body.userEmail },
+			{ new: true }
+		).orFail(() =>
+			res.status(409).json({ message: '이메일 등록이 실패했습니다.' })
+		);
+		return res.status(200).json({ message: '이메일이 등록 되었습니다.' });
+	} catch {
+		return res.status(400).json({ message: '이메일 등록이 실패했습니다.' });
+	}
+});
+
 router.post('/reset-password', async (req, res) => {
 	const user = await User.findOne({ userEmail: req.body.userEmail }).orFail(
 		() => res.status(404).json({ message: '가입되지 않은 이메일입니다.' })
@@ -248,7 +263,7 @@ router.post('/reset-password', async (req, res) => {
 });
 
 router.delete('/withdraw', auth, async (req, res) => {
-	await User.findOneAndDelete({ userEmail: req.user.userEmail }).orFail(() =>
+	await User.findOneAndDelete({ userId: req.user.userId }).orFail(() =>
 		res.status(404).json({ message: '서비스 탈퇴가 실패했습니다.' })
 	);
 	return res.status(200).json({ message: '탈퇴 퇴었습니다.' });

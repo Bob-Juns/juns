@@ -29,7 +29,9 @@ const UpdateProfile = ({ users, checkAuth, updateProfile }: Props) => {
     event: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    if (users.currentUser.userName === input) {
+    if (input === '') {
+      setMessage('변경할 이름을 입력해주세요.');
+    } else if (users.currentUser.userName === input) {
       setMessage('기존 이름과 같은 이름입니다.');
       setInput('');
       inputRef.current?.focus();
