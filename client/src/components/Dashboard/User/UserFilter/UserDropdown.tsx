@@ -39,7 +39,11 @@ const UserDropdown = ({ authorityMenu, onSelectAuthority }: Props) => {
         open={isDropdownOpen}
         onSelectAuthority={onSelectAuthority}
       />
-      <Selected>{authorityMenu.currentAuthorityMenu}</Selected>
+      <Selected>
+        {authorityMenu.currentAuthorityMenu === '전체'
+          ? '권한'
+          : authorityMenu.currentAuthorityMenu}
+      </Selected>
       <Chevron open={isDropdownOpen} />
     </Container>
   );

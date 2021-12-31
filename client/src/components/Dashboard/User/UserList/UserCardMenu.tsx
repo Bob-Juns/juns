@@ -3,12 +3,7 @@ import { connect } from 'react-redux';
 import { actions } from 'store';
 
 import styled from 'styled-components';
-import Modal from '@components/Common/Modal/Modal';
 
-import trashIcon from '@assets/icons/trash.svg';
-import changeIcon from '@assets/icons/authorityChange.svg';
-
-import { toast } from 'react-toastify';
 import UserCardMenuModal from './UserCardMenuModal';
 
 type Props = {

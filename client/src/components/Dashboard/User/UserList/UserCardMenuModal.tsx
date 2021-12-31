@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch } from 'react';
 import { connect } from 'react-redux';
 import { actions } from 'store';
 
@@ -61,7 +61,7 @@ const UserCardMenuModal = ({
         toast.success(response.payload.message);
       })
       .catch((error: ErrorMessageResponse) =>
-        console.log(error.response.data.message),
+        toast.error(error.response.data.message),
       );
   };
   return (
