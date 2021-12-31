@@ -10,7 +10,12 @@ import Register from '@pages/User/Register/Register';
 import Dashboard from '@pages/Dashboard/Dashboard';
 import ChannelCreate from '@pages/Dashboard/ChannelCreate';
 import ChannelUpdate from '@pages/Dashboard/ChannelUpdate';
+import BannerCreate from '@pages/Dashboard/BannerCreate';
+import BannerUpdate from '@pages/Dashboard/BannerUpdate';
 import Setting from '@pages/User/Setting/Setting';
+import Detail from '@pages/Detail/Detail';
+import Bookmark from '@pages/User/Bookmark/Bookmark';
+import Channels from '@pages/Channels/Channels';
 
 import Toast from '@components/Toast/Toast';
 
@@ -49,8 +54,23 @@ const App = () => {
           <Route path="/channel-update" element={<PrivateRoute adminOnly />}>
             <Route path=":_channelId" element={<ChannelUpdate />} />
           </Route>
+          <Route path="/banner-create" element={<PrivateRoute adminOnly />}>
+            <Route path="/banner-create" element={<BannerCreate />} />
+          </Route>
+          <Route path="/banner-update" element={<PrivateRoute adminOnly />}>
+            <Route path=":_bannerId" element={<BannerUpdate />} />
+          </Route>
           <Route path="/setting" element={<PrivateRoute />}>
             <Route path="/setting" element={<Setting />} />
+          </Route>
+          <Route path="/channels" element={<PublicRoute />}>
+            <Route path="/channels" element={<Channels />} />
+          </Route>
+          <Route path="/channel" element={<PrivateRoute />}>
+            <Route path=":_channelId" element={<Detail />} />
+          </Route>
+          <Route path="/bookmark" element={<PrivateRoute />}>
+            <Route path="/bookmark" element={<Bookmark />} />
           </Route>
         </Routes>
       </Router>
