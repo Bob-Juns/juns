@@ -53,7 +53,7 @@ const Header = styled.div`
 `;
 
 const Title = styled.div`
-  height: 0, 875rem;
+  height: 0.875rem;
   font-size: 0.875rem;
   font-weight: 700;
   color: ${(props) => props.theme.color.purple};

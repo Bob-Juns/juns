@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import Page from '@components/Common/Layouts/Page';
-import UpdateEmail from '@components/user/Setting/UpdateEmail';
+import UpdateEmail from '@components/User/Setting/UpdateEmail';
 import UpdateProfile from '@components/User/Setting/UpdateProfile';
 import UpdatePassword from '@components/User/Setting/UpdatePassword';
 import Withdraw from '@components/User/Setting/Withdraw';
