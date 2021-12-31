@@ -37,7 +37,11 @@ const ChannelDropdown = ({ categoryMenu, onSelectCategory }: Props) => {
         open={isDropdownOpen}
         onSelectCategory={onSelectCategory}
       />
-      <Selected>{categoryMenu.currentCategoryMenu}</Selected>
+      <Selected>
+        {categoryMenu.currentCategoryMenu === '전체'
+          ? '카테고리'
+          : categoryMenu.currentCategoryMenu}
+      </Selected>
       <Chevron open={isDropdownOpen} />
     </Container>
   );

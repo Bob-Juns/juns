@@ -25,7 +25,10 @@ const ChannelFilter = ({
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     getFilteredChannels({
       query: event.currentTarget.value,
-      filter: categoryMenu.currentCategoryMenu,
+      filter:
+        categoryMenu.currentCategoryMenu === '전체'
+          ? '카테고리'
+          : categoryMenu.currentCategoryMenu,
     });
     setInput(event.currentTarget.value);
   };
@@ -34,7 +37,7 @@ const ChannelFilter = ({
     selectCategoryMenu(filter);
     getFilteredChannels({
       query: input,
-      filter,
+      filter: filter === '전체' ? '카테고리' : filter,
     });
   };
 

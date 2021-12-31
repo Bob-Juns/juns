@@ -4,30 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { actions } from 'store';
 
-import Modal from '@components/Common/Modal/Modal';
-
 import styled from 'styled-components';
-import trashIcon from '@assets/icons/trash.svg';
 
-import { toast } from 'react-toastify';
 import ChannelDeleteModal from './ChannelDeleteModal';
 
 type Props = {
   open: boolean;
   channelId: string;
-  channels: Channel;
-  deleteChannel: (channelId: string) => any;
-  getChannels: () => void;
   getChannel: (channelId: string) => any;
 };
-const ChannelCardMenu = ({
-  open,
-  channelId,
-  channels,
-  deleteChannel,
-  getChannels,
-  getChannel,
-}: Props) => {
+const ChannelCardMenu = ({ open, channelId, getChannel }: Props) => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const menus = ['수정', '삭제'];
   const navigate = useNavigate();
@@ -63,7 +49,7 @@ const ChannelCardMenu = ({
 
 const Container = styled.div<{ open: boolean }>`
   position: absolute;
-  top: 2.1rem;
+  top: 0;
   right: 0;
 
   visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
@@ -107,24 +93,8 @@ const Menu = styled.div`
   }
 `;
 
-const Trash = styled(trashIcon)`
-  width: 100%;
-`;
-
-const Em = styled.span`
-  font-weight: 700;
-  color: ${(props) => props.theme.color.green};
-`;
-
-const mapStateToProps = (state: { channels: Channel }) => ({
-  channels: state.channels,
-});
-
 const mapDispatchToProps = (dispatch: Dispatch<ChannelAction>) => ({
-  deleteChannel: (channelId: string) =>
-    dispatch(actions.deleteChannel(channelId)),
-  getChannels: () => dispatch(actions.getChannels()),
   getChannel: (channelId: string) => dispatch(actions.getChannel(channelId)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelCardMenu);
+export default connect(null, mapDispatchToProps)(ChannelCardMenu);

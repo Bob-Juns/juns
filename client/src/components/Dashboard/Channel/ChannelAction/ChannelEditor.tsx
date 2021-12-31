@@ -129,12 +129,12 @@ const ChannelEditor = ({
       value === ''
         ? setMessages({
             ...messages,
-            channelTitle: '제목(한글)을 입력해주세요.',
+            channelTitle: '채널 제목을 입력해주세요.',
           })
         : setMessages({ ...messages, channelTitle: '' });
     } else if (name === 'channelId') {
       value === ''
-        ? setMessages({ ...messages, channelId: '제목(영어)을 입력해주세요.' })
+        ? setMessages({ ...messages, channelId: '채널 ID를 입력해주세요.' })
         : setMessages({ ...messages, channelId: '' });
     } else if (name === 'channelProducer') {
       value === ''
@@ -192,9 +192,9 @@ const ChannelEditor = ({
     } else if (inputs.category === '') {
       setMessages({ ...messages, category: '카테고리를 선택해주세요.' });
     } else if (inputs.channelTitle === '') {
-      setMessages({ ...messages, channelTitle: '제목(한글)을 입력해주세요.' });
+      setMessages({ ...messages, channelTitle: '채널 제목을 입력해주세요.' });
     } else if (inputs.channelId === '') {
-      setMessages({ ...messages, channelId: '제목(영어)을 입력해주세요.' });
+      setMessages({ ...messages, channelId: '채널 ID를 입력해주세요.' });
     } else if (inputs.channelProducer === '') {
       setMessages({
         ...messages,

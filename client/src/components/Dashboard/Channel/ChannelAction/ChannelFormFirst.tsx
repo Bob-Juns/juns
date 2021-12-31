@@ -32,7 +32,7 @@ const ChannelFormFirst = ({
         value={inputs.channelTitle}
         onChange={onChangeInputs}
         placeholder="ex) 짧은 대본"
-        label="제목(한글)"
+        label="채널 제목"
         message={messages.channelTitle}
       />
       <ChannelInput
@@ -41,7 +41,7 @@ const ChannelFormFirst = ({
         value={inputs.channelId}
         onChange={onChangeInputs}
         placeholder="ex) short-paper"
-        label="제목(영어)"
+        label="채널 ID"
         message={messages.channelId}
       />
       <ChannelInput
