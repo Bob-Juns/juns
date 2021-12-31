@@ -29,7 +29,7 @@ const Container = styled.div<{ show: boolean }>`
   flex-direction: column;
 
   position: absolute;
-  top: 2rem;
+  top: 2.5rem;
   left: 0;
 
   background-color: #fff;

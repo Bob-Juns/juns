@@ -17,7 +17,6 @@ type Props = {
 
 const Home = ({ channels, banners, getChannels, getBanners }: Props) => {
   useEffect(() => {
-    // console.log(window.matchMedia('(prefers-color-scheme: dark)').matches);
     channels.allChannels.length < 1 && getChannels();
     banners.allBanners.length < 1 && getBanners();
   }, [channels.allChannels, banners.allBanners]);
