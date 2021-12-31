@@ -25,9 +25,12 @@ app.use(express.json());
 const userRouter = require('./routes/user.route');
 const channelRouter = require('./routes/channel.route');
 const fileRouter = require('./routes/file.route');
+const bannerRouter = require('./routes/banner.route');
+
 app.use('/api/user', userRouter);
 app.use('/api/channel', channelRouter);
 app.use('/api/file', fileRouter);
+app.use('/api/banner', bannerRouter);
 
 // serve static files & http to https
 const enforce = require('express-sslify');

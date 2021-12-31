@@ -21,7 +21,20 @@ const coverStorage = new CloudinaryStorage({
 	},
 });
 
+const bannerStorage = new CloudinaryStorage({
+	cloudinary: cloudinary,
+	params: (req, file) => {
+		const filename = `[banner]${file.originalname.split('.')[0]}`;
+		const fileInfo = {
+			public_id: filename,
+			folder: 'junstreaming/banner',
+		};
+		return fileInfo;
+	},
+});
+
 const coverUpload = multer({ storage: coverStorage }).single('image');
+const bannerUpload = multer({ storage: bannerStorage }).single('image');
 
 router.post('/cover-upload', admin, coverUpload, (req, res) => {
 	return res
@@ -29,7 +42,13 @@ router.post('/cover-upload', admin, coverUpload, (req, res) => {
 		.json({ fileName: req.file.filename, filePath: req.file.path });
 });
 
-router.post('/cover-delete', admin, (req, res) => {
+router.post('/banner-upload', admin, bannerUpload, (req, res) => {
+	return res
+		.status(200)
+		.json({ fileName: req.file.filename, filePath: req.file.path });
+});
+
+router.post('/delete', admin, (req, res) => {
 	cloudinary.uploader.destroy(req.body.fileName, (error, result) => {
 		if (error)
 			return res.status(400).json({ message: '이미지 삭제가 실패했습니다.' });

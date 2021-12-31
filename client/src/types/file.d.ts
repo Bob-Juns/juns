@@ -1,14 +1,15 @@
-type Cover = {
+type Image = {
   filePath: string;
   fileName: string;
 };
 
 interface _File {
-  cover: Cover;
+  cover: Image;
+  banner: Image;
 }
 
-interface UploadCover extends Action {
-  payload: Promise<Cover>;
+interface UploadImage extends Action {
+  payload: Promise<Image>;
 }
 
-type FileAction = UploadCover | Action;
+type FileAction = UploadImage | Action;
