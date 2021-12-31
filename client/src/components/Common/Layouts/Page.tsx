@@ -42,9 +42,9 @@ const Body = styled.div<{ location: string }>`
   min-height: calc(var(--vh, 1vh) * 100 - 3.75rem);
   margin-top: 4.75rem;
 
-
   position: relative;
   background-color: #fff;
+  overflow-x: hidden;
   `}
 `;
 

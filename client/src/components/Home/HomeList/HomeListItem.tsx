@@ -76,9 +76,11 @@ const Container = styled.div`
 
 const Header = styled.div<{ category: string }>`
   width: 100%;
+  height: 0.75rem;
   margin-bottom: 0.75rem;
   display: flex;
   justify-content: space-between;
+  align-items: center;
   color: ${(props) =>
     props.category === '드라마'
       ? props.theme.color.category.drama
