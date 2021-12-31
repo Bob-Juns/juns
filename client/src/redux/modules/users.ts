@@ -5,18 +5,19 @@ const GET_USERS = 'get_users' as const;
 const CHECK_AUTH = 'check_auth' as const;
 const LOGIN = 'login' as const;
 const LOGOUT = 'logout' as const;
-const REGISTER_CONFIRMATION = 'register_confirmation' as const;
+const EMAIL_CONFIRMATION = 'email_confirmation' as const;
 const REGISTER = 'register' as const;
 const LINK_KAKAO = 'link_kakao' as const;
 const DELETE = 'delete' as const;
 const AUTHORITY = 'authority' as const;
-const GET_FILTERED_USER = 'get_filtered_user' as const;
-const GET_SEARCHED_USERS = 'get_searched_users' as const;
 const GET_FILTERED_USERS = 'get_filtered_users' as const;
 const UPDATE_PASSWORD = 'update_password' as const;
 const UPDATE_PROFILE = 'update_profile' as const;
+const UPDATE_EMAIL = 'update_Email' as const;
 const RESET_PASSWORD = 'reset_password' as const;
 const WITHDRAW = 'withdraw' as const;
+const ADD_TO_BOOKMARK = 'add_to_bookmark' as const;
+const REMOVE_FROM_BOOKMARK = 'remove_from_bookmark' as const;
 
 const instance = axios.create({
   baseURL: '/api/user',
@@ -59,14 +60,13 @@ export const logout = () => {
   };
 };
 
-export const registerConfirmation = (userEmail: {
-  userEmail: string;
-  location: string;
-}) => {
-  const payload = axiosRequest(instance, 'post', '/confirmation', userEmail);
+export const emailConfirmation = (userEmail: string) => {
+  const payload = axiosRequest(instance, 'post', '/confirmation', {
+    userEmail,
+  });
 
   return {
-    type: REGISTER_CONFIRMATION,
+    type: EMAIL_CONFIRMATION,
     payload,
   };
 };
@@ -144,6 +144,14 @@ export const updateProfile = (userName: string) => {
   };
 };
 
+export const updateEmail = (userEmail: string) => {
+  const payload = axiosRequest(instance, 'put', '/update-email', { userEmail });
+  return {
+    type: UPDATE_EMAIL,
+    payload,
+  };
+};
+
 export const resetPassword = (userEmail: string) => {
   const payload = axiosRequest(instance, 'post', '/reset-password', {
     userEmail,
@@ -160,6 +168,28 @@ export const withdraw = () => {
 
   return {
     type: WITHDRAW,
+    payload,
+  };
+};
+
+export const addToBookmark = (channel: CurrentChannel) => {
+  const payload = axiosRequest(instance, 'put', '/add-to-bookmark', {
+    channel,
+  });
+
+  return {
+    type: ADD_TO_BOOKMARK,
+    payload,
+  };
+};
+
+export const removeFromBookmark = (channel: CurrentChannel) => {
+  const payload = axiosRequest(instance, 'put', '/remove-from-bookmark', {
+    channel,
+  });
+
+  return {
+    type: REMOVE_FROM_BOOKMARK,
     payload,
   };
 };
@@ -194,18 +224,21 @@ export const userReducer = (state = initialState, action: UserAction) => {
       };
 
     case LOGIN:
-    case REGISTER_CONFIRMATION:
+    case EMAIL_CONFIRMATION:
     case REGISTER:
     case LINK_KAKAO:
     case AUTHORITY:
-    case DELETE:
     case UPDATE_PASSWORD:
     case UPDATE_PROFILE:
+    case UPDATE_EMAIL:
     case RESET_PASSWORD:
-    case WITHDRAW:
+    case ADD_TO_BOOKMARK:
+    case REMOVE_FROM_BOOKMARK:
       return { ...state };
 
     case LOGOUT:
+    case DELETE:
+    case WITHDRAW:
       return {
         ...state,
         currentUser: initialState.currentUser,

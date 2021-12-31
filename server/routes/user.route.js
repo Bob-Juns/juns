@@ -269,4 +269,22 @@ router.delete('/withdraw', auth, async (req, res) => {
 	return res.status(200).json({ message: '탈퇴 퇴었습니다.' });
 });
 
+router.put('/add-to-bookmark', auth, async (req, res) => {
+	await User.findOneAndUpdate(
+		{ userId: req.user.userId },
+		{ $push: { bookmark: req.body.channel } },
+		{ new: true, upsert: true }
+	).orFail(() => res.status(404).json({ message: '유저를 찾을 수 없습니다.' }));
+	return res.status(200).json({ message: '찜 목록에 추가되었습니다.' });
+});
+
+router.put('/remove-from-bookmark', auth, async (req, res) => {
+	await User.findOneAndUpdate(
+		{ userId: req.user.userId },
+		{ $pull: { bookmark: req.body.channel } },
+		{ new: true }
+	).orFail(() => res.status(404).json({ message: '유저를 찾을 수 없습니다.' }));
+	return res.status(200).json({ message: '찜 목록에서 삭제되었습니다.' });
+});
+
 module.exports = router;
