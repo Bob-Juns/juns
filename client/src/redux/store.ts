@@ -8,7 +8,7 @@ import {
   checkAuth,
   login,
   logout,
-  registerConfirmation,
+  emailConfirmation,
   register,
   linkKakao,
   deleteUser,
@@ -16,8 +16,11 @@ import {
   getFilteredUsers,
   updatePassword,
   updateProfile,
+  updateEmail,
   resetPassword,
   withdraw,
+  addToBookmark,
+  removeFromBookmark,
 } from './modules/users';
 
 import {
@@ -28,6 +31,7 @@ import {
   deleteChannel,
   updateChannel,
   getFilteredChannels,
+  getSearchedChannels,
 } from './modules/channels';
 
 import {
@@ -40,10 +44,32 @@ import {
 import {
   fileReducer,
   uploadCover,
-  deleteCover,
+  uploadBanner,
+  deleteImage,
   getCover,
   resetCover,
+  getBannerImage,
+  resetBannerImage,
 } from './modules/file';
+
+import {
+  bannerReducer,
+  getBanners,
+  getBanner,
+  createBanner,
+  updateBanner,
+  deleteBanner,
+  searchBanner,
+} from './modules/banners';
+
+import {
+  detailReducer,
+  getPlaylists,
+  getPlaylist,
+  getPlaylistItems,
+  getVideo,
+  resetDetail,
+} from './modules/detail';
 
 export const actions = {
   //users
@@ -51,7 +77,7 @@ export const actions = {
   checkAuth,
   login,
   logout,
-  registerConfirmation,
+  emailConfirmation,
   register,
   linkKakao,
   deleteUser,
@@ -59,8 +85,11 @@ export const actions = {
   getFilteredUsers,
   updatePassword,
   updateProfile,
+  updateEmail,
   resetPassword,
   withdraw,
+  addToBookmark,
+  removeFromBookmark,
 
   //channels
   getChannels,
@@ -69,6 +98,7 @@ export const actions = {
   deleteChannel,
   updateChannel,
   getFilteredChannels,
+  getSearchedChannels,
 
   // menus
   selectDashboardMenu,
@@ -77,9 +107,27 @@ export const actions = {
 
   // files
   uploadCover,
-  deleteCover,
+  uploadBanner,
+  deleteImage,
   getCover,
   resetCover,
+  getBannerImage,
+  resetBannerImage,
+
+  // banners
+  getBanners,
+  getBanner,
+  createBanner,
+  updateBanner,
+  deleteBanner,
+  searchBanner,
+
+  // playlist
+  getPlaylists,
+  getPlaylist,
+  getPlaylistItems,
+  getVideo,
+  resetDetail,
 };
 
 const reducer = combineReducers({
@@ -87,6 +135,8 @@ const reducer = combineReducers({
   channels: channelReducer,
   menus: menuReducer,
   file: fileReducer,
+  banners: bannerReducer,
+  details: detailReducer,
 });
 
 declare global {
