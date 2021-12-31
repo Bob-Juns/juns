@@ -25,6 +25,12 @@ const Container = styled.div`
   height: 2.2rem;
   display: flex;
   align-items: center;
+
+  cursor: pointer;
+
+  &: hover {
+    color: ${(props) => props.theme.color.green};
+  }
 `;
 
 const Category = styled.div<{ category: string }>`
