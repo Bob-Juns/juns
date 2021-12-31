@@ -21,6 +21,7 @@ interface Channel {
   allChannels: AllChannels;
   filteredChannels: AllChannels;
   searchedChannels: AllChannels;
+  randomChannels: AllChannels;
 }
 
 interface GetChannels extends Action {

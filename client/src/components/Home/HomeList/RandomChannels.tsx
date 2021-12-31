@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -16,22 +16,19 @@ const RandomChannels = ({ users, channels }: Props) => {
   return (
     <Container>
       <Header>
-        <Bold>{users.currentUser.userName}</Bold>님, 오늘은 이 영상 어때요?
+        <Bold>{users.currentUser.userName ?? 'Guest'}</Bold>님, 오늘은 이 영상
+        어때요?
       </Header>
       <Wrapper>
-        {channels.allChannels
-          ?.slice()
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 4)
-          .map((channel: CurrentChannel) => (
-            <Content
-              key={channel.channelId}
-              onClick={() => navigate(`/channel/${channel.channelId}`)}
-            >
-              <Cover src={channel.channelCover.filePath} />
-              <Title>{channel.channelTitle}</Title>
-            </Content>
-          ))}
+        {channels.randomChannels.map((channel: CurrentChannel) => (
+          <Content
+            key={channel.channelId}
+            onClick={() => navigate(`/channel/${channel.channelId}`)}
+          >
+            <Cover src={channel.channelCover.filePath} />
+            <Title>{channel.channelTitle}</Title>
+          </Content>
+        ))}
       </Wrapper>
     </Container>
   );

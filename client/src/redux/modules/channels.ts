@@ -97,6 +97,7 @@ const initialState: Channel = {
   allChannels: [],
   filteredChannels: [],
   searchedChannels: [],
+  randomChannels: [],
 };
 
 export const channelReducer = (state = initialState, action: ChannelAction) => {
@@ -106,6 +107,9 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
         ...state,
         allChannels: action.payload,
         filteredChannels: action.payload,
+        randomChannels: action.payload
+          .sort(() => Math.random() - 0.5)
+          .slice(0, 4),
       };
 
     case GET_CHANNEL:
