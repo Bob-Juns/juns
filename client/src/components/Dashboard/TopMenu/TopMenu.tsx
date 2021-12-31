@@ -29,8 +29,9 @@ const Container = styled.div`
   width: 100vw;
   height: 3rem;
 
-  padding: 0 3rem;
-  background-color: #fff;
+  padding: 0 2rem;
+  background-color: rgba(255, 255, 255, 0.9);
+  backdrop-filter: blur(1px);
 
   display: flex;
   align-items: center;

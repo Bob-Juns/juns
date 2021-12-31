@@ -58,11 +58,12 @@ const Background = styled.div<{ open: boolean }>`
   background-color: rgba(0, 0, 0, 0.5);
   z-index: ${(props) => (props.open ? '999' : '-1')};
   opacity: ${(props) => (props.open ? '1' : '0')};
-  transition: all 0.3s;
+  transition: all 0.3s linear;
 `;
 
 const Container = styled.div<{ open: boolean }>`
   width: 300px;
+  height: fit-content;
   min-height: 260px;
   padding: 2rem 1rem 1rem;
 

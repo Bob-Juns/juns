@@ -32,9 +32,9 @@ const UserEditor = ({ title, children, onSubmitForm }: Props) => {
 };
 
 const Container = styled.div`
-  width: 100%;
+  width: calc(100% - 1rem);
   padding: 1rem;
-  margin-bottom: 0.75rem;
+  margin: 0 0.5rem 0.75rem;
   background-color: #fff;
   border-radius: 0.375rem;
 

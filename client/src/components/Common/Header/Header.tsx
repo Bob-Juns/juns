@@ -7,10 +7,10 @@ import Hamburger from '@components/Common/Header/Hamburger';
 import SideMenu from '@components/Common/SideMenu/SideMenu';
 
 type Props = {
-  dashboard: boolean;
+  location?: string;
 };
 
-const Header = ({ dashboard }: Props) => {
+const Header = ({ location }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const Header = ({ dashboard }: Props) => {
 
   return (
     <>
-      <Container>
+      <Container location={location}>
         <Wrapper>
           <Title onClick={onClickTitle}>
             <Colored>jun</Colored>streaming
@@ -36,10 +36,12 @@ const Header = ({ dashboard }: Props) => {
     </>
   );
 };
-const Container = styled.header`
+const Container = styled.header<{ location?: string }>`
   width: 100vw;
   height: 3.75rem;
-  background-color: #fff;
+  background-color: ${(props) =>
+    props.location === 'detail' ? '#fff' : 'rgba(255, 255, 255, 0.9)'};
+  backdrop-filter: ${(props) => props.location !== 'detail' && 'blur(1px)'};
   position: fixed;
   top: 0;
   left: 0;

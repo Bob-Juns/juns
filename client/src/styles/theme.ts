@@ -24,6 +24,7 @@ const color = {
 
 const boxShadow = {
   primary: '1px 1px 4px rgba(0, 0, 0, 0.25)',
+  secondary: '0px 2px 4px rgba(0, 0, 0, 0.25)',
 };
 
 const breakpoints = {
