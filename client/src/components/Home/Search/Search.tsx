@@ -39,7 +39,7 @@ const Search = ({ getSearchedChannels }: Props) => {
   }, [focusRef, input]);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    getSearchedChannels(event.currentTarget.value);
+    getSearchedChannels(event.currentTarget.value.toLowerCase());
     setInput(event.currentTarget.value);
   };
   return (
@@ -65,9 +65,11 @@ const Search = ({ getSearchedChannels }: Props) => {
 const Container = styled.div`
   width: calc(100% - 1rem);
   height: 2rem;
-  margin: 0.5rem;
+  margin: 4.75rem 0.5rem 0;
 
   display: flex;
+
+  position: relative;
   border-radius: 3.125rem;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 `;
@@ -75,7 +77,6 @@ const Container = styled.div`
 const Wrapper = styled.div`
   width: 2.2rem;
   height: 2rem;
-
   background-color: #fff;
 
   display: flex;
@@ -93,7 +94,7 @@ const Icon = styled(searchIcon)`
 `;
 
 const Input = styled.input`
-  width: calc(100% - 4.2rem);
+  width: calc(100% - 2.2rem);
   height: 2rem;
   padding-right: 0.75rem;
 

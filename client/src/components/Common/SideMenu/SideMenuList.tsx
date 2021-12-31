@@ -15,7 +15,7 @@ const SideMenuList = ({ users, setIsMenuOpen }: Props) => {
     <Container>
       <SideMenuItem
         title="탐색"
-        path="/channels"
+        path="/explorer"
         setIsMenuOpen={setIsMenuOpen}
       />
       {users.currentUser.isAuth && (

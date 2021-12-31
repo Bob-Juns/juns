@@ -10,7 +10,7 @@ type Props = {
   selectCategoryMenu: (payload: string) => void;
 };
 
-const ChannelsMenu = ({ menus, selectCategoryMenu }: Props) => {
+const ExplorerMenu = ({ menus, selectCategoryMenu }: Props) => {
   useEffect(() => {
     menus.categoryMenu.currentCategoryMenu === '카테고리' &&
       selectCategoryMenu('전체');
@@ -34,6 +34,7 @@ const ChannelsMenu = ({ menus, selectCategoryMenu }: Props) => {
 const Container = styled.div`
   width: 100vw;
   height: 3rem;
+  padding: 0 0.5rem;
 
   background-color: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(1px);
@@ -42,13 +43,11 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
 
-  position: sticky;
+  position: fixed;
   top: 3.75rem;
   left: 0;
 
   border-bottom: 1px solid ${(props) => props.theme.color.yellow};
-
-  z-index: 98;
 `;
 
 const Menu = styled.div<{ selected?: boolean }>`
@@ -85,4 +84,4 @@ const mapDispatchToProps = (dispatch: Dispatch<MenuAction>) => ({
     dispatch(actions.selectCategoryMenu(payload)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ChannelsMenu);
+export default connect(mapStateToProps, mapDispatchToProps)(ExplorerMenu);

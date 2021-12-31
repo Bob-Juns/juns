@@ -10,7 +10,7 @@ type Props = {
   channels: Channel;
 };
 
-const ChannelsList = ({ menus, channels }: Props) => {
+const ExplorerList = ({ menus, channels }: Props) => {
   const navigate = useNavigate();
 
   return (
@@ -36,6 +36,8 @@ const ChannelsList = ({ menus, channels }: Props) => {
 
 const Container = styled.div`
   width: 100%;
+  margin-top: 6.75rem;
+  padding: 1rem 0.5rem;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -93,4 +95,4 @@ const mapStateToProps = (state: { menus: Menu; channels: Channel }) => ({
   channels: state.channels,
 });
 
-export default connect(mapStateToProps)(ChannelsList);
+export default connect(mapStateToProps)(ExplorerList);

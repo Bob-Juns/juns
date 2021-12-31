@@ -17,6 +17,8 @@ const User = () => {
 const Container = styled.div`
   width: 100%;
   height: 100%;
+  margin-top: 6.75rem;
+  padding: 1rem 0.5rem;
 `;
 
 export default User;

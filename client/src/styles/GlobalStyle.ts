@@ -14,6 +14,7 @@ const GlobalStyle = createGlobalStyle`
     -webkit-font-smoothing: antialiased;
     -ms-overflow-style: none;
     scrollbar-width: none;
+    background-color: #f8f9fa;
   }
 
   body::-webkit-scrollbar {

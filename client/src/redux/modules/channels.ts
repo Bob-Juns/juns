@@ -130,14 +130,8 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
           action.payload.filter === '카테고리'
             ? state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  (channel.channelTitle.match(
-                    action.payload.query.toString(),
-                  ) ||
-                    channel.channelId.match(action.payload.query.toString())) &&
-                  (channel.channelTitle.match(
-                    action.payload.query.toString(),
-                  ) ||
-                    channel.channelId.match(action.payload.query.toString()))
+                  channel.channelTitle.match(action.payload.query.toString()) &&
+                  channel.channelTitle.match(action.payload.query.toString())
                 );
               })
             : state.allChannels

@@ -31,7 +31,7 @@ const HomeList = () => {
 
 const Container = styled.div`
   width: 100%;
-  padding: 0 0.5rem 1rem;
+  padding: 1.25rem 0.5rem;
 `;
 
 export default HomeList;

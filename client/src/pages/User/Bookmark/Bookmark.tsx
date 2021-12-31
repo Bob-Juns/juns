@@ -15,7 +15,7 @@ const Bookmark = ({ users }: Props) => {
   const navigate = useNavigate();
 
   return (
-    <Page>
+    <Page blur>
       <Titles>
         <Em>{users.currentUser.userName}</Em>님의 찜 목록
       </Titles>
@@ -40,8 +40,12 @@ const Bookmark = ({ users }: Props) => {
 
 const Titles = styled.div`
   width: 100%;
+  margin-top: 3.75rem;
+  padding: 1rem 0.5rem;
+
   display: flex;
   justify-content: center;
+
   color: ${(props) => props.theme.color.purple};
 
   font-size: 0.875rem;
@@ -53,8 +57,8 @@ const Em = styled.div`
 
 const List = styled.ul`
   width: 100%;
-  margin-top: 1rem;
-  padding: 0.5rem;
+
+  padding: 0 0.5rem 1rem;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);

@@ -58,8 +58,6 @@ const PlaylistItems = ({ details, getVideo }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-
-  cursor: pointer;
 `;
 
 const Wrapper = styled.div`
@@ -68,6 +66,9 @@ const Wrapper = styled.div`
 
   display: flex;
   justify-content: space-between;
+  margin-bottom: 0.375rem;
+
+  cursor: pointer;
 `;
 
 const Thumbnail = styled.div<{ src: string; show: boolean }>`

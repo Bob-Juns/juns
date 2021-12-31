@@ -4,15 +4,15 @@ import { connect } from 'react-redux';
 import { actions } from 'store';
 
 import Page from '@components/Common/Layouts/Page';
-import ChannelsMenu from '@components/Channels/ChannelsMenu';
-import ChannelsList from '@components/Channels/ChannelsList';
+import ExplorerMenu from '@components/Explorer/ExplorerMenu';
+import ExplorerList from '@components/Explorer/ExplorerList';
 
 type Props = {
   getChannels: () => void;
   selectCategoryMenu: (payload: string) => void;
 };
 
-const Channels = ({ getChannels, selectCategoryMenu }: Props) => {
+const Explorer = ({ getChannels, selectCategoryMenu }: Props) => {
   useEffect(() => {
     getChannels();
     return () => selectCategoryMenu('전체');
@@ -20,9 +20,9 @@ const Channels = ({ getChannels, selectCategoryMenu }: Props) => {
 
   return (
     <>
-      <ChannelsMenu />
-      <Page location="channels">
-        <ChannelsList />
+      <Page blur>
+        <ExplorerMenu />
+        <ExplorerList />
       </Page>
     </>
   );
@@ -34,4 +34,4 @@ const mapDispatchToProp = (dispatch: Dispatch<ChannelAction | MenuAction>) => ({
     dispatch(actions.selectCategoryMenu(payload)),
 });
 
-export default connect(null, mapDispatchToProp)(Channels);
+export default connect(null, mapDispatchToProp)(Explorer);

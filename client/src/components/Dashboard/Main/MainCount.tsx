@@ -12,9 +12,12 @@ type Props = {
 const MainCount = ({ users, channels, banners }: Props) => {
   return (
     <Container>
-      <MainCountCard title="users" count={users.allUsers?.length} />
-      <MainCountCard title="channels" count={channels.allChannels?.length} />
-      <MainCountCard title="banners" count={banners.allBanners?.length} />
+      <MainCountCard title="users" count={users.allUsers?.length ?? 0} />
+      <MainCountCard
+        title="channels"
+        count={channels.allChannels?.length ?? 0}
+      />
+      <MainCountCard title="banners" count={banners.allBanners?.length ?? 0} />
     </Container>
   );
 };

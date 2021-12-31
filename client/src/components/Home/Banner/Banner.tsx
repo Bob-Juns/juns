@@ -43,7 +43,7 @@ const Banner = ({ banners }: Props) => {
 const Container = styled.section`
   width: 100%;
 
-  margin-bottom: 1rem;
+  margin-top: 1rem;
   overflow: hidden;
 `;
 

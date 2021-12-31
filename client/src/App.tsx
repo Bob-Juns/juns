@@ -15,7 +15,7 @@ import BannerUpdate from '@pages/Dashboard/BannerUpdate';
 import Setting from '@pages/User/Setting/Setting';
 import Detail from '@pages/Detail/Detail';
 import Bookmark from '@pages/User/Bookmark/Bookmark';
-import Channels from '@pages/Channels/Channels';
+import Explorer from '@pages/Explorer/Explorer';
 
 import Toast from '@components/Toast/Toast';
 
@@ -63,8 +63,8 @@ const App = () => {
           <Route path="/setting" element={<PrivateRoute />}>
             <Route path="/setting" element={<Setting />} />
           </Route>
-          <Route path="/channels" element={<PublicRoute />}>
-            <Route path="/channels" element={<Channels />} />
+          <Route path="/explorer" element={<PublicRoute />}>
+            <Route path="/explorer" element={<Explorer />} />
           </Route>
           <Route path="/channel" element={<PrivateRoute />}>
             <Route path=":_channelId" element={<Detail />} />

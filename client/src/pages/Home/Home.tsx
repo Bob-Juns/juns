@@ -22,7 +22,7 @@ const Home = ({ channels, banners, getChannels, getBanners }: Props) => {
   }, [channels.allChannels, banners.allBanners]);
 
   return (
-    <Page>
+    <Page blur>
       <Search />
       <Banner />
       <HomeList />

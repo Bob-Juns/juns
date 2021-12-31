@@ -7,10 +7,10 @@ import Hamburger from '@components/Common/Header/Hamburger';
 import SideMenu from '@components/Common/SideMenu/SideMenu';
 
 type Props = {
-  location?: string;
+  blur?: boolean;
 };
 
-const Header = ({ location }: Props) => {
+const Header = ({ blur }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
@@ -24,7 +24,7 @@ const Header = ({ location }: Props) => {
 
   return (
     <>
-      <Container location={location}>
+      <Container blur={blur}>
         <Wrapper>
           <Title onClick={onClickTitle}>
             <Colored>jun</Colored>streaming
@@ -36,12 +36,12 @@ const Header = ({ location }: Props) => {
     </>
   );
 };
-const Container = styled.header<{ location?: string }>`
+const Container = styled.header<{ blur?: boolean }>`
   width: 100vw;
   height: 3.75rem;
   background-color: ${(props) =>
-    props.location === 'detail' ? '#fff' : 'rgba(255, 255, 255, 0.9)'};
-  backdrop-filter: ${(props) => props.location !== 'detail' && 'blur(1px)'};
+    props.blur ? 'rgba(255, 255, 255, 0.9)' : '#fff'};
+  backdrop-filter: ${(props) => props.blur && 'blur(1px)'};
   position: fixed;
   top: 0;
   left: 0;

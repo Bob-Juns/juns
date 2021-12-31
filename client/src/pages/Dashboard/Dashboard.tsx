@@ -34,8 +34,8 @@ const Dashboard = ({
 
   return (
     <>
-      <TopMenu />
-      <Page location="dashboard">
+      <Page blur>
+        <TopMenu />
         {dashboardMenu.currentDashboardMenu === '유저' ? (
           <User />
         ) : dashboardMenu.currentDashboardMenu === '채널' ? (

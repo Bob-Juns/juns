@@ -119,9 +119,9 @@ const List = styled.ul<{ open: boolean }>`
   background-color: #fff;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 
+  visibility: ${(props) => (props.open ? 'visible' : 'hidden')};
   opacity: ${(props) => (props.open ? '1' : '0')};
   transform: ${(props) => (props.open ? 'translateY(0)' : 'translateY(-1rem)')};
-  z-index: ${(props) => !props.open && '-1'};
   transition: all 0.3s linear;
 `;
 

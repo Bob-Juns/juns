@@ -45,7 +45,7 @@ const Detail = ({
   }, []);
 
   return (
-    <Page location="detail">
+    <Page>
       <Video />
       <VideoInfo />
       <ChannelInfo />

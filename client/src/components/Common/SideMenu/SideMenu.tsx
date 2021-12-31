@@ -113,6 +113,8 @@ const Container = styled.nav<{ open: boolean }>`
 
   transform: ${(props) => (props.open ? 'translateX(0)' : 'translateX(100%)')};
   transition: transform 0.3s ease-in-out;
+
+  z-index: 998;
 `;
 
 const Head = styled.div`
