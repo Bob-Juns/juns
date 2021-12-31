@@ -59,6 +59,16 @@ type ChannelInputs = {
   playlistId: string;
 };
 
+type BannerInputs = {
+  bannerId: string;
+  bannerTitle: string;
+  bannerLink: string;
+};
+
+interface BannerMessages extends BannerInputs {
+  bannerImage: string;
+}
+
 interface ChannelMessages extends ChannelInputs {
   channelCover: string;
 }

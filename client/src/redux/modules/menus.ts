@@ -26,11 +26,11 @@ export const selectAuthorityMenu = (payload: CurrentAuthorityMenu) => {
 export const initialState: Menu = {
   dashboardMenu: {
     currentDashboardMenu: '홈',
-    allDashboardMenus: ['홈', '유저', '채널'],
+    allDashboardMenus: ['홈', '유저', '채널', '배너'],
   },
   categoryMenu: {
     currentCategoryMenu: '카테고리',
-    allCategoryMenus: ['전체', '드라마', '예능', '게임', '영화', '기타'],
+    allCategoryMenus: ['전체', '드라마', '예능', '게임', '영화', '종합'],
   },
   authorityMenu: {
     currentAuthorityMenu: '권한',
@@ -54,8 +54,7 @@ export const menuReducer = (state = initialState, action: MenuAction) => {
         ...state,
         categoryMenu: {
           ...state.categoryMenu,
-          currentCategoryMenu:
-            action.payload === '전체' ? '카테고리' : action.payload,
+          currentCategoryMenu: action.payload,
         },
       };
 
@@ -64,8 +63,7 @@ export const menuReducer = (state = initialState, action: MenuAction) => {
         ...state,
         authorityMenu: {
           ...state.authorityMenu,
-          currentAuthorityMenu:
-            action.payload === '전체' ? '권한' : action.payload,
+          currentAuthorityMenu: action.payload,
         },
       };
 
