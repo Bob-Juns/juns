@@ -17,10 +17,10 @@ const MainCountCard = ({ title, count }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 70px;
+  height: 60px;
 
   background-color: #fff;
-
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -45,7 +45,7 @@ const Title = styled.div`
 
 const Count = styled(Title)`
   margin-top: 0.375rem;
-  font-size: 1.375rem;
+  font-size: 1.25rem;
 `;
 
 export default MainCountCard;
