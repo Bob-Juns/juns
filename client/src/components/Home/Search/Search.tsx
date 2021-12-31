@@ -15,21 +15,28 @@ type Props = {
 const Search = ({ getSearchedChannels }: Props) => {
   const [input, setInput] = useState('');
 
-  const focusRef = useRef<HTMLElement>(null);
+  const focusRef = useRef<HTMLDivElement>(null);
 
   const onClickOutside = (event: any) => {
-    if (focusRef.current && !focusRef.current.contains(event.target)) {
-      getSearchedChannels('');
-      setInput('');
+    if (
+      input !== '' &&
+      focusRef.current &&
+      !focusRef.current.contains(event.target)
+    ) {
+      getSearchedChannels(''), setInput('');
     }
   };
+
+  useEffect(() => {
+    return () => getSearchedChannels('');
+  }, []);
 
   useEffect(() => {
     document.addEventListener('click', onClickOutside, true);
     return () => {
       document.removeEventListener('click', onClickOutside, true);
     };
-  }, [focusRef]);
+  }, [focusRef, input]);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     getSearchedChannels(event.currentTarget.value);
@@ -55,12 +62,12 @@ const Search = ({ getSearchedChannels }: Props) => {
   );
 };
 
-const Container = styled.section`
+const Container = styled.div`
   width: calc(100% - 1rem);
   height: 2rem;
-  margin: 0 0.5rem;
+  margin: 0.5rem;
+
   display: flex;
-  position: relative;
   border-radius: 3.125rem;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
 `;

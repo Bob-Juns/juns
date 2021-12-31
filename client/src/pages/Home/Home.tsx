@@ -1,20 +1,46 @@
-import React from 'react';
+import React, { Dispatch, useEffect } from 'react';
 
-import styled from 'styled-components';
+import { connect } from 'react-redux';
+import { actions } from 'store';
+
 import Page from '@components/Common/Layouts/Page';
+import Search from '@components/Home/Search/Search';
+import Banner from '@components/Home/Banner/Banner';
+import HomeList from '@components/Home/HomeList/HomeList';
 
-const Home = () => {
+type Props = {
+  channels: Channel;
+  banners: Banner;
+  getChannels: () => void;
+  getBanners: () => void;
+};
+
+const Home = ({ channels, banners, getChannels, getBanners }: Props) => {
+  useEffect(() => {
+    // console.log(window.matchMedia('(prefers-color-scheme: dark)').matches);
+    channels.allChannels.length < 1 && getChannels();
+    banners.allBanners.length < 1 && getBanners();
+  }, [channels.allChannels, banners.allBanners]);
+
   return (
     <Page>
-      <Container></Container>
+      <Search />
+      <Banner />
+      <HomeList />
     </Page>
   );
 };
 
-const Container = styled.section`
-  width: 100vw;
-  height: calc(100vh - 5.375rem);
-  height: calc(var(--vh, 1vh) * 100 - 5.375rem);
-`;
+const mapStateToProps = (state: { channels: Channel; banners: Banner }) => ({
+  channels: state.channels,
+  banners: state.banners,
+});
 
-export default Home;
+const mapDispatchToProps = (
+  dispatch: Dispatch<ChannelAction | BannerAction>,
+) => ({
+  getChannels: () => dispatch(actions.getChannels()),
+  getBanners: () => dispatch(actions.getBanners()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

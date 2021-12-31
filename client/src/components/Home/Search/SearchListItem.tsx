@@ -1,17 +1,20 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
+
 import styled from 'styled-components';
 import chevronIcon from '@assets/icons/chevron.svg';
 
 type Props = {
-  category: string;
-  title: string;
+  channel: CurrentChannel;
 };
 
-const SearchListItem = ({ category, title }: Props) => {
+const SearchListItem = ({ channel }: Props) => {
+  const navigate = useNavigate();
+
   return (
-    <Container>
-      <Category category={category}>{category}</Category>
-      <Title>{title}</Title>
+    <Container onClick={() => navigate(`/channel/${channel.channelId}`)}>
+      <Category category={channel.category}>{channel.category}</Category>
+      <Title>{channel.channelTitle}</Title>
       <Chevron />
     </Container>
   );

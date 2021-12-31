@@ -13,11 +13,7 @@ const SearchedList = ({ channels }: Props) => {
     <Container show={channels.searchedChannels.length > 0}>
       {channels.searchedChannels.length > 0 &&
         channels.searchedChannels.map((channel: CurrentChannel) => (
-          <SearchListItem
-            key={channel.channelId}
-            category={channel.category}
-            title={channel.channelTitle}
-          />
+          <SearchListItem key={channel.channelId} channel={channel} />
         ))}
     </Container>
   );
