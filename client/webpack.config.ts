@@ -63,6 +63,13 @@ module.exports = {
     }),
     new webpack.DefinePlugin({
       'process.env.KAKAO_JS_KEY': JSON.stringify(process.env.KAKAO_JS_KEY),
+      'process.env.GOOGLE_API_KEY': JSON.stringify(process.env.GOOGLE_API_KEY),
+      'process.env.GOOGLE_CLIENT_ID': JSON.stringify(
+        process.env.GOOGLE_CLIENT_ID,
+      ),
+      'process.env.GOOGLE_CLIENT_SECRET': JSON.stringify(
+        process.env.GOOGLE_CLIENT_SECRET,
+      ),
     }),
     new Dotenv(),
   ],
