@@ -1,6 +1,7 @@
 {
   "name": "juns-client",
   "version": "1.0.0",
+  "homepage": ".",
   "main": "index.tsx",
   "license": "MIT",
   "scripts": {
