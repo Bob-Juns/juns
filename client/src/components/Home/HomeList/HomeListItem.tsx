@@ -13,7 +13,7 @@ type Props = {
   head: string;
   category: string;
   channels: Channel;
-  selectCategoryMenu: (payload: string) => any;
+  selectCategoryMenu: (payload: string) => void;
 };
 
 const HomeListItem = ({
@@ -34,8 +34,9 @@ const HomeListItem = ({
     draggable: true,
   };
 
-  const onClickHeader = (category: string) => {
-    selectCategoryMenu(category).then(navigate('/channels'));
+  const onClickHeader = async (category: string) => {
+    await selectCategoryMenu(category);
+    navigate('/explorer');
   };
 
   return (
@@ -154,7 +155,7 @@ const Cover = styled.div<{ src: string }>`
 `;
 
 const Title = styled.div<{ category: string }>`
-  width: 100%;
+  width: 98%;
   color: ${(props) =>
     props.category === '드라마'
       ? props.theme.color.category.drama

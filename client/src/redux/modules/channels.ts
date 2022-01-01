@@ -108,6 +108,7 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
         allChannels: action.payload,
         filteredChannels: action.payload,
         randomChannels: action.payload
+          .concat()
           .sort(() => Math.random() - 0.5)
           .slice(0, 4),
       };
@@ -130,8 +131,8 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
           action.payload.filter === '카테고리'
             ? state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  channel.channelTitle.match(action.payload.query.toString()) &&
-                  channel.channelTitle.match(action.payload.query.toString())
+                  channel.channelTitle.match(action.payload.query) ||
+                  channel.channelId.match(action.payload.query)
                 );
               })
             : state.allChannels
@@ -140,8 +141,9 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
                     channel.category === action.payload.filter,
                 )
                 .filter((channel: CurrentChannel) => {
-                  return channel.channelTitle.match(
-                    action.payload.query.toString(),
+                  return (
+                    channel.channelTitle.match(action.payload.query) ||
+                    channel.channelId.match(action.payload.query)
                   );
                 }),
       };
@@ -154,9 +156,9 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
             ? []
             : state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  channel.channelTitle.match(action.payload.toString()) ||
-                  channel.channelId.match(action.payload.toString()) ||
-                  channel.channelCast.includes(action.payload.toString())
+                  channel.channelTitle.match(action.payload) ||
+                  channel.channelId.match(action.payload) ||
+                  channel.channelCast.includes(action.payload)
                 );
               }),
       };
