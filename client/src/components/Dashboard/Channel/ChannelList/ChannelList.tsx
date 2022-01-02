@@ -10,7 +10,7 @@ type Props = {
 };
 
 const ChannelList = ({ channels }: Props) => {
-  const LIMIT = 5;
+  const LIMIT = 6;
   const [more, setMore] = useState<number>(LIMIT);
 
   const onClickShowMore = () => {

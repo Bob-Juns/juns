@@ -86,6 +86,12 @@ const Menu = styled.div`
     background-color: ${(props) => props.theme.color.gray.light};
     font-weight: 700;
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({

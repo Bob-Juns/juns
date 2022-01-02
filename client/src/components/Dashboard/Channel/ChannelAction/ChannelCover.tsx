@@ -195,6 +195,11 @@ const Text = styled.div`
   font-size: 0.5rem;
   font-weight: 700;
   transform: translateY(1px);
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const ChevronSmall = styled(chevronIcon)<{ open: boolean }>`
@@ -202,6 +207,11 @@ const ChevronSmall = styled(chevronIcon)<{ open: boolean }>`
 
   transform: ${(props) => (props.open ? 'rotate(0)' : 'rotate(180deg)')};
   transition: all 0.3s linear;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 0.75rem;
+  `)}
 `;
 
 const Delete = styled.div`

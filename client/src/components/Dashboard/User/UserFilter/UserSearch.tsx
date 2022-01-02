@@ -93,7 +93,7 @@ const Input = styled.input`
   font-size: 1rem;
 
   &: focus {
-    width: 10rem;
+    width: 15rem;
   }
   `)}
 `;
