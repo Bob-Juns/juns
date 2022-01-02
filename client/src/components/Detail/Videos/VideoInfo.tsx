@@ -50,6 +50,11 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  margin-top: calc(700px * 9 /16 + 3.75rem);
+  `)}
 `;
 
 const Title = styled.div`
@@ -58,6 +63,11 @@ const Title = styled.div`
 
   font-size: 1rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1.25rem;
+    `)}
 `;
 
 const Info = styled.div`
@@ -66,6 +76,11 @@ const Info = styled.div`
   color: #000;
 
   display: flex;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1rem;
+    `)}
 `;
 
 const Wrapper = styled.div`
@@ -93,6 +108,11 @@ const Desc = styled.div`
   word-wrap: break-word;
 
   line-height: 1.25;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1rem;
+    `)}
 `;
 
 const mapStateToProps = (state: { details: Detail }) => ({

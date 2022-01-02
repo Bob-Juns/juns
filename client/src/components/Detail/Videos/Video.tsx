@@ -33,12 +33,18 @@ const Background = styled.div`
   width: 100vw;
   height: calc(100vw * 9 / 16);
 
-  background-color: #fff;
+  background-color: ${(props) => props.theme.color.gray.light};
 
   position: fixed;
   top: 3.75rem;
+  left: 0;
 
   z-index: 90;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: calc(700px * 9 /16);
+  `)}
 `;
 
 const Container = styled.div`
@@ -50,6 +56,15 @@ const Player = styled(ReactPlayer)`
   position: absolute;
   top: 0;
   left: 0;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 700px;
+  max-height: calc(700px * 9 /16);
+
+  left: 50%;
+  transform: translateX(-50%);
+  `)}
 `;
 
 const mapStateToProps = (state: { details: Detail }) => ({

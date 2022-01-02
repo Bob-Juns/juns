@@ -175,7 +175,7 @@ const ChannelFormSecond = ({
 
 const Form = styled.form`
   width: 100vw;
-  height: 100%;
+
   padding: 1.25rem 1rem 1rem;
 
   background-color: ${(props) => props.theme.color.gray.light};
@@ -185,6 +185,12 @@ const Form = styled.form`
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 700px;
+  margin: 0 auto;
+  `)}
 `;
 
 const Inputs = styled.div<{ cast?: boolean }>`
@@ -222,6 +228,11 @@ const Wrapper = styled.div<{ cast?: boolean }>`
 
   background-color: #fff;
   border-radius: 0.5rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  grid-template-columns: ${props.cast ? 'repeat(3, 1fr)' : 'repeat(2, 1fr)'};
+  `)}
 `;
 
 const Cast = styled.div<{ example?: boolean }>`
@@ -241,7 +252,7 @@ const Cast = styled.div<{ example?: boolean }>`
 `;
 
 const Name = styled.div`
-  width: 3.75rem;
+  width: 100%;
   font-size: 0.75rem;
   font-weight: 700;
 
@@ -262,6 +273,7 @@ const Title = styled(Name)`
   width: 3.5rem;
   font-size: 0.625rem;
 `;
+
 const Id = styled(Name)`
   width: calc(100% - 5.525rem);
   font-size: 0.625rem;
@@ -274,6 +286,11 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   algin-items: flex-end;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    height: 2.5rem;
+  `)}
 `;
 
 export default ChannelFormSecond;

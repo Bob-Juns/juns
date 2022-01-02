@@ -102,6 +102,12 @@ const Menu = styled.div`
     background-color: ${(props) => props.theme.color.gray.light};
     font-weight: 700;
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  padding: 0.5rem 1.25rem;
+  `)}
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({

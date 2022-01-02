@@ -44,6 +44,13 @@ const Container = styled.div`
   grid-template-rows: repeat(auto-fit, 1fr);
   grid-row-gap: 1rem;
   grid-column-gap: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 1.25rem;
+  grid-column-gap: 0.75rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -88,6 +95,11 @@ const Title = styled.div<{ category: string }>`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { menus: Menu; channels: Channel }) => ({

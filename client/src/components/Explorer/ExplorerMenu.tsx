@@ -73,6 +73,17 @@ const Menu = styled.div<{ selected?: boolean }>`
     font-weight: 700;
     border-bottom: 3px solid ${(props) => props.theme.color.purple};
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: calc(100vw / 8);
+  font-size: 1rem;
+  `)}
+
+  ${(props) =>
+    props.theme.device('desktop')(`
+  width: calc(100vw / 10);
+  `)}
 `;
 
 const mapStateToProps = (state: { menus: Menu }) => ({

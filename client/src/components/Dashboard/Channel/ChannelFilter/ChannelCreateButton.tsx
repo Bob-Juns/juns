@@ -27,6 +27,13 @@ const Button = styled.button`
 
   border-radius: 50%;
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3rem;
+  height: 3rem;
+  margin-right: 0.5rem;
+  `)}
 `;
 
 const Plus = styled(plusIcon)`
@@ -34,6 +41,12 @@ const Plus = styled(plusIcon)`
   height: 0.75rem;
 
   color: #fff;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1rem;
+  height: 1rem;
+  `)}
 `;
 
 export default ChannelCreateButton;

@@ -17,7 +17,7 @@ const MainCountCard = ({ title, count }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 60px;
+  height: 3.75rem;
 
   background-color: #fff;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
@@ -27,6 +27,11 @@ const Container = styled.div`
   align-items: center;
 
   border-radius: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 5rem;
+  `)}
 `;
 
 const Title = styled.div`
@@ -41,6 +46,11 @@ const Title = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Count = styled(Title)`

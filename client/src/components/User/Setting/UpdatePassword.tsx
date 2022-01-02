@@ -201,6 +201,12 @@ const Button = styled.button`
   font-weight: 700;
 
   border-radius: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 4rem;
+  font-size: 0.75rem;
+  `)}
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<UserAction>) => ({

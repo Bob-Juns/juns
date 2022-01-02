@@ -38,6 +38,17 @@ const Item = styled.div<{ selected?: boolean }>`
     font-weight: 700;
     border-bottom: 3px solid ${(props) => props.theme.color.purple};
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: calc(100vw 6);
+  font-size: 1rem;
+  `)}
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: calc(100vw / 8);
+  `)}
 `;
 
 export default TopMenuItem;

@@ -78,6 +78,11 @@ const Container = styled.div`
 
   cursor: pointer;
   z-index: 90;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    top: calc(700px * 9 / 16 + 3.75rem);
+    `)}
 `;
 
 const Wrapper = styled.div`
@@ -100,12 +105,22 @@ const Selected = styled.div`
 const Current = styled.div`
   font-size: 0.75rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1rem;
+    `)}
 `;
 
 const Chevron = styled(chevronIcon)<{ open: boolean }>`
   width: 0.75rem;
   transform: ${(props) => (props.open ? 'rotate(0)' : 'rotate(180deg)')};
   transition: all 0.3s linear;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    width: 1rem;
+    `)}
 `;
 
 const List = styled.ul<{ open: boolean }>`
@@ -135,6 +150,11 @@ const Menu = styled.li`
   &: hover {
     color: ${(props) => props.theme.color.purple};
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1rem;
+    `)}
 `;
 
 const mapStateToProps = (state: { details: Detail }) => ({

@@ -46,6 +46,12 @@ const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: center;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 400px;
+  margin: 0 auto;
+  `)}
 `;
 
 const Title = styled.h1`

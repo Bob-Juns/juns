@@ -22,7 +22,7 @@ const SearchListItem = ({ channel }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 2.2rem;
+  padding: 0.5rem 0;
   display: flex;
   align-items: center;
 
@@ -38,7 +38,7 @@ const Category = styled.div<{ category: string }>`
   height: 1.125rem;
   margin-right: 0.375rem;
   font-size: 0.625rem;
-
+  font-weight: 700;
   color: #fff;
   background-color: ${(props) =>
     props.category === '드라마'
@@ -55,18 +55,38 @@ const Category = styled.div<{ category: string }>`
   justify-content: center;
   align-items: center;
 
-  border-radius: 0.25rem;
+  border-radius: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width:3.75rem;
+  height: 1.5rem;
+  margin-right: 1rem;
+  font-size: 0.75rem;
+  `)}
 `;
 
 const Title = styled.div`
+  display: flex;
+  align-items: center;
   font-size: 0.75rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Chevron = styled(chevronIcon)`
   width: 0.75rem;
   transform: rotate(90deg);
   margin-left: auto;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1rem;
+  `)}
 `;
 
 export default SearchListItem;

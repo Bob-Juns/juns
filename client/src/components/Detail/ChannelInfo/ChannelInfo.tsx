@@ -93,6 +93,11 @@ const Bookmark = styled(bookmarkIcon)<{ added: boolean }>`
   right: 1rem;
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1rem;
+  `)}
 `;
 
 const Cover = styled.div<{ src: string }>`
@@ -106,6 +111,13 @@ const Cover = styled.div<{ src: string }>`
 
   box-shadow: ${(props) => props.theme.boxShadow.primary};
   border-radius: 0.25rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 15%;
+  height: 0;
+  padding-top: 20%;
+  `)}
 `;
 
 const Info = styled.div`
@@ -113,6 +125,11 @@ const Info = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 80%;
+  `)}
 `;
 
 const Category = styled.div<{ category: string }>`
@@ -142,6 +159,11 @@ const TitleKo = styled.div`
   font-size: 0.75rem;
   font-weight: 700;
   color: ${(props) => props.theme.color.green};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.125rem;
+  `)}
 `;
 
 const TitleEn = styled(TitleKo)`
@@ -149,6 +171,11 @@ const TitleEn = styled(TitleKo)`
   font-size: 0.625rem;
   font-weight: 400;
   color: #000;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -164,10 +191,20 @@ const Subtitle = styled.div`
   font-size: 0.625rem;
   font-weight: 700;
   margin-right: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const Producer = styled.div`
   font-size: 0.625rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const Casts = styled.ul`
@@ -187,6 +224,11 @@ const Cast = styled.li`
       content: ' 등';
     }
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { users: User; channels: Channel }) => ({

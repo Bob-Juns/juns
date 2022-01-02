@@ -42,7 +42,6 @@ const BannerCard = ({ src, banner }: Props) => {
 };
 
 const Container = styled.div`
-  margin-top: 1rem;
   display: flex;
   flex-direction: column;
 
@@ -50,10 +49,6 @@ const Container = styled.div`
   border-radius: 1rem;
 
   position: relative;
-
-  &:first-child {
-    margin-top: 0;
-  }
 `;
 
 const Image = styled.div<{ src: string }>`
@@ -75,11 +70,21 @@ const Info = styled.div`
   background-color: #fff;
 
   border-radius: 0 0 1rem 1rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  padding: 1.125rem;
+  `)}
 `;
 const Title = styled.div`
   color: ${(props) => props.theme.color.purple};
   font-size: 0.875rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -87,6 +92,11 @@ const Wrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1rem;
+  `)}
 `;
 
 const Setting = styled(menuIcon)`

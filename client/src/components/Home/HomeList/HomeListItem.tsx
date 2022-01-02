@@ -28,10 +28,20 @@ const HomeListItem = ({
   const settings = {
     dots: false,
     arrows: false,
-    slidesToShow: 4.5,
-    slidesToScroll: 2,
+    slidesToShow: 6.5,
+    slidesToScroll: 1,
     infinite: false,
     draggable: true,
+
+    responsive: [
+      {
+        breakpoint: 767,
+        settings: {
+          slidesToShow: 4.5,
+          slideToScroll: 2,
+        },
+      },
+    ],
   };
 
   const onClickHeader = async (category: string) => {
@@ -79,9 +89,11 @@ const Header = styled.div<{ category: string }>`
   width: 100%;
   height: 0.75rem;
   margin-bottom: 0.75rem;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
+
   color: ${(props) =>
     props.category === '드라마'
       ? props.theme.color.category.drama
@@ -104,11 +116,20 @@ const Head = styled.div`
   text-overflow: ellipsis;
 
   overflow: hidden;
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Chevron = styled(chevronIcon)`
   width: 0.625rem;
   transform: rotate(90deg);
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 0.875rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -173,6 +194,11 @@ const Title = styled.div<{ category: string }>`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { channels: Channel }) => ({

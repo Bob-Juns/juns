@@ -101,6 +101,12 @@ const Button = styled.button`
   position: absolute;
   bottom: 0.375rem;
   right: 0;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 4rem;
+  font-size: 0.75rem;
+  `)}
 `;
 
 const Message = styled.div`

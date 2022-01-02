@@ -19,7 +19,7 @@ const Bookmark = ({ users }: Props) => {
       <Titles>
         <Em>{users.currentUser.userName}</Em>님의 찜 목록
       </Titles>
-      {users.currentUser.bookmark.length > 0 ? (
+      {users.currentUser.bookmark?.length > 0 ? (
         <List>
           {users.currentUser.bookmark.map((channel: CurrentChannel) => (
             <Wrapper
@@ -49,6 +49,11 @@ const Titles = styled.div`
   color: ${(props) => props.theme.color.purple};
 
   font-size: 0.875rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.125rem;
+  `)}
 `;
 
 const Em = styled.div`
@@ -58,13 +63,20 @@ const Em = styled.div`
 const List = styled.ul`
   width: 100%;
 
-  padding: 0 0.5rem 1rem;
+  padding: 0.5rem 1rem;
 
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(auto-fit, 1fr);
   grid-row-gap: 1rem;
   grid-column-gap: 0.375rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  grid-template-columns: repeat(5, 1fr);
+  grid-row-gap: 1.25rem;
+  grid-column-gap: 0.75rem;
+  `)}
 `;
 
 const Wrapper = styled.li`
@@ -109,6 +121,11 @@ const Title = styled.div<{ category: string }>`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 0.75rem;
+  `)}
 `;
 
 const Empty = styled.div`
@@ -119,6 +136,11 @@ const Empty = styled.div`
   justify-content: center;
 
   color: ${[(props) => props.theme.color.gray.base]};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.125rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { users: User }) => ({

@@ -46,6 +46,11 @@ const Container = styled.header<{ blur?: boolean }>`
   top: 0;
   left: 0;
   z-index: 98;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 4rem;
+  `)}
 `;
 
 const Wrapper = styled.section`
@@ -66,6 +71,11 @@ const Title = styled.h1`
   transform: translate(-50%, -50%);
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.25rem;
+  `)}
 `;
 
 const Colored = styled.span`

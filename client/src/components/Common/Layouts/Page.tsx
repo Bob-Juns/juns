@@ -24,6 +24,14 @@ const Body = styled.div<{ blur?: boolean }>`
   min-height: calc(100vh - 6.75rem);
   min-height: calc(var(--vh, 1vh) * 100 - 6.75rem);
   ${(props) => props.blur && `overflow-x: hidden;`}
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 700px;
+  min-height: calc(100vh - 7.75rem);
+  min-height: calc(var(--vh, 1vh) * 100 - 7.75rem);
+  margin: 0 auto;
+  `)};
 `;
 
 export default Page;

@@ -43,6 +43,11 @@ const Container = styled.div<{ show: boolean }>`
   z-index: ${(props) => (props.show ? '990' : '-1')};
 
   transition: all 0.3s ease-in;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  top: 3rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { channels: Channel }) => ({

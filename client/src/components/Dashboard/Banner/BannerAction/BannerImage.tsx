@@ -71,6 +71,11 @@ const Container = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  min-height: 300px;
+    `)}
 `;
 
 const Upload = styled.div`
@@ -88,10 +93,20 @@ const Upload = styled.div`
   border: 1px dashed ${(props) => props.theme.color.green};
   border-radius: 0.25rem;
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    border: 2px dashed ${props.theme.color.green};
+    `)}
 `;
 
 const Spinner = styled.img`
   width: 1.25rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3.125rem;
+    `)}
 `;
 
 const Wrapper = styled.div`
@@ -108,8 +123,14 @@ const Add = styled(plusIcon)`
   color: #fff;
   background-color: ${(props) => props.theme.color.green};
 
-  border: 1px solid ${(props) => props.theme.color.green};
   border-radius: 50%;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3rem;
+  height: 3rem;
+  padding: 1rem;
+    `)}
 `;
 
 const Text = styled.div`
@@ -117,6 +138,11 @@ const Text = styled.div`
   color: ${(props) => props.theme.color.green};
   font-size: 0.625rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1.125rem;
+    `)}
 `;
 
 const Preview = styled.div`
@@ -156,6 +182,21 @@ const Delete = styled(trashIcon)`
   border-radius: 50%;
 
   cursor: pointer;
+
+  &: hover {
+    color: #fff;
+    background-color: ${(props) => props.theme.color.purple};
+  }
+  }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 2rem;
+  height: 2rem;
+
+  top: 0.75rem;
+  right: 0.75rem;
+    `)}
 `;
 
 const mapStateToProps = (state: { file: { banner: Image } }) => ({

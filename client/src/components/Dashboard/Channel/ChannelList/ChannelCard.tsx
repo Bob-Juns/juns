@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import menuIcon from '@assets/icons/menu.svg';
@@ -12,7 +13,9 @@ type Props = {
 
 const ChannelCard = ({ category, channelTitle, channelId }: Props) => {
   const [isSettingOpen, setIsSettingOpen] = useState<boolean>(false);
+
   const focusRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const onClickOutside = (event: any) => {
     if (focusRef.current && !focusRef.current.contains(event.target)) {
@@ -41,7 +44,10 @@ const ChannelCard = ({ category, channelTitle, channelId }: Props) => {
           <Setting />
         </Wrapper>
       </Category>
-      <Titles category={category}>
+      <Titles
+        category={category}
+        onClick={() => navigate(`/channel/${channelId}`)}
+      >
         <Title>{channelTitle}</Title>
         <Title>{channelId}</Title>
       </Titles>
@@ -57,6 +63,11 @@ const Container = styled.div`
   border-radius: 0.75rem;
 
   position: relative;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 5rem;
+  `)}
 `;
 
 const Left = styled.div<{ category: string }>`
@@ -111,6 +122,11 @@ const Text = styled.div`
   font-size: 0.625rem;
   font-weight: 700;
   color: #fff;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -154,6 +170,11 @@ const Titles = styled.div<{ category: string }>`
 
   border-radius: 0.75rem 0 0.75rem 0.75rem;
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  align-items: center;
+  `)}
 `;
 
 const Title = styled.div`
@@ -164,6 +185,16 @@ const Title = styled.div`
     margin-left: 0.25rem;
     font-size: 0.5rem;
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+
+  &: last-child {
+    margin-left: 0.375rem;
+    font-size: 0.75rem;
+  }
+  `)}
 `;
 
 export default ChannelCard;

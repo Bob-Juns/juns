@@ -146,6 +146,12 @@ const Button = styled.button`
   &: disabled {
     background-color: ${(props) => props.theme.color.gray.base};
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 4rem;
+  font-size: 0.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { users: User }) => ({

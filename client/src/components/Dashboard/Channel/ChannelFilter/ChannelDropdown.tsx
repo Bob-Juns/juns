@@ -63,17 +63,35 @@ const Container = styled.div`
   border-radius: 3.125rem;
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 7rem;
+  height: 3rem;
+  `)}
 `;
 const Selected = styled.div`
   font-size: 0.75rem;
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Chevron = styled(chevronIcon)<{ open: boolean }>`
   width: 0.625rem;
+  height: 0.625rem;
   color: ${(props) => props.theme.color.purple};
   transform: ${(props) => (props.open ? 'rotate(0)' : 'rotate(180deg)')};
   transition: all 0.3s linear;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 0.75rem;
+  height: 0.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: { menus: { categoryMenu: CategoryMenu } }) => ({

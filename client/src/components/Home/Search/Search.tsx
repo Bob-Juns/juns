@@ -39,7 +39,7 @@ const Search = ({ getSearchedChannels }: Props) => {
   }, [focusRef, input]);
 
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
-    getSearchedChannels(event.currentTarget.value.toLowerCase());
+    getSearchedChannels(event.currentTarget.value);
     setInput(event.currentTarget.value);
   };
   return (
@@ -72,11 +72,16 @@ const Container = styled.div`
   position: relative;
   border-radius: 3.125rem;
   box-shadow: ${(props) => props.theme.boxShadow.primary};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 3rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
   width: 2.2rem;
-  height: 2rem;
+  height: 100%;
   background-color: #fff;
 
   display: flex;
@@ -84,6 +89,11 @@ const Wrapper = styled.div`
   align-items: center;
 
   border-radius: 3.125rem 0 0 3.125rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3.125rem;
+  `)}
 `;
 
 const Icon = styled(searchIcon)`
@@ -91,11 +101,17 @@ const Icon = styled(searchIcon)`
   height: 0.75rem;
 
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1.125rem;
+  height: 1.125rem;
+  `)}
 `;
 
 const Input = styled.input`
   width: calc(100% - 2.2rem);
-  height: 2rem;
+  height: 100%;
   padding-right: 0.75rem;
 
   background-color: #fff;
@@ -104,6 +120,12 @@ const Input = styled.input`
 
   border-radius: 0 3.125rem 3.125rem 0;
   transition: width 0.3s ease-in-out;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: calc(100% - 3.125rem);
+  font-size: 1rem;
+  `)}
 `;
 
 const mapDispatchToProps = (dispatch: Dispatch<ChannelAction>) => ({

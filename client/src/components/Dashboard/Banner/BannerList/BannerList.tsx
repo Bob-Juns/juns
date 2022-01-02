@@ -57,20 +57,34 @@ const BannerList = ({ banners }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  margin-top: 1.5rem;
+  margin-top: 2rem;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(auto-fit, 1fr);
+  grid-row-gap: 1.5rem;
 
-  display: flex;
-  flex-direction: column;
+  ${(props) =>
+    props.theme.device('tablet')(`
+  grid-template-columns: repeat(2, 1fr);
+  grid-column-gap: 1.5rem;
+  `)}
 `;
 
 const Empty = styled.div`
   margin: 3rem auto 0;
-  color: ${[(props) => props.theme.color.gray.base]};
+  color: ${(props) => props.theme.color.gray.base};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 700px;
+  font-size: 1.125rem;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  `)}
 `;
 
 const Wrapper = styled.div`
-  margin-top: 1rem;
-
   display: flex;
   justify-content: center;
   align-items: flex-end;

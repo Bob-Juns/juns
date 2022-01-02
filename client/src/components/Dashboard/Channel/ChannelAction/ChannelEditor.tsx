@@ -333,6 +333,12 @@ const Wrapper = styled.div<{ isFirst: boolean }>`
   transform: ${(props) =>
     props.isFirst ? 'translateX(0)' : 'translateX(-100vw)'};
   transition: all 0.3s linear;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    height: calc(100vh - 4rem);
+    height: calc(var(--vh, 1vh) * 100 - 4rem);
+  `)}
 `;
 
 const mapStateToProps = (state: { file: { cover: Image } }) => ({

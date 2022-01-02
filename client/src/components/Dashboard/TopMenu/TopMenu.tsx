@@ -44,6 +44,11 @@ const Container = styled.div`
   border-bottom: 1px solid ${(props) => props.theme.color.yellow};
 
   z-index: 9;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 3.75rem;
+  `)}
 `;
 
 const mapStateToProps = (state: {

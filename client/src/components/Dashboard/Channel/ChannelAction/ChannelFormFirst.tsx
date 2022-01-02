@@ -78,6 +78,12 @@ const Form = styled.form`
 
   overflow-x: hidden;
   overflow-y: auto;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 700px;
+  margin: 0 auto;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -93,6 +99,11 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   algin-items: flex-end;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    height: 2.5rem;
+  `)}
 `;
 
 export default ChannelFormFirst;

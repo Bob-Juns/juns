@@ -43,6 +43,12 @@ const Container = styled.div<{ open: boolean }>`
 
   transform: ${(props) => (props.open ? 'translateY(0)' : 'translateY(-1rem)')};
   transition: all 0.3s linear;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 7rem;
+  top: 3.2rem;
+  `)}
 `;
 
 const Menu = styled.div`
@@ -73,6 +79,12 @@ const Menu = styled.div`
     background-color: ${(props) => props.theme.color.gray.light};
     font-weight: 700;
   }
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  padding: 0.75rem 1.25rem;
+  `)}
 `;
 
 const mapStateToProps = (state: {

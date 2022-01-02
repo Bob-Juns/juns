@@ -19,6 +19,11 @@ const Container = styled.div`
   height: 100%;
   margin-top: 6.75rem;
   padding: 1rem 0.5rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  margin-top: 7.75rem;
+  `)}
 `;
 
 export default Banner;

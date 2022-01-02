@@ -57,6 +57,11 @@ const Title = styled.div`
   font-size: 0.875rem;
   font-weight: 700;
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Chevron = styled(chevronIcon)<{ open: boolean }>`

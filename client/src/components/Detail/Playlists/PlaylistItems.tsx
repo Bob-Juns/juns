@@ -69,6 +69,11 @@ const Wrapper = styled.div`
   margin-bottom: 0.375rem;
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    padding: 1rem 0;
+    `)}
 `;
 
 const Thumbnail = styled.div<{ src: string; show: boolean }>`
@@ -109,6 +114,13 @@ const Thumbnail = styled.div<{ src: string; show: boolean }>`
     transform: translate(-50%, -50%);
   }
   `}
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    width: 25%;
+    height:0;
+    padding-top: 14.06%;
+    `)}
 `;
 
 const Info = styled.div`
@@ -116,6 +128,11 @@ const Info = styled.div`
 
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 72%;
+  `)}
 `;
 
 const Title = styled.div`
@@ -129,12 +146,22 @@ const Title = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1.125rem;
+    `)}
 `;
 
 const Date = styled.time`
   width: 100%;
   margin-top: 0.375rem;
   font-size: 0.75rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 0.875rem;
+    `)}
 `;
 
 const Desc = styled.div`
@@ -145,6 +172,11 @@ const Desc = styled.div`
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    font-size: 1rem;
+    `)}
 `;
 
 const mapStateToProps = (state: { details: Detail }) => ({

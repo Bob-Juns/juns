@@ -66,6 +66,10 @@ const BannerEditor = ({
     return () => resetBannerImage();
   }, []);
 
+  useEffect(() => {
+    banner.filePath !== '' && setMessages({ ...messages, bannerImage: '' });
+  }, [banner.filePath]);
+
   const onChangeInput = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { id, value } = event.currentTarget;
 
@@ -84,33 +88,43 @@ const BannerEditor = ({
     event: React.FormEvent<HTMLFormElement | HTMLButtonElement>,
   ) => {
     event.preventDefault();
-    create
-      ? createBanner({
-          bannerId: inputs.bannerId,
-          bannerTitle: inputs.bannerTitle,
-          bannerImage: banner,
-          bannerLink: inputs.bannerLink,
-        })
-          .then((response: MessageResponse) => {
-            onClickClose();
-            toast.success(response.payload.message);
+    if (banner.filePath == '') {
+      setMessages({ ...messages, bannerImage: '배너 이미지를 등록해주세요.' });
+    } else if (inputs.bannerId === '') {
+      setMessages({ ...messages, bannerId: '배너 ID를 입력해주세요.' });
+    } else if (inputs.bannerTitle === '') {
+      setMessages({ ...messages, bannerTitle: '배너 제목을 입력해주세요.' });
+    } else if (inputs.bannerLink === '') {
+      setMessages({ ...messages, bannerLink: '채널 ID를 입력해주세요.' });
+    } else {
+      create
+        ? createBanner({
+            bannerId: inputs.bannerId,
+            bannerTitle: inputs.bannerTitle,
+            bannerImage: banner,
+            bannerLink: inputs.bannerLink,
           })
-          .catch((error: ErrorMessageResponse) =>
-            toast.error(error.response.data.message),
-          )
-      : updateBanner(_bannerId as string, {
-          bannerId: inputs.bannerId,
-          bannerTitle: inputs.bannerTitle,
-          bannerImage: banner,
-          bannerLink: inputs.bannerLink,
-        })
-          .then((response: MessageResponse) => {
-            onClickClose();
-            toast.success(response.payload.message);
+            .then((response: MessageResponse) => {
+              onClickClose();
+              toast.success(response.payload.message);
+            })
+            .catch((error: ErrorMessageResponse) =>
+              toast.error(error.response.data.message),
+            )
+        : updateBanner(_bannerId as string, {
+            bannerId: inputs.bannerId,
+            bannerTitle: inputs.bannerTitle,
+            bannerImage: banner,
+            bannerLink: inputs.bannerLink,
           })
-          .catch((error: ErrorMessageResponse) =>
-            toast.error(error.response.data.message),
-          );
+            .then((response: MessageResponse) => {
+              onClickClose();
+              toast.success(response.payload.message);
+            })
+            .catch((error: ErrorMessageResponse) =>
+              toast.error(error.response.data.message),
+            );
+    }
   };
 
   return (
@@ -121,6 +135,7 @@ const BannerEditor = ({
       />
       <Form onSubmit={onSubmitForm}>
         <BannerImage />
+        <Message>{messages.bannerImage}</Message>
         <Wrapper>
           <Label htmlFor="bannerId">배너 ID</Label>
           <Input
@@ -184,6 +199,12 @@ const Form = styled.form`
   padding: 1rem;
   display: flex;
   flex-direction: column;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  max-width: 700px;
+  margin: 0 auto;
+  `)}
 `;
 
 const Wrapper = styled.div`
@@ -204,6 +225,11 @@ const Label = styled.label`
 
   font-size: 1rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.125rem;
+  `)}
 `;
 
 const Input = styled.input`
@@ -213,6 +239,11 @@ const Input = styled.input`
 
   font-size: 0.75rem;
   border-bottom: 1px solid ${(props) => props.theme.color.gray.base};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Message = styled.div`
@@ -220,6 +251,11 @@ const Message = styled.div`
   margin-top: 0.25rem;
   font-size: 0.75rem;
   color: ${(props) => props.theme.color.red};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const ButtonGroup = styled.div`
@@ -229,16 +265,27 @@ const ButtonGroup = styled.div`
   display: flex;
   justify-content: space-between;
   algin-items: flex-end;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 2.5rem;
+    `)}
 `;
 
 const Cancel = styled.button`
   width: 6rem;
-  height: 2rem;
+  height: 100%;
 
   font-weight: 700;
   color: #fff;
   background-color: ${(props) => props.theme.color.red};
   border-radius: 3.125rem;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    width: 8rem;
+    font-size: 1.125rem;
+    `)}
 `;
 
 const Confirm = styled(Cancel)`

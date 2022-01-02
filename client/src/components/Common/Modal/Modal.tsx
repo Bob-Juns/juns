@@ -75,11 +75,22 @@ const Container = styled.div<{ open: boolean }>`
 
   transform: ${(props) => (props.open ? 'scale(1)' : 'scale(0.5)')};
   transition: transform 0.3s;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 500px;
+  min-height: 300px;
+  `)}
 `;
 
 const Icon = styled.div`
   width: 3.125rem;
   color: ${(props) => props.theme.color.gray.base};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3.75rem;
+  `)}
 `;
 
 const Body = styled.div`
@@ -101,6 +112,11 @@ const Title = styled.div`
   font-weight: 700;
 
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.5rem;
+  `)}
 `;
 
 const Desc = styled.div`
@@ -110,6 +126,11 @@ const Desc = styled.div`
   font-size: 0.875rem;
   line-height: 1.2;
   color: #000;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const ButtonGroup = styled.div`
@@ -120,7 +141,7 @@ const ButtonGroup = styled.div`
 `;
 
 const Cancel = styled.button`
-  width: 45%;
+  width: 47%;
   height: 2rem;
   border-radius: 0.375rem;
   background-color: ${(props) => props.theme.color.gray.light};
@@ -129,6 +150,12 @@ const Cancel = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 3.125rem;
+  font-size: 1.125rem;
+  `)}
 `;
 
 const Confirm = styled(Cancel)`

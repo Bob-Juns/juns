@@ -51,7 +51,6 @@ const UserCard = ({ user }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  height: 3rem;
   padding-right: 0.375rem;
 
   display: flex;
@@ -69,6 +68,13 @@ const RegisterWith = styled.div<{ registerWith: string }>`
   border-radius: 0.75rem;
 
   position: relative;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 3.75rem;
+  height: 3.75rem;
+  margin-right: 1.5rem;
+  `)}
 `;
 
 const Email = styled(registerEmail)`
@@ -95,18 +101,34 @@ const Role = styled.div`
   position: absolute;
   bottom: -20%;
   right: -20%;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 2rem;
+  height: 2rem;
+  `)}
 `;
 
 const Admin = styled(adminIcon)`
   width: auto;
   height: 0.625rem;
   color: ${(props) => props.theme.color.yellow};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 0.75rem;
+  `)}
 `;
 
 const User = styled(userIcon)`
   width: auto;
   height: 0.75rem;
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 0.875rem;
+  `)}
 `;
 
 const UserInfo = styled.div`
@@ -121,22 +143,36 @@ const UserInfo = styled.div`
 const UserName = styled.div`
   font-size: 1.125rem;
   font-weight: 700;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.25rem;
+  `)}
 `;
 
 const UserEmail = styled.div`
   font-size: 0.75rem;
   color: ${(props) => props.theme.color.gray.base};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Wrapper = styled.div`
   width: 0.75rem;
-  height: 100%;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1rem;
+  `)}
 `;
 
 const Menu = styled(menuIcon)`

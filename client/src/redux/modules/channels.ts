@@ -107,10 +107,7 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
         ...state,
         allChannels: action.payload,
         filteredChannels: action.payload,
-        randomChannels: action.payload
-          .concat()
-          .sort(() => Math.random() - 0.5)
-          .slice(0, 4),
+        randomChannels: action.payload.concat().sort(() => Math.random() - 0.5),
       };
 
     case GET_CHANNEL:
@@ -131,8 +128,13 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
           action.payload.filter === '카테고리'
             ? state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  channel.channelTitle.match(action.payload.query) ||
-                  channel.channelId.match(action.payload.query)
+                  channel.channelTitle.match(
+                    action.payload.query.toLowerCase(),
+                  ) ||
+                  channel.channelId.match(action.payload.query.toLowerCase()) ||
+                  channel.channelCast.includes(
+                    action.payload.query.toLowerCase(),
+                  )
                 );
               })
             : state.allChannels
@@ -142,8 +144,15 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
                 )
                 .filter((channel: CurrentChannel) => {
                   return (
-                    channel.channelTitle.match(action.payload.query) ||
-                    channel.channelId.match(action.payload.query)
+                    channel.channelTitle.match(
+                      action.payload.query.toLowerCase(),
+                    ) ||
+                    channel.channelId.match(
+                      action.payload.query.toLowerCase(),
+                    ) ||
+                    channel.channelCast.includes(
+                      action.payload.query.toLowerCase(),
+                    )
                   );
                 }),
       };
@@ -156,9 +165,9 @@ export const channelReducer = (state = initialState, action: ChannelAction) => {
             ? []
             : state.allChannels.filter((channel: CurrentChannel) => {
                 return (
-                  channel.channelTitle.match(action.payload) ||
-                  channel.channelId.match(action.payload) ||
-                  channel.channelCast.includes(action.payload)
+                  channel.channelTitle.match(action.payload.toLowerCase()) ||
+                  channel.channelId.match(action.payload.toLowerCase()) ||
+                  channel.channelCast.includes(action.payload.toLowerCase())
                 );
               }),
       };

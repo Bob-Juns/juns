@@ -60,6 +60,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: space-between;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: calc(100% / 2 - 2rem);
+  `)}
 `;
 
 const Label = styled.div`
@@ -84,6 +89,11 @@ const Wrapper = styled.div`
   border-radius: 3.125rem;
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+    height: 2.5rem;
+  `)}
 `;
 
 const Selected = styled.div`

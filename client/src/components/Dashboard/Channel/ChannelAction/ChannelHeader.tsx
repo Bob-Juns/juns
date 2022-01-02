@@ -32,6 +32,11 @@ const Header = styled.div`
 
   background-color: ${(props) => props.theme.color.gray.light};
   border-bottom: 1px solid rgba(173, 181, 189, 0.5);
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 4rem;
+  `)}
 `;
 
 const Index = styled.div`
@@ -40,6 +45,11 @@ const Index = styled.div`
   font-weight: 700;
 
   display: flex;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1rem;
+  `)}
 `;
 
 const Current = styled.div`
@@ -56,6 +66,11 @@ const Title = styled.div`
   font-size: 1rem;
   font-weight: 700;
   color: ${(props) => props.theme.color.purple};
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  font-size: 1.25rem;
+  `)}
 `;
 
 const Close = styled(plusIcon)`
@@ -64,6 +79,11 @@ const Close = styled(plusIcon)`
   transform: rotate(45deg);
 
   cursor: pointer;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  width: 1.25rem;
+  `)}
 `;
 
 export default ChannelHeader;
