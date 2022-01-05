@@ -9,7 +9,7 @@ const HomeList = () => {
     <Container>
       <RandomChannels />
       <HomeListItem
-        head="TV 드라마보다 더 재밌는 웹드라마!"
+        head="TV 드라마보다 더 재미있는 웹드라마!"
         category="드라마"
       />
       <HomeListItem
