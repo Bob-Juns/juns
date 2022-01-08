@@ -33,6 +33,7 @@ const LoginForm = ({ login }: Props) => {
   });
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isPasswordHide, setIsPasswordHide] = useState<boolean>(true);
 
   const navigate = useNavigate();
   const emailRef = useRef<HTMLInputElement>(null);
@@ -41,8 +42,6 @@ const LoginForm = ({ login }: Props) => {
   useEffect(() => {
     emailRef.current?.focus();
   }, []);
-
-  const onClickSendEmail = () => {};
 
   const onChangeInputs = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.currentTarget;
@@ -66,6 +65,15 @@ const LoginForm = ({ login }: Props) => {
       ...inputs,
       [name]: value,
     });
+  };
+
+  const onClickPasswordState = async () => {
+    setIsPasswordHide((prev) => !prev);
+    await passwordRef.current?.setSelectionRange(
+      inputs.userPassword.length,
+      inputs.userPassword.length,
+    );
+    passwordRef.current?.focus();
   };
 
   const onSubmitForm = (
@@ -146,16 +154,21 @@ const LoginForm = ({ login }: Props) => {
           onChange={onChangeInputs}
           label="이메일"
         />
-        <AccountInput
-          message={messages.userPassword}
-          type="password"
-          id="userPassword"
-          refs={passwordRef}
-          value={inputs.userPassword}
-          placeholder="비밀번호를 입력하세요."
-          onChange={onChangeInputs}
-          label="비밀번호"
-        />
+        <Wrapper>
+          <AccountInput
+            message={messages.userPassword}
+            type={isPasswordHide ? 'password' : 'text'}
+            id="userPassword"
+            refs={passwordRef}
+            value={inputs.userPassword}
+            placeholder="비밀번호를 입력하세요."
+            onChange={onChangeInputs}
+            label="비밀번호"
+          />
+          <PasswordState onClick={onClickPasswordState} isHide={isPasswordHide}>
+            {isPasswordHide ? 'show' : 'hide'}
+          </PasswordState>
+        </Wrapper>
         <FindPassword onClick={() => setIsModalOpen(true)}>
           비밀번호 찾기
         </FindPassword>
@@ -169,6 +182,26 @@ const LoginForm = ({ login }: Props) => {
     </>
   );
 };
+
+const Wrapper = styled.div`
+  position: relative;
+`;
+
+const PasswordState = styled.div<{ isHide: boolean }>`
+  color: ${(props) =>
+    props.isHide ? props.theme.color.gray.base : props.theme.color.red};
+  font-size: 0.75rem;
+
+  position: absolute;
+  right: 0;
+  bottom: 1.875rem;
+
+  cursor: pointer;
+
+  &:hover {
+    font-weight: 700;
+  }
+`;
 
 const FindPassword = styled.div`
   width: fit-content;
