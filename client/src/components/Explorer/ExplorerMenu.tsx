@@ -76,13 +76,13 @@ const Menu = styled.div<{ selected?: boolean }>`
 
   ${(props) =>
     props.theme.device('tablet')(`
-  width: calc(100vw / 8);
+  width: calc(100vw / 7);
   font-size: 1rem;
   `)}
 
   ${(props) =>
     props.theme.device('desktop')(`
-  width: calc(100vw / 10);
+  width: calc(100vw / 13);
   `)}
 `;
 

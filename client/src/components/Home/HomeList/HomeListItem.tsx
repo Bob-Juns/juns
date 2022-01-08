@@ -32,7 +32,7 @@ const HomeListItem = ({
     slidesToScroll: 1,
     infinite: false,
     draggable: true,
-
+    swipeToSlide: true,
     responsive: [
       {
         breakpoint: 767,

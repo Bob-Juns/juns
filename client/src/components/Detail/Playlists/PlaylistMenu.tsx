@@ -99,7 +99,7 @@ const Selected = styled.div`
 
   background-color: ${(props) => props.theme.color.gray.light};
 
-  box-shadow: ${(props) => props.theme.boxShadow.secondary};
+  box-shadow: ${(props) => props.theme.boxShadow.primary};
 `;
 
 const Current = styled.div`
