@@ -19,6 +19,8 @@ import Explorer from '@pages/Explorer/Explorer';
 
 import Toast from '@components/Toast/Toast';
 
+import ReactGA from 'react-ga4';
+
 const App = () => {
   const appHeight = () => {
     const vh = window.innerHeight * 0.01;
@@ -26,6 +28,9 @@ const App = () => {
   };
 
   useEffect(() => {
+    ReactGA.initialize(process.env.GA_MEASUREMENT_ID as string);
+    ReactGA.send('pageview');
+
     window.addEventListener('resize', appHeight);
     appHeight();
     return () => {

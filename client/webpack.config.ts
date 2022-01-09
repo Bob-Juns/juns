@@ -71,6 +71,9 @@ module.exports = {
       'process.env.GOOGLE_CLIENT_SECRET': JSON.stringify(
         process.env.GOOGLE_CLIENT_SECRET,
       ),
+      'process.env.GA_MEASUREMENT_ID': JSON.stringify(
+        process.env.GA_MEASUREMENT_ID,
+      ),
     }),
     new Dotenv(),
   ],
