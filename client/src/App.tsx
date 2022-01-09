@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, lazy, Suspense } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 import PublicRoute from '@components/Routes/PublicRoute';
@@ -13,9 +13,12 @@ import ChannelUpdate from '@pages/Dashboard/ChannelUpdate';
 import BannerCreate from '@pages/Dashboard/BannerCreate';
 import BannerUpdate from '@pages/Dashboard/BannerUpdate';
 import Setting from '@pages/User/Setting/Setting';
-import Detail from '@pages/Detail/Detail';
 import Bookmark from '@pages/User/Bookmark/Bookmark';
 import Explorer from '@pages/Explorer/Explorer';
+const Detail = lazy(
+  () => import(/* webpackChunkName: 'Detail' */ '@pages/Detail/Detail'),
+);
+import Loader from '@components/Common/Loader/Loader';
 
 import Toast from '@components/Toast/Toast';
 
@@ -72,7 +75,14 @@ const App = () => {
             <Route path="/explorer" element={<Explorer />} />
           </Route>
           <Route path="/channel" element={<PrivateRoute />}>
-            <Route path=":_channelId" element={<Detail />} />
+            <Route
+              path=":_channelId"
+              element={
+                <Suspense fallback={<Loader />}>
+                  <Detail />
+                </Suspense>
+              }
+            />
           </Route>
           <Route path="/bookmark" element={<PrivateRoute />}>
             <Route path="/bookmark" element={<Bookmark />} />

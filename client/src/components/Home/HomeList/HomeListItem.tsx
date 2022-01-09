@@ -1,4 +1,4 @@
-import React, { Dispatch, useState } from 'react';
+import React, { Dispatch, lazy, Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -8,6 +8,15 @@ import chevronIcon from '@assets/icons/chevron.svg';
 
 import Slider from 'react-slick';
 import { actions } from 'store';
+
+const HomeListItemContent = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "HomeListItem" */ '@components/Home/HomeList/HomeListItemContent'
+    ),
+);
+
+import ListItemSkeleton from '@components/Skeleton/ListItem/ListItemSkeleton';
 
 type Props = {
   head: string;
@@ -32,7 +41,6 @@ const HomeListItem = ({
     slidesToScroll: 1,
     infinite: false,
     draggable: true,
-    swipeToSlide: true,
     responsive: [
       {
         breakpoint: 767,
@@ -60,17 +68,18 @@ const HomeListItem = ({
           {channels.allChannels
             .filter((channel: CurrentChannel) => channel.category === category)
             .map((channel: CurrentChannel) => (
-              <Content
-                key={channel.channelId}
-                onMouseMove={() => setMouseMove(true)}
-                onMouseDown={() => setMouseMove(false)}
-                onMouseUp={() =>
-                  !mouseMove && navigate(`/channel/${channel.channelId}`)
-                }
-              >
-                <Cover src={channel.channelCover.filePath} />
-                <Title category={category}>{channel.channelTitle}</Title>
-              </Content>
+              <Suspense key={channel.channelId} fallback={<ListItemSkeleton />}>
+                <HomeListItemContent
+                  onMouseMove={() => setMouseMove(true)}
+                  onMouseDown={() => setMouseMove(false)}
+                  onMouseUp={() =>
+                    !mouseMove && navigate(`/channel/${channel.channelId}`)
+                  }
+                  src={channel.channelCover.filePath}
+                  title={channel.channelTitle}
+                  category={category}
+                />
+              </Suspense>
             ))}
         </CustomSlider>
       </Wrapper>
@@ -152,53 +161,6 @@ const CustomSlider = styled(Slider)`
       margin-right: 0;
     }
   }
-`;
-
-const Content = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-`;
-
-const Cover = styled.div<{ src: string }>`
-  width: 100%;
-  height: 0;
-  padding-top: 133.34%;
-  margin-bottom: 0.375rem;
-
-  background-image: url(${(props) => props.src});
-  background-size: cover;
-  background-position: center center;
-
-  box-shadow: ${(props) => props.theme.boxShadow.primary};
-
-  border-radius: 0.375rem;
-`;
-
-const Title = styled.div<{ category: string }>`
-  width: 98%;
-  color: ${(props) =>
-    props.category === '드라마'
-      ? props.theme.color.category.drama
-      : props.category === '예능'
-      ? props.theme.color.category.ent
-      : props.category === '영화'
-      ? props.theme.color.category.movie
-      : props.category === '게임'
-      ? props.theme.color.category.game
-      : props.theme.color.category.etc};
-
-  font-size: 0.6rem;
-  font-weight: 700;
-
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  ${(props) =>
-    props.theme.device('tablet')(`
-  font-size: 0.75rem;
-  `)}
 `;
 
 const mapStateToProps = (state: { channels: Channel }) => ({

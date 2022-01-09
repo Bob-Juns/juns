@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { lazy, Suspense, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
+
+const BannerItem = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "BannerItem" */ '@components/Home/Banner/BannerItem'
+    ),
+);
+import BannerSkeleton from '@components/Skeleton/Home/BannerSkeleton';
 
 import Slider from 'react-slick';
 
@@ -12,12 +20,15 @@ type Props = {
 };
 
 const Banner = ({ banners }: Props) => {
+  const [mouseMove, setMouseMove] = useState<boolean>(false);
   const navigate = useNavigate();
+
   const settings = {
     dots: true,
     arrows: false,
     slidesToShow: 1,
     slidesToScroll: 1,
+    draggable: true,
     autoplay: true,
     autoplaySpeed: 3000,
   };
@@ -29,11 +40,16 @@ const Banner = ({ banners }: Props) => {
           .slice()
           .sort(() => Math.random() - 0.5)
           .map((banner: CurrentBanner) => (
-            <Image
-              key={banner.bannerId}
-              src={banner.bannerImage.filePath}
-              onClick={() => navigate(`/channel/${banner.bannerLink}`)}
-            />
+            <Suspense key={banner.bannerId} fallback={<BannerSkeleton />}>
+              <BannerItem
+                src={banner.bannerImage.filePath}
+                onMouseMove={() => setMouseMove(true)}
+                onMouseDown={() => setMouseMove(false)}
+                onMouseUp={() =>
+                  !mouseMove && navigate(`/channel/${banner.bannerLink}`)
+                }
+              />
+            </Suspense>
           ))}
       </CustomSlider>
     </Container>
@@ -78,16 +94,6 @@ const CustomSlider = styled(Slider)`
       }
     }
   }
-`;
-
-const Image = styled.figure<{ src: string }>`
-  width: 100%;
-  height: 0;
-  padding-top: 50%;
-
-  background-image: url(${(props) => props.src});
-  background-size: cover;
-  background-position: center center;
 `;
 
 const mapStateToProps = (state: { banners: Banner }) => ({

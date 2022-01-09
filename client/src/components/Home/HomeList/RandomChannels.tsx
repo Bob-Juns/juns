@@ -1,9 +1,18 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 
 import styled from 'styled-components';
+
+const RandomItem = lazy(
+  () =>
+    import(
+      /* webpackChunkName: "RandomItem" */ '@components/Home/HomeList/RandomItem'
+    ),
+);
+import RandomItemSkeleton from '@components/Skeleton/Home/RandomItemSkeleton';
+
 import { useMedia } from 'use-media';
 
 type Props = {
@@ -25,13 +34,13 @@ const RandomChannels = ({ users, channels }: Props) => {
         {channels.randomChannels
           .slice(0, isLarge ? 5 : 4)
           .map((channel: CurrentChannel) => (
-            <Content
-              key={channel.channelId}
-              onClick={() => navigate(`/channel/${channel.channelId}`)}
-            >
-              <Cover src={channel.channelCover.filePath} />
-              <Title>{channel.channelTitle}</Title>
-            </Content>
+            <Suspense key={channel.channelId} fallback={<RandomItemSkeleton />}>
+              <RandomItem
+                onClick={() => navigate(`/channel/${channel.channelId}`)}
+                src={channel.channelCover.filePath}
+                title={channel.channelTitle}
+              />
+            </Suspense>
           ))}
       </Wrapper>
     </Container>
