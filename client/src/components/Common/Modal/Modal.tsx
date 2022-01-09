@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styled from 'styled-components';
 
@@ -21,6 +21,10 @@ const Modal = ({
   onClickConfirm,
   children,
 }: Props) => {
+  useEffect(() => {
+    document.body.style.overflow = open ? 'hidden' : 'auto';
+  }, [open]);
+
   return (
     <Background open={open}>
       <Container open={open}>

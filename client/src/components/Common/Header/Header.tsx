@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
@@ -13,6 +13,10 @@ type Props = {
 const Header = ({ blur }: Props) => {
   const [isMenuOpen, setIsMenuOpen] = useState<boolean>(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.body.style.overflow = isMenuOpen ? 'hidden' : 'auto';
+  }, [isMenuOpen]);
 
   const onClickTitle = () => {
     navigate('/');
