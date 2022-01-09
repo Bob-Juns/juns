@@ -30,8 +30,8 @@ const Button = styled.button`
 
   ${(props) =>
     props.theme.device('tablet')(`
-  width: 3rem;
-  height: 3rem;
+  width: 2.5rem;
+  height: 2.5rem;
   margin-right: 0.5rem;
   `)}
 `;

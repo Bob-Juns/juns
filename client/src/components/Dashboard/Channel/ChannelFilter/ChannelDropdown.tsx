@@ -66,8 +66,8 @@ const Container = styled.div`
 
   ${(props) =>
     props.theme.device('tablet')(`
-  width: 7rem;
-  height: 3rem;
+  width: 8rem;
+  height: 2.5rem;
   `)}
 `;
 const Selected = styled.div`

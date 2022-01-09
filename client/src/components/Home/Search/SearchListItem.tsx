@@ -22,7 +22,7 @@ const SearchListItem = ({ channel }: Props) => {
 
 const Container = styled.div`
   width: 100%;
-  padding: 0.5rem 0;
+  padding: 0.375rem 0.5rem;
   display: flex;
   align-items: center;
 
@@ -30,6 +30,7 @@ const Container = styled.div`
 
   &: hover {
     color: ${(props) => props.theme.color.green};
+    background-color: ${(props) => props.theme.color.gray.light};
   }
 `;
 

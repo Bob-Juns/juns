@@ -120,6 +120,7 @@ const Container = styled.nav<{ open: boolean }>`
 const Head = styled.div`
   width: 100%;
   height: 30%;
+  max-height: 300px;
 
   color: #fff;
   background: rgb(159, 76, 244);
@@ -170,11 +171,6 @@ const Name = styled.div`
   }
 `;
 
-const Email = styled.div`
-  font-size: 0.75rem;
-  margin-top: 0.5rem;
-`;
-
 const Top = styled.div`
   font-size: 1.125rem;
   font-weight: 700;
@@ -214,6 +210,11 @@ const Body = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
+
+  ${(props) =>
+    props.theme.device('tablet')(`
+  height: 100%;
+  `)}
 `;
 
 const mapStateToProps = (state: { users: User }) => ({

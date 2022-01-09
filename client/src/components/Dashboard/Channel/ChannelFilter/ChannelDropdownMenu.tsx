@@ -46,7 +46,7 @@ const Container = styled.div<{ open: boolean }>`
 
   ${(props) =>
     props.theme.device('tablet')(`
-  width: 7rem;
+  width: 8rem;
   top: 3.2rem;
   `)}
 `;

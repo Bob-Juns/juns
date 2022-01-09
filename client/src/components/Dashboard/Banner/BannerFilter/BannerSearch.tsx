@@ -43,7 +43,7 @@ const Container = styled.div`
 
   ${(props) =>
     props.theme.device('tablet')(`
-  height: 3rem;
+  height: 2.5rem;
   `)}
 `;
 

@@ -22,8 +22,8 @@ const SearchedList = ({ channels }: Props) => {
 const Container = styled.div<{ show: boolean }>`
   width: 100%;
 
-  padding: 0.5rem;
   margin-top: 0.375rem;
+  padding: 0.5rem 0;
 
   display: flex;
   flex-direction: column;
