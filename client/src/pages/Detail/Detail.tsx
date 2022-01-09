@@ -10,6 +10,8 @@ import VideoInfo from '@components/Detail/Videos/VideoInfo';
 import ChannelInfo from '@components/Detail/ChannelInfo/ChannelInfo';
 import Playlist from '@components/Detail/Playlists/Playlist';
 
+import useTitle from '@hooks/useTitle';
+
 type Props = {
   getChannel: (channelId: string) => any;
   getPlaylists: (payload: AllPlaylists) => void;
@@ -27,8 +29,10 @@ const Detail = ({
   resetDetail,
 }: Props) => {
   const { _channelId } = useParams();
+  const changeTitle = useTitle();
 
   useEffect(() => {
+    changeTitle(`CHANNEL | ${_channelId?.toUpperCase()}`);
     window.scrollTo(0, 0);
     getChannel(_channelId as string).then(
       (response: { payload: CurrentChannel }) => {

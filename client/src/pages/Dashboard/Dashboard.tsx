@@ -10,6 +10,8 @@ import Channel from '@components/Dashboard/Channel/Channel';
 import User from '@components/Dashboard/User/User';
 import Banner from '@components/Dashboard/Banner/Banner';
 
+import useTitle from '@hooks/useTitle';
+
 type Props = {
   dashboardMenu: DashboardMenu;
   getUsers: () => void;
@@ -25,7 +27,10 @@ const Dashboard = ({
   getBanners,
   selectDashboardMenu,
 }: Props) => {
+  const changeTitle = useTitle();
+
   useEffect(() => {
+    changeTitle('JUNSTREAMING | DASHBOARD');
     getUsers();
     getChannels();
     getBanners();

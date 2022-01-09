@@ -7,13 +7,18 @@ import Page from '@components/Common/Layouts/Page';
 import ExplorerMenu from '@components/Explorer/ExplorerMenu';
 import ExplorerList from '@components/Explorer/ExplorerList';
 
+import useTitle from '@hooks/useTitle';
+
 type Props = {
   getChannels: () => void;
   selectCategoryMenu: (payload: string) => void;
 };
 
 const Explorer = ({ getChannels, selectCategoryMenu }: Props) => {
+  const changeTitle = useTitle();
+
   useEffect(() => {
+    changeTitle('JUNSTREAMING | EXPLORER');
     getChannels();
     return () => selectCategoryMenu('전체');
   }, []);

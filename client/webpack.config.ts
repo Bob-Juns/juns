@@ -18,6 +18,7 @@ module.exports = {
       '@pages': path.join(__dirname, 'src', 'pages'),
       store: path.join(__dirname, 'src', 'redux', 'store'),
       '@utils': path.join(__dirname, 'src', 'utils'),
+      '@hooks': path.join(__dirname, 'src', 'hooks'),
     },
   },
   entry: {

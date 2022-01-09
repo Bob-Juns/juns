@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { connect } from 'react-redux';
@@ -7,12 +7,19 @@ import styled from 'styled-components';
 
 import Page from '@components/Common/Layouts/Page';
 
+import useTitle from '@hooks/useTitle';
+
 type Props = {
   users: User;
 };
 
 const Bookmark = ({ users }: Props) => {
   const navigate = useNavigate();
+  const changeTitle = useTitle();
+
+  useEffect(() => {
+    changeTitle('JUNSTREAMING | BOOKMARK');
+  }, []);
 
   return (
     <Page blur>

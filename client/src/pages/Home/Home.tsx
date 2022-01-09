@@ -8,6 +8,8 @@ import Search from '@components/Home/Search/Search';
 import Banner from '@components/Home/Banner/Banner';
 import HomeList from '@components/Home/HomeList/HomeList';
 
+import useTitle from '@hooks/useTitle';
+
 type Props = {
   channels: Channel;
   banners: Banner;
@@ -16,6 +18,12 @@ type Props = {
 };
 
 const Home = ({ channels, banners, getChannels, getBanners }: Props) => {
+  const changeTitle = useTitle();
+
+  useEffect(() => {
+    changeTitle('JUNSTREAMING | HOME');
+  }, []);
+
   useEffect(() => {
     channels.allChannels.length < 1 && getChannels();
     banners.allBanners.length < 1 && getBanners();
